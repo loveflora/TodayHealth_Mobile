@@ -70,6 +70,6 @@ const Content = styled.div`
 const List = styled.div`
   border: 1px solid #ccc;
   height: 400px;
-  width: 100%;
+  width: 700px;
   margin: 30px;
 `;

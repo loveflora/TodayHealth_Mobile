@@ -82,7 +82,7 @@ export default function Mission() {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  height: 905px;
+  height: 900px;
 `;
 
 const NavWrapper = styled.div`

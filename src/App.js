@@ -12,10 +12,11 @@ import { CgPill } from "react-icons/cg";
 import Mission from "./Router/Mission";
 import Board from "./Router/Board";
 import Setting from "./Router/Setting";
+import Header from "./Components/Header";
 
 function App() {
   const txt = ["홈", "미션", "게시판", "설정"];
-  const user = { name: "flora", gender: "female", age: 26 };
+  const user = { name: "flora", gender: "여성", age: 26 };
 
   let navigate = useNavigate();
 
@@ -38,132 +39,136 @@ function App() {
           path="/"
           element={
             <>
-              <Navbar>
-                <NavbarWrapper>
-                  <span style={{ fontWeight: "bold", fontSize: "20px" }}>
-                    {user.name}님 👋
-                  </span>
-                  <span style={{ fontSize: "20px" }}>
-                    모두가 건강해지는 그 날까지 🏃{" "}
-                  </span>
-                  <FaBell
-                    style={{
-                      color: "#58c78f",
-                      width: "30px",
-                      height: "30px",
-                      cursor: "pointer",
-                    }}
-                  />
-                </NavbarWrapper>
-              </Navbar>
+              <Upper>
+                <Navbar>
+                  <NavbarWrapper>
+                    <span style={{ fontWeight: "bold", fontSize: "20px" }}>
+                      👋 {user.name}님
+                    </span>
+                    <span style={{ fontSize: "20px" }}>
+                      🏃 모두가 건강해지는 그 날까지{" "}
+                    </span>
+                    <FaBell
+                      style={{
+                        color: "#58c78f",
+                        width: "30px",
+                        height: "30px",
+                        cursor: "pointer",
+                      }}
+                    />
+                  </NavbarWrapper>
+                </Navbar>
+              </Upper>
 
-              <Container>
-                {/* Container__상단 1 */}
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "spaceBetween",
-                  }}
-                >
-                  <div
-                    style={{
-                      marginRight: "auto",
-                      fontSize: "20px",
-                      fontWeight: "bold",
-                      padding: "30px 80px 20px 40px ",
-                    }}
-                  >
-                    💌 오늘의 미션입니다
-                  </div>
-                  <IoWatch
-                    style={{
-                      width: "50px",
-                      height: "50px",
-                      margin: "auto",
-                      // 중앙정렬
-                    }}
-                  />
+              <ContainerWrapper>
+                <Container>
+                  {/* Container__상단 1 */}
                   <div
                     style={{
                       display: "flex",
-                      padding: "10px",
-                      alignItems: "center",
+                      flexDirection: "row",
+                      justifyContent: "spaceBetween",
                     }}
                   >
                     <div
                       style={{
-                        borderRight: "3px solid #ccc",
-                        padding: "0 10px",
+                        marginRight: "auto",
+                        fontSize: "20px",
+                        fontWeight: "bold",
+                        padding: "30px 80px 20px 40px ",
                       }}
                     >
-                      <div style={{ fontSize: "23px", fontWeight: "bold" }}>
-                        활동
-                      </div>
-                      <div style={{ fontSize: "18px" }}>0분</div>
+                      💌 오늘의 미션입니다
                     </div>
+                    <IoWatch
+                      style={{
+                        width: "50px",
+                        height: "50px",
+                        margin: "auto",
+                        // 중앙정렬
+                      }}
+                    />
                     <div
                       style={{
-                        borderRight: "2px solid #ccc",
-                        padding: "0 10px",
+                        display: "flex",
+                        padding: "10px",
+                        alignItems: "center",
                       }}
                     >
-                      <div style={{ fontSize: "23px", fontWeight: "bold" }}>
-                        걸음수
+                      <div
+                        style={{
+                          borderRight: "3px solid #ccc",
+                          padding: "0 10px",
+                        }}
+                      >
+                        <div style={{ fontSize: "23px", fontWeight: "bold" }}>
+                          활동
+                        </div>
+                        <div style={{ fontSize: "18px" }}>0분</div>
                       </div>
-                      <div style={{ fontSize: "18px", color: "blue" }}>0</div>
-                    </div>
-                    <div
-                      style={{
-                        borderLeft: "1px solid #ccc",
-                        padding: "0 10px",
-                      }}
-                    >
-                      <div style={{ fontSize: "23px", fontWeight: "bold" }}>
-                        목표
+                      <div
+                        style={{
+                          borderRight: "2px solid #ccc",
+                          padding: "0 10px",
+                        }}
+                      >
+                        <div style={{ fontSize: "23px", fontWeight: "bold" }}>
+                          걸음수
+                        </div>
+                        <div style={{ fontSize: "18px", color: "blue" }}>0</div>
                       </div>
-                      <div style={{ fontSize: "18px" }}>5000보</div>
+                      <div
+                        style={{
+                          borderLeft: "1px solid #ccc",
+                          padding: "0 10px",
+                        }}
+                      >
+                        <div style={{ fontSize: "23px", fontWeight: "bold" }}>
+                          목표
+                        </div>
+                        <div style={{ fontSize: "18px" }}>5000보</div>
+                      </div>
                     </div>
                   </div>
-                </div>
-                {/* Container__상단 2 */}
-                <BoxWrapper>
-                  <Box bg="salmon">
-                    <BiWalk className="boxIcon" />
-                    <div>30분 이상 걷기</div>
-                  </Box>
-                  <Box bg="#f2af50">
-                    <IoScaleSharp className="boxIcon" />
-                    <div>
-                      체중 <br />
-                      측정하기
-                    </div>
-                  </Box>
-                  <Box bg="#87cc5c">
-                    <IoWater className="boxIcon" />
-                    <div>물 마시기</div>
-                  </Box>
-                  <Box bg="#5ccca5">
-                    <CgPill className="boxIcon" />
-                    <div>약 복용하기</div>
-                  </Box>
-                </BoxWrapper>
-                <Completed>
-                  <div>미션 수행 현황</div>
-                </Completed>
-                <CompletedBoxWrapper>
-                  <CompletedBox></CompletedBox>
-                  <CompletedBox></CompletedBox>
-                  <CompletedBox></CompletedBox>
-                  <CompletedBox></CompletedBox>
-                </CompletedBoxWrapper>
-              </Container>
+                  {/* Container__상단 2 */}
+                  <BoxWrapper>
+                    <Box bg="salmon">
+                      <BiWalk className="boxIcon" />
+                      <div>30분 이상 걷기</div>
+                    </Box>
+                    <Box bg="#f2af50">
+                      <IoScaleSharp className="boxIcon" />
+                      <div>
+                        체중 <br />
+                        측정하기
+                      </div>
+                    </Box>
+                    <Box bg="#87cc5c">
+                      <IoWater className="boxIcon" />
+                      <div>물 마시기</div>
+                    </Box>
+                    <Box bg="#5ccca5">
+                      <CgPill className="boxIcon" />
+                      <div>약 복용하기</div>
+                    </Box>
+                  </BoxWrapper>
+                  <Completed>
+                    <div>미션 수행 현황</div>
+                  </Completed>
+                  <CompletedBoxWrapper>
+                    <CompletedBox></CompletedBox>
+                    <CompletedBox></CompletedBox>
+                    <CompletedBox></CompletedBox>
+                    <CompletedBox></CompletedBox>
+                  </CompletedBoxWrapper>
+                </Container>
+              </ContainerWrapper>
             </>
           }
         />
         <Route path="/Mission" element={<Mission />} />
         <Route path="/Board" element={<Board />} />
-        <Route path="/Setting" element={<Setting />} />
+        <Route path="/Setting" element={<Setting user={user} />} />
       </Routes>
       <Footer style={{ display: "flex", justifyContent: "center" }}>
         <FooterWrapper>
@@ -248,21 +253,34 @@ export default App;
 //* STYLE
 //* ------------------
 
-const Navbar = styled.div`
-  width: 700px;
+const Upper = styled.div`
+  width: 100%;
   border-bottom: 1px solid #e8e8e8;
+`;
+
+const Navbar = styled.div`
   display: flex;
-  flex-direction: column;
+  margin: 0 auto;
+  width: 100%
+  align-items: center;
+  justify-content: center;
 `;
 
 const NavbarWrapper = styled.div`
+  max-width: 700px;
+  width: 700px;
   display: flex;
   justify-content: space-between;
   padding: 20px;
 `;
 
+const ContainerWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 const Container = styled.div`
-  width: 670px;
+  width: 700px;
   height: 900px;
   padding: 20px;
   display: flex;

@@ -1,15 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import Header from "../Components/Header";
+import Header from "../../Components/Header";
 
-export default function Board() {
+export default function Profile() {
   return (
     <div>
-      <Header text={"게시판"} />
+      <Header text={"설정"} />
       <ContainerWrapper>
-        <Container>
-          <div>Setting</div>
-        </Container>
+        <Container></Container>
       </ContainerWrapper>
     </div>
   );
@@ -18,11 +16,12 @@ export default function Board() {
 const ContainerWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 900px;
+  height: 905px;
 `;
 
 const Container = styled.div`
   display: flex;
-  width: 700px;
   margin: 0 auto;
+  padding: 40px;
+  width: 700px;
 `;
