@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Header from "../Components/Header";
-// import Profile from "../Router/Setting/Profile";
+import Profile from "../Components/Setting/Profile";
 
 import { CgProfile } from "react-icons/cg";
 import { GiStairsGoal } from "react-icons/gi";
@@ -18,86 +18,102 @@ export default function Setting({ user }) {
     <div>
       <Header text={"설정"} />
       <ContainerWrapper>
-        <Container>
-          <CgProfile
-            size="100"
-            style={{ color: "#58c78f", cursor: "pointer" }}
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <div>
+                <Container>
+                  <CgProfile
+                    size="100"
+                    style={{ color: "#58c78f", cursor: "pointer" }}
+                  />
+                  <div
+                    style={{
+                      display: "flex",
+                    }}
+                  >
+                    <Info>
+                      <div
+                        style={{
+                          fontSize: "30px",
+                          display: "flex",
+                          marginRight: "auto",
+                        }}
+                        onClick={() => navigate("/Setting/profile")}
+                      >
+                        {user.name}
+                      </div>
+                      <div style={{ fontSize: "20px" }}>
+                        {user.gender} | {user.age}세
+                      </div>
+                    </Info>
+                  </div>
+                </Container>
+                <Ul>
+                  <Li>
+                    <GiStairsGoal
+                      size="50"
+                      style={{ margin: "10px", cursor: "pointer" }}
+                      color="gray"
+                    />
+                    <Txt>목표 설정</Txt>
+                    <IoIosArrowForward
+                      style={{
+                        display: "flex",
+                        margin: "auto 0px auto auto",
+                        color: "gray",
+                        cursor: "pointer",
+                      }}
+                    />
+                  </Li>
+                  <Li>
+                    <CgPill
+                      size="50"
+                      style={{ margin: "10px", cursor: "pointer" }}
+                      color="gray"
+                    />
+                    <Txt>복약 정보</Txt>
+                    <IoIosArrowForward
+                      style={{
+                        display: "flex",
+                        margin: "auto 0px auto auto",
+                        color: "gray",
+                        cursor: "pointer",
+                      }}
+                    />
+                  </Li>
+                  <Li>
+                    <AiFillSetting
+                      size="50"
+                      style={{ margin: "10px", cursor: "pointer" }}
+                      color="gray"
+                    />
+                    <Txt>기기 설정</Txt>
+                    <IoIosArrowForward
+                      style={{
+                        display: "flex",
+                        margin: "auto 0px auto auto",
+                        color: "gray",
+                        cursor: "pointer",
+                      }}
+                    />
+                  </Li>
+                </Ul>
+              </div>
+            }
           />
-          <div
-            style={{
-              display: "flex",
-            }}
-          >
-            <Info>
-              <div
-                style={{
-                  fontSize: "30px",
-                  display: "flex",
-                  marginRight: "auto",
-                }}
-                onClick={() => navigate("/profile")}
-              >
-                {user.name}
-              </div>
-              <div style={{ fontSize: "20px" }}>
-                {user.gender} | {user.age}세
-              </div>
-            </Info>
-            <Routes>
-              <Route path="/Setting/profile" element={<></>} />
-            </Routes>
-          </div>
-        </Container>
-        <Ul>
-          <Li>
-            <GiStairsGoal
-              size="50"
-              style={{ margin: "10px", cursor: "pointer" }}
-              color="gray"
-            />
-            <Txt>목표 설정</Txt>
-            <IoIosArrowForward
-              style={{
-                display: "flex",
-                margin: "auto 0px auto auto",
-                color: "gray",
-                cursor: "pointer",
-              }}
-            />
-          </Li>
-          <Li>
-            <CgPill
-              size="50"
-              style={{ margin: "10px", cursor: "pointer" }}
-              color="gray"
-            />
-            <Txt>복약 정보</Txt>
-            <IoIosArrowForward
-              style={{
-                display: "flex",
-                margin: "auto 0px auto auto",
-                color: "gray",
-                cursor: "pointer",
-              }}
-            />
-          </Li>
-          <Li>
-            <AiFillSetting
-              size="50"
-              style={{ margin: "10px", cursor: "pointer" }}
-              color="gray"
-            />
-            <Txt>기기 설정</Txt>
-            <IoIosArrowForward
-              style={{
-                display: "flex",
-                margin: "auto 0px auto auto",
-                color: "gray",
-                cursor: "pointer",
-              }}
-            />
-          </Li>
-        </Ul>
+
+          <Route
+            path="/profile"
+            element={
+              <>
+                <Profile />
+                <div>좀되라...</div>
+              </>
+            }
+          />
+        </Routes>
       </ContainerWrapper>
     </div>
   );

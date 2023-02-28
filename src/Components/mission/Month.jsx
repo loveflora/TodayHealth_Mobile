@@ -1,16 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import moment from "moment";
 import { useState } from "react";
 
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 
-export default function Month() {
+export default function Month({ monthlyPoints }) {
   const today = moment();
   const month = today.month() + 1;
+  const score = monthlyPoints[month - 1];
 
   const [num, setNum] = useState(month);
-  const [point, setPoint] = useState(0);
+  const [point, setPoint] = useState(score);
+
+  useEffect(() => {
+    if (num > 1) {
+      console.log(num);
+    }
+  }, [num]);
+
+  // * -----------
+  // * Handler
+  // * ----------
+  const reduceNum = () => {
+    if (num > 1) {
+      setNum(num - 1);
+      console.log(num);
+    }
+    // num > 1 && setNum(num - 1);
+    // setPoint(monthlyPoints[num - 2]);
+    console.log(num);
+  };
 
   return (
     <Container>
@@ -18,18 +38,20 @@ export default function Month() {
         <AiOutlineArrowLeft
           style={{ cursor: "pointer" }}
           onClick={() => {
-            setNum(num - 1);
+            reduceNum();
+            console.log(num);
           }}
         />
         <div>{num}월</div>
         <AiOutlineArrowRight
           style={{ cursor: "pointer" }}
           onClick={() => {
-            setNum(num + 1);
+            num < 12 && setNum(num + 1);
+            setPoint(monthlyPoints[num - 2]);
+            console.log(point);
           }}
         />
       </MonthChange>
-      {/* 숫자 제한하기 !!!!!!!! */}
       <Content>
         <div style={{ fontSize: "25px", padding: "10px" }}>
           {num}월 총 포인트

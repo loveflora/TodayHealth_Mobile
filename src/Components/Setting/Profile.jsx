@@ -1,13 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import Header from "../../Components/Header";
+import Header from "../Header";
 
 export default function Profile() {
   return (
     <div>
-      <Header text={"설정"} />
       <ContainerWrapper>
-        <Container></Container>
+        <Container>sdfsdf</Container>
       </ContainerWrapper>
     </div>
   );

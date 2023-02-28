@@ -1,7 +1,8 @@
 import "./App.css";
-
-import { Router, Routes, Route, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+
+import { useState } from "react";
+import { Router, Routes, Route, useNavigate } from "react-router-dom";
 import { BsFillPlusCircleFill } from "react-icons/bs";
 import { FaHome, FaFlag, FaBell, FaLeaf } from "react-icons/fa";
 import { TbMessages } from "react-icons/tb";
@@ -17,6 +18,7 @@ import Header from "./Components/Header";
 function App() {
   const txt = ["홈", "미션", "게시판", "설정"];
   const user = { name: "flora", gender: "여성", age: 26 };
+  const [color, setColor] = useState("#bdbdbd");
 
   let navigate = useNavigate();
 
@@ -27,6 +29,9 @@ function App() {
   //* ------------------
   //* Handlers
   //* ------------------
+  const onChangeColor = () => {
+    color === "#bdbdbd" ? setColor("#58c78f") : setColor("#bdbdbd");
+  };
 
   //* ------------------
   //* Render
@@ -49,12 +54,9 @@ function App() {
                       🏃 모두가 건강해지는 그 날까지{" "}
                     </span>
                     <FaBell
-                      style={{
-                        color: "#58c78f",
-                        width: "30px",
-                        height: "30px",
-                        cursor: "pointer",
-                      }}
+                      className="bell"
+                      color={color}
+                      onClick={onChangeColor}
                     />
                   </NavbarWrapper>
                 </Navbar>
@@ -168,7 +170,7 @@ function App() {
         />
         <Route path="/Mission" element={<Mission />} />
         <Route path="/Board" element={<Board />} />
-        <Route path="/Setting" element={<Setting user={user} />} />
+        <Route path="/Setting/*" element={<Setting user={user} />} />
       </Routes>
       <Footer style={{ display: "flex", justifyContent: "center" }}>
         <FooterWrapper>
@@ -272,6 +274,14 @@ const NavbarWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 20px;
+
+  .bell {
+    color: ${(props) => props.color};
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+    }
+  }
 `;
 
 const ContainerWrapper = styled.div`

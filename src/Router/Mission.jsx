@@ -1,16 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 import Header from "../Components/Header";
-import Today from "../Components/Today";
-import Week from "../Components/Week";
-import Month from "../Components/Month";
+import Today from "../Components/mission/Today";
+import Week from "../Components/mission/Week";
+import Month from "../Components/mission/Month";
 
 import Nav from "react-bootstrap/Nav";
 import "bootstrap/dist/css/bootstrap.css";
 import { useState } from "react";
 
 export default function Mission() {
-  let [tab, setTab] = useState(0);
+  const [tab, setTab] = useState(0);
+  const monthlyPoints = [90, 100, 80, 85, 90, 95, 100, 90, 90, 70, 100, 95];
 
   function TabContent({ tab }) {
     if (tab === 0) {
@@ -29,7 +30,7 @@ export default function Mission() {
     } else if (tab === 2) {
       return (
         <div>
-          <Month />
+          <Month monthlyPoints={monthlyPoints} />
         </div>
       );
     }
