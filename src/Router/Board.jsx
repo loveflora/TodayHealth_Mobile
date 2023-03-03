@@ -5,10 +5,12 @@ import Detail from "../Components/board/Detail";
 import Write from "../Components/board/Write";
 import { GoHeart } from "react-icons/go";
 import { useState } from "react";
-import { useNavigate, Route, Routes } from "react-router-dom";
+import { useNavigate, Route, Routes, useParams } from "react-router-dom";
 
 export default function Board() {
   const navigate = useNavigate();
+  let { id } = useParams();
+
   const [list, setList] = useState([
     {
       id: "1",
@@ -52,6 +54,7 @@ export default function Board() {
         <Container>
           <Routes>
             <Route path="/detail" element={<Detail />}></Route>
+            <Route path="/detail/:id" element={<Detail />}></Route>
             <Route path="/write" element={<Write />}></Route>
           </Routes>
           <H2>🙌 함께 하면 멀리 갈 수 있어요 !</H2>

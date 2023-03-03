@@ -4,13 +4,15 @@ import { useParams, useNavigate } from "react-router-dom";
 import Header from "../Header";
 
 export default function Detail() {
-  const params = useParams();
-  const id = params.id;
+  const { id } = useParams();
+  const params = params.id;
   const navigate = useNavigate();
+
+  console.log(id);
 
   return (
     <div>
-      <Header text={"게시판"} />
+      <div>상세페이지</div>
     </div>
   );
 }

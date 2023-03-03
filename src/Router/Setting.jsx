@@ -2,6 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import Header from "../Components/Header";
 import Profile from "../Components/Setting/Profile";
+import Goals from "../Components/Setting/Goals";
+import Pills from "../Components/Setting/Pills";
+import Set from "../Components/Setting/Set";
 
 import { CgProfile } from "react-icons/cg";
 import { GiStairsGoal } from "react-icons/gi";
@@ -40,7 +43,7 @@ export default function Setting({ user }) {
                           display: "flex",
                           marginRight: "auto",
                         }}
-                        onClick={() => navigate("/Setting/profile")}
+                        onClick={() => navigate("profile")}
                       >
                         {user.name}
                       </div>
@@ -56,8 +59,9 @@ export default function Setting({ user }) {
                       size="50"
                       style={{ margin: "10px", cursor: "pointer" }}
                       color="gray"
+                      onClick={() => navigate("goals")}
                     />
-                    <Txt>목표 설정</Txt>
+                    <Txt onClick={() => navigate("goals")}>목표 설정</Txt>
                     <IoIosArrowForward
                       style={{
                         display: "flex",
@@ -72,8 +76,15 @@ export default function Setting({ user }) {
                       size="50"
                       style={{ margin: "10px", cursor: "pointer" }}
                       color="gray"
+                      onClick={() => navigate("pills")}
                     />
-                    <Txt>복약 정보</Txt>
+                    <Txt
+                      onClick={() => {
+                        navigate("pills");
+                      }}
+                    >
+                      복약 정보
+                    </Txt>
                     <IoIosArrowForward
                       style={{
                         display: "flex",
@@ -81,6 +92,7 @@ export default function Setting({ user }) {
                         color: "gray",
                         cursor: "pointer",
                       }}
+                      onClick={() => navigate("set")}
                     />
                   </Li>
                   <Li>
@@ -88,8 +100,9 @@ export default function Setting({ user }) {
                       size="50"
                       style={{ margin: "10px", cursor: "pointer" }}
                       color="gray"
+                      onClick={() => navigate("set")}
                     />
-                    <Txt>기기 설정</Txt>
+                    <Txt onClick={() => navigate("set")}>기기 설정</Txt>
                     <IoIosArrowForward
                       style={{
                         display: "flex",
@@ -109,7 +122,30 @@ export default function Setting({ user }) {
             element={
               <>
                 <Profile />
-                <div>좀되라...</div>
+              </>
+            }
+          />
+          <Route
+            path="/goals"
+            element={
+              <>
+                <Goals />
+              </>
+            }
+          />
+          <Route
+            path="/pills"
+            element={
+              <>
+                <Pills />
+              </>
+            }
+          />
+          <Route
+            path="/set"
+            element={
+              <>
+                <Set />
               </>
             }
           />

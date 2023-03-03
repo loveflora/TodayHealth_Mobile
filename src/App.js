@@ -1,5 +1,6 @@
 import "./App.css";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 import { useState } from "react";
 import { Router, Routes, Route, useNavigate } from "react-router-dom";
@@ -17,8 +18,8 @@ import Header from "./Components/Header";
 
 function App() {
   const txt = ["홈", "미션", "게시판", "설정"];
-  const user = { name: "flora", gender: "여성", age: 26 };
   const [color, setColor] = useState("#bdbdbd");
+  const state = useSelector((state) => state);
 
   let navigate = useNavigate();
 
@@ -48,7 +49,7 @@ function App() {
                 <Navbar>
                   <NavbarWrapper>
                     <span style={{ fontWeight: "bold", fontSize: "20px" }}>
-                      👋 {user.name}님
+                      👋 {state.user.name}님
                     </span>
                     <span style={{ fontSize: "20px" }}>
                       🏃 모두가 건강해지는 그 날까지{" "}
@@ -170,7 +171,7 @@ function App() {
         />
         <Route path="/Mission" element={<Mission />} />
         <Route path="/Board" element={<Board />} />
-        <Route path="/Setting/*" element={<Setting user={user} />} />
+        <Route path="/Setting/*" element={<Setting user={state.user} />} />
       </Routes>
       <Footer style={{ display: "flex", justifyContent: "center" }}>
         <FooterWrapper>
