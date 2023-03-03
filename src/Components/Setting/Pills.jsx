@@ -18,24 +18,44 @@ export default function Pills() {
 
   const onEdit = () => {};
 
+  //? 아래 사항 내가 구글링하면서 어찌저찌 했는데 아니였다 ,,,,
+  // const onDelete = (idx) => {
+  //   console.log(idx);
+  //   setPills(pills.filter((v, i) => v.id - 1 !== idx));
+  //   console.log(pills);
+  // };
+
+  // const onAdd = (e) => {
+  //   setPills([...pills, { ...input }]);
+
+  //   setInput({
+  //     // 다음 인풋이니까 ! --> id: length+2 로 해줘야 함 !!
+  //     id: pills.length + 2,
+  //     약명: "",
+  //     용량: "",
+  //     복용횟수: "",
+  //   });
+
+  //   console.log(input);
+  //   console.log(pills);
+  // };
+
   const onDelete = (idx) => {
-    setPills(pills.filter((v, i) => v.id !== i));
-    console.log(pills);
+    setPills(
+      pills.filter((v, i) => {
+        return i !== idx;
+      })
+    );
   };
 
-  const onAdd = (e) => {
+  const onAdd = () => {
     setPills([...pills, { ...input }]);
 
     setInput({
-      // 다음 인풋이니까 ! --> id: length+2 로 해줘야 함 !!
-      id: pills.length + 2,
       약명: "",
       용량: "",
       복용횟수: "",
     });
-
-    console.log(input);
-    console.log(pills);
   };
 
   //? 숫자로 변환 ???
@@ -74,11 +94,18 @@ export default function Pills() {
                       <td>{pills[i].복용횟수}</td>
                       <td>
                         {" "}
-                        <div style={{ display: "flex" }}>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "center",
+                            gap: "10px",
+                          }}
+                        >
                           <Btn>수정</Btn>
                           <Btn
                             style={{ backgroundColor: "#f56656" }}
-                            onClick={onDelete}
+                            onClick={() => onDelete(i)}
                           >
                             삭제
                           </Btn>
@@ -151,11 +178,13 @@ const Table = styled.table`
   & > thead > tr > th {
     background-color: #58c78f;
     color: white;
-    padding: 5px 50px;
+    padding: 5px 0px;
+    width: 150px;
   }
 
-  & > tr > td {
+  & > tbody > tr > td {
     margin: 30px;
+    height: 80px;
   }
 `;
 
@@ -174,7 +203,7 @@ const AddBtn = styled.button`
 `;
 
 const Btn = styled.button`
-  width: 80px;
+  width: 70px;
   height: 50px;
   background-color: #b7b7b7;
   color: white;
@@ -184,7 +213,7 @@ const Btn = styled.button`
   justify-content: center;
   align-items: center;
   font-size: 20px;
-  margin: 10px;
+  // margin: 10px;
 `;
 
 const AddItem = styled.div`
