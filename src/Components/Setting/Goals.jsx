@@ -1,19 +1,39 @@
 import React from "react";
 import styled from "styled-components";
 import { useState } from "react";
+import { InputGroup } from "react-bootstrap";
 
 export default function Goals() {
   const [goals, setGoals] = useState([
     { id: 1, title: "목표 걸음수", num: "5000걸음" },
-    { id: 2, title: "목표 체중", num: "50kg" },
-    { id: 3, title: "목표 물컵", num: "8잔" },
   ]);
+
+  const [input, setInput] = useState({
+    id: goals.length + 1,
+    title: "",
+    num: "",
+  });
 
   const onEdit = () => {};
 
-  const onDelete = () => {};
+  const onDelete = (idx) => {
+    setGoals(goals.filter((goal, i) => i !== idx));
+  };
 
-  const onAdd = () => {};
+  const onAdd = () => {
+    setGoals([...goals, { ...input }]);
+
+    setInput({
+      title: "",
+      num: "",
+    });
+  };
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+
+    setInput({ ...input, [name]: value });
+  };
 
   console.log(goals);
 
@@ -24,13 +44,15 @@ export default function Goals() {
           {goals.map((v, i) => {
             return (
               <Item key={i}>
-                <div>{goals[i].title}</div>
+                <div style={{ width: "200px" }}>{goals[i].title}</div>
                 <div>{goals[i].num}</div>
                 <div style={{ display: "flex" }}>
                   <Btn>수정</Btn>
                   <Btn
                     style={{ backgroundColor: "#f56656" }}
-                    onClick={onDelete}
+                    onClick={() => {
+                      onDelete(i);
+                    }}
                   >
                     삭제
                   </Btn>
@@ -41,8 +63,21 @@ export default function Goals() {
         </Content>
 
         <AddItem>
-          <Input type="text" placeholder="이루고 싶은 목표" name="goal" />
-          <Input type="number" placeholder="목표량" name="num" />
+          <Input
+            type="text"
+            placeholder="이루고 싶은 목표"
+            name="title"
+            value={input.title}
+            onChange={onChange}
+          />
+          <Input
+            type="number"
+            placeholder="목표량"
+            name="num"
+            value={input.num}
+            onChange={onChange}
+            min="0"
+          />
           <AddBtn onClick={onAdd}>추가하기</AddBtn>
         </AddItem>
       </Container>

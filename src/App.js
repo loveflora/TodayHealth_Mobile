@@ -170,7 +170,7 @@ function App() {
           }
         />
         <Route path="/Mission" element={<Mission />} />
-        <Route path="/Board" element={<Board />} />
+        <Route path="/Board/*" element={<Board />} />
         <Route path="/Setting/*" element={<Setting user={state.user} />} />
       </Routes>
       <Footer style={{ display: "flex", justifyContent: "center" }}>
@@ -201,7 +201,6 @@ function App() {
             </Menu>
           </div>
           <div>
-            {/* props 전달방법 ? */}
             <BsFillPlusCircleFill
               style={{
                 color: "#58c78f",

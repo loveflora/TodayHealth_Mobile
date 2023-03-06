@@ -5,14 +5,13 @@ import Header from "../Header";
 
 export default function Detail() {
   const { id } = useParams();
-  const params = params.id;
   const navigate = useNavigate();
 
   console.log(id);
 
   return (
-    <div>
-      <div>상세페이지</div>
-    </div>
+    <Container>
+      <Text></Text>
+    </Container>
   );
 }

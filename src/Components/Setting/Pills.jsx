@@ -10,8 +10,8 @@ export default function Pills() {
   const [input, setInput] = useState({
     id: pills.length + 1,
     약명: "",
-    용량: 1,
-    복용횟수: 1,
+    용량: "",
+    복용횟수: "",
   });
 
   // const { 약명, 용량, 복용횟수 } = input;
