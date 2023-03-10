@@ -6,24 +6,17 @@ import Write from "../Components/board/Write";
 import { GoHeart } from "react-icons/go";
 import { useState } from "react";
 import { useNavigate, Route, Routes, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function Board() {
   const navigate = useNavigate();
   let { id } = useParams();
+  const state = useSelector((state) => state);
 
-  const [list, setList] = useState([
-    {
-      id: "1",
-      title: "4월 건강 이벤트가 시작됩니다 !",
-      writer: "관리자",
-      created: "2023-04-01",
-      content: "내용1",
-      like: false,
-    },
-  ]);
+  const [content, setContent] = useState([state.list]);
 
   const toggleHandler = () => {
-    setList((prevState) => {
+    setContent((prevState) => {
       const copy = [...prevState];
       return copy.map((v) => {
         return {
@@ -57,14 +50,14 @@ export default function Board() {
                         </tr>
                       </thead>
                       <tbody>
-                        {list.map((v, i) => {
+                        {content.map((v, i) => {
                           return (
                             <tr
                               onClick={() => {
-                                navigate(`/Board/detail/${list[i].id}`);
+                                navigate(`/Board/detail/${content[i].id}`);
                               }}
                             >
-                              <td>{list[i].id}</td>
+                              <td>{content[i].id}</td>
                               <td
                                 style={{
                                   maxWidth: "260px",
@@ -73,16 +66,17 @@ export default function Board() {
                                   textOverflow: "ellipsis",
                                 }}
                               >
-                                {list[i].title}
+                                {content[i].title}
                               </td>
-                              <td>{list[i].writer}</td>
-                              <td>{list[i].created}</td>
+                              <td>{content[i].writer}</td>
+                              <td>{content[i].created}</td>
                               <td style={{ width: "100px" }}>
-                                {list[i].like ? (
+                                {content[i].like ? (
                                   <GoHeart
                                     className="like"
                                     size="30"
-                                    onClick={() => {
+                                    onClick={(e) => {
+                                      e.stopPropagation();
                                       toggleHandler();
                                     }}
                                     color="salmon"
@@ -91,7 +85,8 @@ export default function Board() {
                                   <GoHeart
                                     className="like"
                                     size="30"
-                                    onClick={() => {
+                                    onClick={(e) => {
+                                      e.stopPropagation();
                                       toggleHandler();
                                     }}
                                     color="#ddd"
@@ -114,8 +109,14 @@ export default function Board() {
                 </>
               }
             ></Route>
-            <Route path="/detail/:id" element={<Detail />}></Route>
-            <Route path="/write" element={<Write />}></Route>
+            <Route
+              path="/detail/:id"
+              element={<Detail content={content} setContent={setContent} />}
+            ></Route>
+            <Route
+              path="/write"
+              element={<Write content={content} setContent={setContent} />}
+            ></Route>
           </Routes>
         </Container>
       </ContainerWrapper>
