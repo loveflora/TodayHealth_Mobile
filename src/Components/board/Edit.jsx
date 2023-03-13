@@ -1,46 +1,43 @@
 import React from "react";
 import styled from "styled-components";
+
+import { useParams } from "react-router-dom";
 import { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+export default function Edit({ content, setContent }) {
+  const { id } = useParams();
 
-export default function Write({ content, setContent }) {
-  const navigate = useNavigate();
-  const state = useSelector((state) => state);
-
-  //* ----------
-  //* 오늘날짜
-  //* ----------
-  const today = new Date();
-  const yyyy = today.getFullYear();
-  let mm = today.getMonth() + 1;
-  let dd = today.getDate();
-
-  if (dd < 10) dd = "0" + dd;
-  if (mm < 10) mm = "0" + mm;
-
-  const formattedToday = yyyy + " - " + mm + " - " + dd;
-
-  //* ----------
-  //* state
-  //* ----------
-  const [inputData, setInputData] = useState({
-    id: "",
+  const [input, setInput] = useState({
+    select: "",
     title: "",
-    writer: "",
-    created: formattedToday,
     content: "",
-    like: false,
   });
 
-  const writeHandler = () => {};
+  //? select 값 가져오기
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setInput({ ...input, [name]: value });
+  };
+
+  //   const onEdit = () => {
+  // let copy = [...content];
+  //     { ...content,
+  //         title: input.title,
+  //        content: input.content,
+  //        select: input.select,
+  //     }
+
+  //       setContent();
+  //       content[id-1].title
+  //   };
+
+  //! 아... 내용이랑  content 변수명이랑 겹치는구만 ㅠㅠㅠㅠㅠ
 
   return (
     <Container>
-      <H2>등록하기</H2>
+      <H2>수정하기</H2>
       <Header>
         <Info>
-          <Created> 게시일 : {formattedToday}</Created>
           <Select>
             <div style={{ fontSize: "20px", padding: "0 20px" }}>구분</div>
             <select name="구분" style={{ width: "120px" }}>
@@ -49,14 +46,20 @@ export default function Write({ content, setContent }) {
               <option value="이벤트">이벤트</option>
             </select>
           </Select>
+          <Created> 게시일 : {content[id - 1].created}</Created>
         </Info>
         <Title>
-          <div style={{ width: "80px", fontSize: "22px" }}>제목</div>
-          <Input></Input>
+          <Input
+            defaultValue={content[id - 1].title}
+            onChange={onChange}
+          ></Input>
         </Title>
       </Header>
       <Main>
-        <Textarea></Textarea>
+        <Textarea
+          defaultValue={content[id - 1].content}
+          onChange={onChange}
+        ></Textarea>
         <Btn>수정 완료</Btn>
       </Main>
     </Container>
@@ -78,7 +81,7 @@ const Header = styled.div`
 
 const H2 = styled.h2`
   display: flex;
-  margin: 0 auto 30px auto;
+  margin: 0 auto;
   font-weight: bold;
 `;
 

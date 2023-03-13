@@ -35,8 +35,6 @@ export default function Goals() {
     setInput({ ...input, [name]: value });
   };
 
-  console.log(goals);
-
   return (
     <div>
       <Container>

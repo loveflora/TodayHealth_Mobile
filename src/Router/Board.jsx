@@ -11,9 +11,9 @@ import { useSelector } from "react-redux";
 export default function Board() {
   const navigate = useNavigate();
   let { id } = useParams();
-  const state = useSelector((state) => state);
+  const listData = useSelector(({ list }) => list);
 
-  const [content, setContent] = useState([state.list]);
+  const [content, setContent] = useState([listData]);
 
   const toggleHandler = () => {
     setContent((prevState) => {
@@ -110,7 +110,7 @@ export default function Board() {
               }
             ></Route>
             <Route
-              path="/detail/:id"
+              path="/detail/:id/*"
               element={<Detail content={content} setContent={setContent} />}
             ></Route>
             <Route
@@ -160,7 +160,7 @@ const Table = styled.div`
 
     & > tbody > tr {
       padding: 10px 0;
-
+      cursor: pointer;
       & > td {
         padding: 20px 0;
       }
@@ -178,7 +178,7 @@ const Table = styled.div`
 `;
 
 const Btn = styled.button`
-  width: 150px;
+  width: 180px;
   height: 50px;
   background-color: #58c78f;
   color: white;
