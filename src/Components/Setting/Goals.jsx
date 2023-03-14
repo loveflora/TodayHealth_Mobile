@@ -1,20 +1,42 @@
 import React from "react";
 import styled from "styled-components";
-import { useState } from "react";
-import { InputGroup } from "react-bootstrap";
+import { useState, useRef } from "react";
 
 export default function Goals() {
   const [goals, setGoals] = useState([
-    { id: 1, title: "목표 걸음수", num: "5000걸음" },
+    { id: 1, title: "목표 걸음수", num: "5000걸음", edit: false },
   ]);
 
   const [input, setInput] = useState({
     id: goals.length + 1,
     title: "",
     num: "",
+    edit: false,
   });
 
-  const onEdit = () => {};
+  // const editRef = useRef();
+
+  const onEdit = (idx) => {
+    setGoals((prevState) => {
+      let copy = [...prevState];
+      return copy.map((v) => {
+        if (v.id === idx + 1) {
+          return {
+            ...v,
+            edit: !v.edit,
+          };
+        }
+        return v;
+      });
+    });
+
+    // ---- useRef를 사용하려고 시도했으나, 지워지기만 하고, createElement 안먹음 -----
+    // editRef.current.remove();
+    // const rootEle = document.getElementById("root");
+    // const element = React.createElement("input");
+    // ReactDOM.render(element, rootElement);
+    // console.log(editRef.current);
+  };
 
   const onDelete = (idx) => {
     setGoals(goals.filter((goal, i) => i !== idx));
@@ -35,6 +57,8 @@ export default function Goals() {
     setInput({ ...input, [name]: value });
   };
 
+  console.log(goals);
+
   return (
     <div>
       <Container>
@@ -42,10 +66,20 @@ export default function Goals() {
           {goals.map((v, i) => {
             return (
               <Item key={i}>
-                <div style={{ width: "200px" }}>{goals[i].title}</div>
-                <div>{goals[i].num}</div>
+                {goals[i].edit ? (
+                  <input></input>
+                ) : (
+                  <div style={{ width: "200px" }}>{goals[i].title}</div>
+                )}
+                <div className="numInput">{goals[i].num}</div>
                 <div style={{ display: "flex" }}>
-                  <Btn>수정</Btn>
+                  <Btn
+                    onClick={() => {
+                      onEdit(i);
+                    }}
+                  >
+                    수정
+                  </Btn>
                   <Btn
                     style={{ backgroundColor: "#f56656" }}
                     onClick={() => {

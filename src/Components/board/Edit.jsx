@@ -1,37 +1,44 @@
 import React from "react";
 import styled from "styled-components";
 
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
-export default function Edit({ content, setContent }) {
+export default function Edit({ listCollection, setListCollection }) {
   const { id } = useParams();
+  const navigate = useNavigate();
+
+  //? -------- 구현하고자 하는 기능 -------------
+  //? 1) select 값 가져오기
+  //? 2) 이미지 첨부 / 수정
+
+  console.log(typeof id);
 
   const [input, setInput] = useState({
-    select: "",
-    title: "",
-    content: "",
+    select: listCollection[id - 1].select,
+    title: listCollection[id - 1].title,
+    content: listCollection[id - 1].content,
   });
-
-  //? select 값 가져오기
 
   const onChange = (e) => {
     const { name, value } = e.target;
     setInput({ ...input, [name]: value });
   };
 
-  //   const onEdit = () => {
-  // let copy = [...content];
-  //     { ...content,
-  //         title: input.title,
-  //        content: input.content,
-  //        select: input.select,
-  //     }
-
-  //       setContent();
-  //       content[id-1].title
-  //   };
-
-  //! 아... 내용이랑  content 변수명이랑 겹치는구만 ㅠㅠㅠㅠㅠ
+  const editHandler = () => {
+    setListCollection((prevState) => {
+      const copy = [...prevState];
+      return copy.map((v) => {
+        if (v.id.toString === id - 1) {
+          return {
+            ...v,
+            select: input.select,
+            title: input.title,
+            content: input.content,
+          };
+        }
+      });
+    });
+  };
 
   return (
     <Container>
@@ -46,21 +53,30 @@ export default function Edit({ content, setContent }) {
               <option value="이벤트">이벤트</option>
             </select>
           </Select>
-          <Created> 게시일 : {content[id - 1].created}</Created>
+          <Created> 게시일 : {listCollection[id - 1].created}</Created>
         </Info>
         <Title>
           <Input
-            defaultValue={content[id - 1].title}
+            defaultValue={listCollection[id - 1].title}
             onChange={onChange}
+            name="title"
           ></Input>
         </Title>
       </Header>
       <Main>
         <Textarea
-          defaultValue={content[id - 1].content}
+          defaultValue={listCollection[id - 1].content}
           onChange={onChange}
+          name="content"
         ></Textarea>
-        <Btn>수정 완료</Btn>
+        <Btn
+          onClick={() => {
+            editHandler();
+            navigate("/Board");
+          }}
+        >
+          수정 완료
+        </Btn>
       </Main>
     </Container>
   );

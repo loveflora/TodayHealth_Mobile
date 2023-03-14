@@ -4,9 +4,8 @@ import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-export default function Write({ content, setContent }) {
+export default function Write({ listCollection, setListCollection }) {
   const navigate = useNavigate();
-  const state = useSelector((state) => state);
 
   //* ----------
   //* 오늘날짜
@@ -19,45 +18,117 @@ export default function Write({ content, setContent }) {
   if (dd < 10) dd = "0" + dd;
   if (mm < 10) mm = "0" + mm;
 
-  const formattedToday = yyyy + " - " + mm + " - " + dd;
+  const formattedToday = yyyy + "-" + mm + "-" + dd;
 
   //* ----------
   //* state
   //* ----------
-  const [inputData, setInputData] = useState({
-    id: "",
+  const [input, setInput] = useState({
     title: "",
     writer: "",
     created: formattedToday,
     content: "",
     like: false,
+    select: "",
   });
 
-  const writeHandler = () => {};
+  const writeHandler = () => {
+    setListCollection((listCollection) => {
+      const copy = [...listCollection];
+      return [
+        ...copy,
+        {
+          id: listCollection.length + 1,
+          title: input.title,
+          writer: input.writer,
+          content: input.content,
+          created: input.created,
+          like: false,
+          select: input.select,
+        },
+      ];
+    });
+  };
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setInput({ ...input, [name]: value });
+  };
+
+  const initHandler = () => {
+    if (window.confirm("초기화하시겠습니까 ?")) {
+      alert("초기화되었습니다.");
+      setInput((prevState) => ({
+        ...prevState,
+        title: "",
+        writer: "",
+        content: "",
+        select: "",
+      }));
+    } else alert("취소되었습니다.");
+  };
+
+  console.log(input);
 
   return (
     <Container>
       <H2>등록하기</H2>
       <Header>
         <Info>
-          <Created> 게시일 : {formattedToday}</Created>
           <Select>
             <div style={{ fontSize: "20px", padding: "0 20px" }}>구분</div>
-            <select name="구분" style={{ width: "120px" }}>
+            <select
+              onChange={onChange}
+              name="select"
+              value={input.select}
+              style={{ width: "120px" }}
+            >
               <option value="공지">공지</option>
               <option value="정보">정보</option>
               <option value="이벤트">이벤트</option>
             </select>
           </Select>
+          <Created>
+            <div
+              style={{ padding: "0 10px", color: "black", fontSize: "19px" }}
+            >
+              작성자 :{" "}
+            </div>
+            <WriterInput
+              name="writer"
+              onChange={onChange}
+              value={input.writer}
+            ></WriterInput>
+          </Created>
+          <Created> 게시일 : {formattedToday}</Created>
         </Info>
         <Title>
-          <div style={{ width: "80px", fontSize: "22px" }}>제목</div>
-          <Input></Input>
+          <Input onChange={onChange} name="title" value={input.title}></Input>
         </Title>
       </Header>
       <Main>
-        <Textarea></Textarea>
-        <Btn>수정 완료</Btn>
+        <Textarea
+          onChange={onChange}
+          name="content"
+          value={input.content}
+        ></Textarea>
+        <BtnWrapper>
+          <BottomBtn
+            onClick={() => {
+              writeHandler();
+              window.alert("작성 완료되었습니다.");
+              navigate(`/Board`);
+            }}
+          >
+            작성 완료
+          </BottomBtn>
+          <BottomBtn
+            onClick={initHandler}
+            style={{ backgroundColor: "rgb(245, 102, 86)" }}
+          >
+            초기화
+          </BottomBtn>
+        </BtnWrapper>
       </Main>
     </Container>
   );
@@ -78,7 +149,7 @@ const Header = styled.div`
 
 const H2 = styled.h2`
   display: flex;
-  margin: 0 auto 30px auto;
+  margin: 0 auto;
   font-weight: bold;
 `;
 
@@ -102,10 +173,18 @@ const Select = styled.div`
   display: flex;
 `;
 
+const WriterInput = styled.input`
+  border-radius: 5px;
+  border: 1px solid #cfcfcf;
+  width: 120px;
+  border-radius: 5px;
+  padding: 0 8px;
+`;
+
 const Created = styled.div`
   color: gray;
   display: flex;
-  font-size: 20px;
+  font-size: 19px;
 `;
 
 const Info = styled.div`
@@ -131,16 +210,20 @@ const Textarea = styled.textarea`
   padding: 20px;
 `;
 
-const Btn = styled.button`
-  width: 180px;
-  height: 50px;
+const BtnWrapper = styled.div`
+  display: flex;
+  margin: auto;
+  width: 600px;
+  justify-content: space-between;
+`;
+
+const BottomBtn = styled.button`
+  outline: none;
+  border: none;
   background-color: #58c78f;
   color: white;
-  border: none;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10px auto;
   font-size: 20px;
+  border-radius: 5px;
+  width: 280px;
+  height: 50px;
 `;

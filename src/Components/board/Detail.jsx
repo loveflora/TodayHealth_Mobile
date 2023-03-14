@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { GoHeart } from "react-icons/go";
 import { Route, Routes } from "react-router-dom";
 import Edit from "../board/Edit";
-export default function Detail({ content, setContent }) {
+export default function Detail({ listCollection, setListCollection }) {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -15,8 +15,8 @@ export default function Detail({ content, setContent }) {
   const imgSrc2 = "/Images/" + listData.img2;
   // const imgSrc = "/../../../public/Images/" + state.list.img;
 
-  const toggleHandler = (prevState) => {
-    setContent((prevState) => {
+  const toggleHandler = () => {
+    setListCollection((prevState) => {
       const copy = [...prevState];
 
       return copy.map((v) => {
@@ -28,46 +28,71 @@ export default function Detail({ content, setContent }) {
     });
   };
 
+  const deleteHandler = () => {
+    if (window.confirm("삭제하시겠습니까 ?")) {
+      alert("삭제되었습니다.");
+      // setListCollection((prevState) => {
+      //   const nextState = [...prevState].filter((v) => v.id.toString() !== id); // params 는 전부 string
+      //   return nextState;
+      // });
+
+      setListCollection((prevState) => {
+        let copy = [...prevState];
+
+        return copy.filter((v) => v.id.toString() !== id);
+      });
+    } else alert("취소되었습니다.");
+  };
+
   return (
     <Routes>
       <Route
         path="/*"
         element={
           <Container>
-            <Title>{content[id - 1].title}</Title>
+            <Title>{listCollection[id - 1].title}</Title>
             <Info>
-              <Created> 구분 : 정보 </Created>
-              <Created> 게시일 : {content[id - 1].created}</Created>
-              <Btn>
-                <Like>
-                  {content[id - 1].like ? (
-                    <GoHeart
-                      className="like"
-                      size="30"
-                      onClick={() => {
-                        toggleHandler();
-                      }}
-                      color="salmon"
-                    />
-                  ) : (
-                    <GoHeart
-                      className="like"
-                      size="30"
-                      onClick={() => {
-                        toggleHandler();
-                      }}
-                      color="#ddd"
-                    />
-                  )}
-                </Like>
-                <div
+              <InfoWrapper>
+                <Created> 구분 : {listCollection[id - 1].select} </Created>
+                <Created
                   style={{
                     padding: "0 10px",
                   }}
                 >
-                  좋아요
-                </div>
-              </Btn>
+                  작성자 : {listCollection[id - 1].writer}
+                </Created>
+                <Created>게시일 : {listCollection[id - 1].created}</Created>
+              </InfoWrapper>
+              <InfoWrapper
+                style={{
+                  marginBottom: "20px",
+                  justifyContent: "flex-end",
+                  width: "95%",
+                }}
+              >
+                <Created>
+                  <Btn
+                    onClick={() => {
+                      toggleHandler();
+                    }}
+                  >
+                    <Like>
+                      {listCollection[id - 1].like ? (
+                        <GoHeart className="like" size="30" color="salmon" />
+                      ) : (
+                        <GoHeart className="like" size="30" color="#ddd" />
+                      )}
+                    </Like>
+                    <div
+                      style={{
+                        padding: "0 10px",
+                      }}
+                    >
+                      좋아요
+                    </div>
+                  </Btn>
+                </Created>
+              </InfoWrapper>
             </Info>
 
             <Main>
@@ -75,24 +100,37 @@ export default function Detail({ content, setContent }) {
                 <img src={imgSrc1} style={{ width: "80%" }} />
                 <img src={imgSrc2} style={{ width: "80%" }} />
               </Img>
-              <Text>{listData.content}</Text>
+              <Text>{listCollection[id - 1].content}</Text>
             </Main>
             <BtnWrapper>
               <BottomBtn
                 onClick={() => {
-                  navigate(`/Board/detail/${content[id - 1].id}/edit`);
+                  navigate(`/Board/detail/${listCollection[id - 1].id}/edit`);
                 }}
               >
                 수정하기
               </BottomBtn>
-              <BottomBtn>삭제하기</BottomBtn>
+              <BottomBtn
+                onClick={() => {
+                  deleteHandler();
+                  navigate(`/Board`);
+                }}
+                style={{ backgroundColor: "rgb(245, 102, 86)" }}
+              >
+                삭제하기
+              </BottomBtn>
             </BtnWrapper>
           </Container>
         }
       />
       <Route
         path="/edit"
-        element={<Edit content={content} setContent={setContent} />}
+        element={
+          <Edit
+            listCollection={listCollection}
+            setListCollection={setListCollection}
+          />
+        }
       ></Route>
     </Routes>
   );
@@ -109,36 +147,47 @@ const Container = styled.div`
 const Title = styled.div`
   font-size: 30px;
   font-weight: bold;
+  margin-bottom: 10px;
 `;
 
 const Info = styled.div`
   display: flex;
-  margin: 20px;
-  flexdirection: row;
-  justify-content: center;
-  align-items: center;
-  gap: 60px;
-  padding-bottom: 30px;
   border-bottom: 1px solid #eee;
+  flex-direction: column;
+  align-items: center;
 `;
+
+const InfoWrapper = styled.div`
+  display: flex;
+  // margin: 20px;
+  flex-direction: row;
+  justify-content: space-between;
+  // padding-bottom: 30px;
+  width: 100%;
+  height: 60px;
+  gap: 40px;
+  align-items: center;
+`;
+
 const Created = styled.div`
   color: gray;
   display: flex;
   font-size: 20px;
 `;
 
-const Like = styled.span`
-  display: flex;
-`;
-
 const Btn = styled.div`
   border: 1px solid #cfcfcf;
   border-radius: 5px;
-  width: 120px;
+  width: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 5px;
+  cursor: pointer;
+`;
+
+const Like = styled.span`
+  display: flex;
 `;
 
 const Main = styled.div`
@@ -161,7 +210,7 @@ const Text = styled.div`
 const BtnWrapper = styled.div`
   display: flex;
   margin: auto;
-  width: 500px;
+  width: 600px;
   justify-content: space-between;
   margin-top: 50px;
 `;
@@ -173,6 +222,6 @@ const BottomBtn = styled.button`
   color: white;
   font-size: 20px;
   border-radius: 5px;
-  width: 180px;
+  width: 280px;
   height: 50px;
 `;
