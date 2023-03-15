@@ -36,13 +36,31 @@ export default function Detail({ listCollection, setListCollection }) {
       //   return nextState;
       // });
 
-      setListCollection((prevState) => {
-        let copy = [...prevState];
+      setListCollection(listCollection.filter((_, i) => i !== id - 1));
 
-        return copy.filter((v) => v.id.toString() !== id);
-      });
+      // setListCollection((prevState) => {
+      //   let copy = [...prevState];
+      //   return copy.filter((v) => v.id.toString() !== id);
+      // });
     } else alert("취소되었습니다.");
   };
+
+  // const findId = () => {
+  //   listCollection.map((v, i) => {
+  //     if (v.id === id) {
+  //       return v;
+  //     }
+  //   });
+  // };
+
+  // let new = {};
+  // listCollection.map((v, i) => {
+  //   if (v.id === id) {
+  //     return v;
+  //   }
+  // });
+
+  console.log(listCollection);
 
   return (
     <Routes>
@@ -94,7 +112,6 @@ export default function Detail({ listCollection, setListCollection }) {
                 </Created>
               </InfoWrapper>
             </Info>
-
             <Main>
               <Img>
                 <img src={imgSrc1} style={{ width: "80%" }} />

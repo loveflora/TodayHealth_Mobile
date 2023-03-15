@@ -14,13 +14,12 @@ export default function Goals() {
     edit: false,
   });
 
-  // const editRef = useRef();
-
   const onEdit = (idx) => {
     setGoals((prevState) => {
       let copy = [...prevState];
-      return copy.map((v) => {
-        if (v.id === idx + 1) {
+      console.log(copy);
+      return copy.map((v, i) => {
+        if (i === idx) {
           return {
             ...v,
             edit: !v.edit,
@@ -43,21 +42,35 @@ export default function Goals() {
   };
 
   const onAdd = () => {
+    if (!input.title) {
+      return alert("제목을 입력해주세요");
+    }
+    if (!input.num) {
+      return alert("목표량을 입력해주세요");
+    }
+
     setGoals([...goals, { ...input }]);
 
     setInput({
+      ...input,
+      id: goals.length + 2,
       title: "",
       num: "",
     });
   };
 
+  // console.log(goals);
+  // console.log(input);
+  // console.log(goals.length);
+
   const onChange = (e) => {
     const { name, value } = e.target;
-
     setInput({ ...input, [name]: value });
   };
 
-  console.log(goals);
+  const onEditChange = (e) => {
+    const { name, value } = e.target;
+  };
 
   return (
     <div>
@@ -67,19 +80,44 @@ export default function Goals() {
             return (
               <Item key={i}>
                 {goals[i].edit ? (
-                  <input></input>
+                  <Input
+                    onChange={onEditChange}
+                    name="title"
+                    value={goals[i].title}
+                    style={{ margin: "0" }}
+                  ></Input>
                 ) : (
                   <div style={{ width: "200px" }}>{goals[i].title}</div>
                 )}
-                <div className="numInput">{goals[i].num}</div>
+                {goals[i].edit ? (
+                  <Input
+                    onChange={onEditChange}
+                    name="num"
+                    value={goals[i].num}
+                    style={{ margin: "0" }}
+                  ></Input>
+                ) : (
+                  <div className="numInput">{goals[i].num}</div>
+                )}
+
                 <div style={{ display: "flex" }}>
-                  <Btn
-                    onClick={() => {
-                      onEdit(i);
-                    }}
-                  >
-                    수정
-                  </Btn>
+                  {goals[i].edit ? (
+                    <Btn
+                      onClick={() => {
+                        onEdit(i);
+                      }}
+                    >
+                      완료
+                    </Btn>
+                  ) : (
+                    <Btn
+                      onClick={() => {
+                        onEdit(i);
+                      }}
+                    >
+                      수정
+                    </Btn>
+                  )}
                   <Btn
                     style={{ backgroundColor: "#f56656" }}
                     onClick={() => {
@@ -103,12 +141,10 @@ export default function Goals() {
             onChange={onChange}
           />
           <Input
-            type="number"
             placeholder="목표량"
             name="num"
             value={input.num}
             onChange={onChange}
-            min="0"
           />
           <AddBtn onClick={onAdd}>추가하기</AddBtn>
         </AddItem>
@@ -132,7 +168,7 @@ const Content = styled.div`
 const Item = styled.li`
   border-bottom: 1px solid #e8e8e8;
   list-style-type: none;
-  padding: 20px 30px;
+  padding: 20px;
   text-align: left;
   font-size: 25px;
   display: flex;

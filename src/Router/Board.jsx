@@ -15,6 +15,14 @@ export default function Board() {
 
   const [listCollection, setListCollection] = useState([listData]);
 
+  //? ----- 구현하고자 하는 기능 --------
+  //? 1) id 게시물 순서 ㅠㅠㅠㅠ
+  // 게시판 삭제될 때마다, 1 2 3 이렇게 순서가 다시 렌더링 되어야 하지 않나...????
+  // id 값을 계속 리렌더링 해줘야 하나 ...?
+
+  //? 2) 전부 다른 페이지 갔다, 다시 들어오면 초기화 되어있는데 ...?
+  // localStorage 사용해야 하나...
+
   const toggleHandler = (idx) => {
     //? 이렇게만 쓰면 이전에 있는 첫번째 기본데이터 반영을 못함. (추가된 애들만 변경가능)
     // let copy = [...listCollection];
@@ -38,6 +46,8 @@ export default function Board() {
       });
     });
   };
+
+  console.log(listCollection);
 
   return (
     <div>

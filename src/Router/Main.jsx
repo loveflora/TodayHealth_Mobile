@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { Router, Routes, Route, useNavigate } from "react-router-dom";
-import { BsFillPlusCircleFill } from "react-icons/bs";
+import { BsFillPlusCircleFill, BsFillHeartPulseFill } from "react-icons/bs";
 import { FaHome, FaFlag, FaBell, FaLeaf } from "react-icons/fa";
 import { TbMessages } from "react-icons/tb";
 import { AiFillSetting } from "react-icons/ai";
@@ -21,8 +21,29 @@ export default function Main() {
 
   let navigate = useNavigate();
 
+  //? Modal창 transition 추가
+
+  const [complete, setComplete] = useState([
+    { id: 1, fin: false },
+    { id: 2, fin: false },
+    { id: 3, fin: false },
+    { id: 4, fin: false },
+  ]);
+
+  const [show, setShow] = useState(false);
+
   const onChangeColor = () => {
     color === "#bdbdbd" ? setColor("#58c78f") : setColor("#bdbdbd");
+  };
+
+  const onComplete = (idx) => {
+    let copy = [...complete];
+    copy[idx].fin = !copy[idx].fin;
+    setComplete(copy);
+  };
+
+  const onModal = () => {
+    setShow(!show);
   };
 
   return (
@@ -121,35 +142,100 @@ export default function Main() {
                   </div>
                   {/* Container__상단 2 */}
                   <BoxWrapper>
-                    <Box bg="salmon">
+                    <Box bg="salmon" style={{ padding: "30px 50px" }}>
                       <BiWalk className="boxIcon" />
                       <div>30분 이상 걷기</div>
+                      <Btn
+                        onClick={() => {
+                          onComplete(0);
+                        }}
+                      >
+                        완료
+                      </Btn>
                     </Box>
-                    <Box bg="#f2af50">
+                    <Box bg="#f2af50" style={{ padding: "30px 50px" }}>
                       <IoScaleSharp className="boxIcon" />
                       <div>
                         체중 <br />
                         측정하기
                       </div>
+                      <Btn
+                        onClick={() => {
+                          onComplete(1);
+                        }}
+                      >
+                        완료
+                      </Btn>
                     </Box>
                     <Box bg="#87cc5c">
                       <IoWater className="boxIcon" />
                       <div>물 마시기</div>
+                      <Btn
+                        onClick={() => {
+                          onComplete(2);
+                        }}
+                      >
+                        완료
+                      </Btn>
                     </Box>
                     <Box bg="#5ccca5">
                       <CgPill className="boxIcon" />
                       <div>약 복용하기</div>
+                      <Btn
+                        onClick={() => {
+                          onComplete(3);
+                        }}
+                      >
+                        완료
+                      </Btn>
                     </Box>
                   </BoxWrapper>
                   <Completed>
                     <div>미션 수행 현황</div>
                   </Completed>
                   <CompletedBoxWrapper>
-                    <CompletedBox></CompletedBox>
-                    <CompletedBox></CompletedBox>
-                    <CompletedBox></CompletedBox>
-                    <CompletedBox></CompletedBox>
+                    {complete[0].fin ? (
+                      <CompletedBox
+                        style={{ backgroundColor: "salmon" }}
+                      ></CompletedBox>
+                    ) : (
+                      <CompletedBox></CompletedBox>
+                    )}
+                    {complete[1].fin ? (
+                      <CompletedBox
+                        style={{ backgroundColor: "#f2af50" }}
+                      ></CompletedBox>
+                    ) : (
+                      <CompletedBox></CompletedBox>
+                    )}
+                    {complete[2].fin ? (
+                      <CompletedBox
+                        style={{ backgroundColor: " #87cc5c" }}
+                      ></CompletedBox>
+                    ) : (
+                      <CompletedBox></CompletedBox>
+                    )}
+                    {complete[3].fin ? (
+                      <CompletedBox
+                        style={{ backgroundColor: "#5ccca5" }}
+                      ></CompletedBox>
+                    ) : (
+                      <CompletedBox></CompletedBox>
+                    )}
                   </CompletedBoxWrapper>
+                  {show && (
+                    <Modal>
+                      <MeasureTitle>측정하기</MeasureTitle>
+                      <MeasureWrapper>
+                        <MeasureBox>
+                          <BsFillHeartPulseFill />
+                        </MeasureBox>
+                        <MeasureBox></MeasureBox>
+                        <MeasureBox></MeasureBox>
+                        <MeasureBox></MeasureBox>
+                      </MeasureWrapper>
+                    </Modal>
+                  )}
                 </Container>
               </ContainerWrapper>
             </>
@@ -194,6 +280,7 @@ export default function Main() {
                 height: "80px",
                 cursor: "pointer",
               }}
+              onClick={onModal}
             />
           </div>
           <div>
@@ -284,6 +371,7 @@ const BoxWrapper = styled.div`
   flex-wrap: wrap;
   height: 950px;
   padding: 20px 0;
+  justify-content: center;
 `;
 
 const Box = styled.div`
@@ -307,6 +395,15 @@ const Box = styled.div`
     font-size: 24px;
     padding: 20px;
   }
+`;
+
+const Btn = styled.button`
+  width: 60px;
+  height: 30px;
+  border: none;
+  outline: none;
+  border-radius: 3px;
+  font-size: 16px;
 `;
 
 const Completed = styled.div`
@@ -352,14 +449,6 @@ const FooterWrapper = styled.div`
     color: #ccc;
     cursor: pointer;
   }
-
-  // & > div > .menu {
-  //   font-size: 20px;
-  //   font-weight: bold;
-  //   color: gray;
-  //   cursor: pointer;
-  //   padding: 5px;
-  // }
 `;
 
 const Menu = styled.div`
@@ -368,4 +457,37 @@ const Menu = styled.div`
   color: gray;
   cursor: pointer;
   padding: 10px;
+`;
+
+const Modal = styled.div`
+  width: 600px;
+  height: 420px;
+  position: absolute;
+  bottom: 245px;
+  border-radius: 5px;
+  background-color: #eee;
+`;
+
+const MeasureTitle = styled.div`
+  font-size: 28px;
+  margin: 20px;
+  font-weight: bold;
+`;
+
+const MeasureWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin: 0 40px;
+  gap: 30px;
+  height: 300px;
+  flex-wrap: wrap;
+`;
+
+const MeasureBox = styled.div`
+  width: 245px;
+  height: 120px;
+  background-color: gray;
+
+  padding-top: 10px;
+  border-radius: 5px;
 `;

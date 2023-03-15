@@ -8,15 +8,17 @@ export default function Edit({ listCollection, setListCollection }) {
   const navigate = useNavigate();
 
   //? -------- 구현하고자 하는 기능 -------------
-  //? 1) select 값 가져오기
+  // [완료] 1) select 값 가져오기
   //? 2) 이미지 첨부 / 수정
 
-  console.log(typeof id);
-
   const [input, setInput] = useState({
+    id: id,
     select: listCollection[id - 1].select,
     title: listCollection[id - 1].title,
     content: listCollection[id - 1].content,
+    writer: listCollection[id - 1].writer,
+    created: listCollection[id - 1].created,
+    like: listCollection[id - 1].like,
   });
 
   const onChange = (e) => {
@@ -24,11 +26,12 @@ export default function Edit({ listCollection, setListCollection }) {
     setInput({ ...input, [name]: value });
   };
 
+  // 첫번째 데이터부터 수정해주려면, prevState 활용 !
   const editHandler = () => {
     setListCollection((prevState) => {
-      const copy = [...prevState];
-      return copy.map((v) => {
-        if (v.id.toString === id - 1) {
+      let copy = [...prevState];
+      return copy.map((v, i) => {
+        if (v.id.toString() === id) {
           return {
             ...v,
             select: input.select,
@@ -36,6 +39,7 @@ export default function Edit({ listCollection, setListCollection }) {
             content: input.content,
           };
         }
+        return v;
       });
     });
   };
@@ -47,7 +51,12 @@ export default function Edit({ listCollection, setListCollection }) {
         <Info>
           <Select>
             <div style={{ fontSize: "20px", padding: "0 20px" }}>구분</div>
-            <select name="구분" style={{ width: "120px" }}>
+            <select
+              onChange={onChange}
+              name="select"
+              style={{ width: "120px" }}
+              defaultValue={listCollection[id - 1].select}
+            >
               <option value="공지">공지</option>
               <option value="정보">정보</option>
               <option value="이벤트">이벤트</option>

@@ -68,8 +68,6 @@ export default function Write({ listCollection, setListCollection }) {
     } else alert("취소되었습니다.");
   };
 
-  console.log(input);
-
   return (
     <Container>
       <H2>등록하기</H2>
