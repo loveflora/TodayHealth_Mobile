@@ -95,14 +95,13 @@ export default function Setting({ user }) {
                       onClick={() => navigate("set")}
                     />
                   </Li>
-                  <Li>
+                  <Li onClick={() => navigate("set")}>
                     <AiFillSetting
                       size="50"
                       style={{ margin: "10px", cursor: "pointer" }}
                       color="gray"
-                      onClick={() => navigate("set")}
                     />
-                    <Txt onClick={() => navigate("set")}>기기 설정</Txt>
+                    <Txt>기기 설정</Txt>
                     <IoIosArrowForward
                       style={{
                         display: "flex",
@@ -191,6 +190,7 @@ const Li = styled.li`
   text-align: left;
   font-size: 30px;
   display: flex;
+  cursor: pointer;
 `;
 
 const Txt = styled.p`

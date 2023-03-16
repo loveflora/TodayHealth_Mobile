@@ -3,13 +3,15 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { Router, Routes, Route, useNavigate } from "react-router-dom";
-import { BsFillPlusCircleFill, BsFillHeartPulseFill } from "react-icons/bs";
-import { FaHome, FaFlag, FaBell, FaLeaf } from "react-icons/fa";
+import { BsFillPlusCircleFill } from "react-icons/bs";
+import { FaHome, FaFlag, FaBell, FaHeartbeat } from "react-icons/fa";
 import { TbMessages } from "react-icons/tb";
 import { AiFillSetting } from "react-icons/ai";
 import { IoWatch, IoScaleSharp, IoWater } from "react-icons/io5";
 import { BiWalk } from "react-icons/bi";
 import { CgPill } from "react-icons/cg";
+import { ImSpoonKnife } from "react-icons/im";
+import { GiWaterDrop } from "react-icons/gi";
 import Mission from "./Mission";
 import Board from "./Board";
 import Setting from "./Setting";
@@ -21,7 +23,8 @@ export default function Main() {
 
   let navigate = useNavigate();
 
-  //? Modal창 transition 추가
+  //? Modal창 클릭 시 transition 추가.....ㅠㅠ
+  // 클래스 탈부착,,,,?
 
   const [complete, setComplete] = useState([
     { id: 1, fin: false },
@@ -48,6 +51,7 @@ export default function Main() {
 
   return (
     <div className="App">
+      {show && <Back> </Back>}
       <Routes>
         <Route
           path="/"
@@ -154,10 +158,13 @@ export default function Main() {
                       </Btn>
                     </Box>
                     <Box bg="#f2af50" style={{ padding: "30px 50px" }}>
-                      <IoScaleSharp className="boxIcon" />
+                      <ImSpoonKnife
+                        size="55"
+                        style={{ color: "white", marginTop: "10px" }}
+                      />
                       <div>
-                        체중 <br />
-                        측정하기
+                        세끼 <br />
+                        식사하기
                       </div>
                       <Btn
                         onClick={() => {
@@ -177,6 +184,9 @@ export default function Main() {
                       >
                         완료
                       </Btn>
+                      {/* <div style={{ fontSize: "15px", padding: "10px" }}>
+                        자세히
+                      </div> */}
                     </Box>
                     <Box bg="#5ccca5">
                       <CgPill className="boxIcon" />
@@ -223,19 +233,6 @@ export default function Main() {
                       <CompletedBox></CompletedBox>
                     )}
                   </CompletedBoxWrapper>
-                  {show && (
-                    <Modal>
-                      <MeasureTitle>측정하기</MeasureTitle>
-                      <MeasureWrapper>
-                        <MeasureBox>
-                          <BsFillHeartPulseFill />
-                        </MeasureBox>
-                        <MeasureBox></MeasureBox>
-                        <MeasureBox></MeasureBox>
-                        <MeasureBox></MeasureBox>
-                      </MeasureWrapper>
-                    </Modal>
-                  )}
                 </Container>
               </ContainerWrapper>
             </>
@@ -246,6 +243,33 @@ export default function Main() {
         <Route path="/Setting/*" element={<Setting user={userData} />} />
       </Routes>
       <Footer style={{ display: "flex", justifyContent: "center" }}>
+        {show ? (
+          <Show>
+            <Modal className="start">
+              <MeasureTitle>측정하기</MeasureTitle>
+              <MeasureWrapper>
+                <MeasureBox>
+                  <FaHeartbeat size="50" className="measureIcon" />
+                  <Measure>혈압</Measure>
+                </MeasureBox>
+                <MeasureBox>
+                  <GiWaterDrop size="50" className="measureIcon" />
+                  <Measure>혈당</Measure>
+                </MeasureBox>
+                <MeasureBox>
+                  <IoScaleSharp size="50" className="measureIcon" />
+                  <Measure>체중</Measure>
+                </MeasureBox>
+                <MeasureBox>
+                  <ImSpoonKnife size="50" className="measureIcon" />
+                  <Measure>식사</Measure>
+                </MeasureBox>
+              </MeasureWrapper>
+            </Modal>
+          </Show>
+        ) : (
+          <ModalClose className="end"></ModalClose>
+        )}
         <FooterWrapper>
           <div>
             <FaHome
@@ -433,6 +457,7 @@ const Footer = styled.div`
   display: flex;
   justify-content: center;
   border-top: 1px solid #e8e8e8;
+  position: relative;
 `;
 
 const FooterWrapper = styled.div`
@@ -462,15 +487,25 @@ const Menu = styled.div`
 const Modal = styled.div`
   width: 600px;
   height: 420px;
+  bottom: 160px;
+  left: 80px;
+  border-radius: 10px 10px 0 0;
+  background-color: white;
+  z-index: 2;
   position: absolute;
-  bottom: 245px;
-  border-radius: 5px;
-  background-color: #eee;
+  transition: all 1s;
+`;
+
+const ModalClose = styled.div`
+  width: 600px;
+  height: 10px;
+  position: absolute;
+  background-color: blue;
 `;
 
 const MeasureTitle = styled.div`
-  font-size: 28px;
-  margin: 20px;
+  font-size: 30px;
+  margin: 30px 0 30px 0;
   font-weight: bold;
 `;
 
@@ -486,8 +521,35 @@ const MeasureWrapper = styled.div`
 const MeasureBox = styled.div`
   width: 245px;
   height: 120px;
-  background-color: gray;
-
+  background-color: #58c78f;
   padding-top: 10px;
   border-radius: 5px;
+
+  .measureIcon {
+    color: white;
+    margin-top: 8px;
+  }
+`;
+
+const Measure = styled.div`
+  font-size: 20px;
+  color: white;
+  padding: 10px;
+`;
+
+const Back = styled.div`
+  width: 100%;
+  height: 973px;
+  z-index: 1;
+  opacity: 0.5;
+  position: absolute;
+  background-color: gray;
+`;
+
+const Show = styled.div`
+  //   .start {
+  //   }
+
+  //   .end {
+  //   }
 `;
