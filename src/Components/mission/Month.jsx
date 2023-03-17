@@ -1,35 +1,47 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import moment from "moment";
 import { useState } from "react";
 
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 
-export default function Month({ monthlyPoints }) {
-  const today = moment();
-  const month = today.month() + 1;
+export default function Month({ day, month }) {
+  const monthlyPoints = [90, 100, 80, 85, 90, 95, 100, 90, 90, 70, 100, 95];
   const score = monthlyPoints[month - 1];
 
   const [num, setNum] = useState(month);
   const [point, setPoint] = useState(score);
 
+  const [compare, setCompare] = useState("");
+
   useEffect(() => {
-    if (num > 1) {
-      console.log(num);
+    setPoint(monthlyPoints[num - 1]);
+
+    //? 점수 비교
+    // 1) 1월이면 -> 글자 없음
+    // 2) 양수이면 -> 증가했어요
+    // 3) 음수이면 -> 감소했어요
+
+    let compareScore = monthlyPoints[num - 1] - monthlyPoints[num - 2];
+
+    if (num === 1) {
+      setCompare("");
+    } else if (compareScore > 0) {
+      setCompare("지난 달보다 " + compareScore + "점 높네요 ~ 👏");
+    } else if (compareScore === 0) {
+      setCompare("지난 달만큼 하셨네요 ! 😉");
+    } else if (compareScore < 0) {
+      setCompare("지난 달보다 " + -compareScore + "점 낮네요 ? ");
     }
   }, [num]);
 
-  // * -----------
-  // * Handler
-  // * ----------
-  const reduceNum = () => {
+  const prevMonth = () => {
     if (num > 1) {
       setNum(num - 1);
-      console.log(num);
     }
-    // num > 1 && setNum(num - 1);
-    // setPoint(monthlyPoints[num - 2]);
-    console.log(num);
+  };
+
+  const nextMonth = () => {
+    num < 12 && setNum(num + 1);
   };
 
   return (
@@ -38,28 +50,23 @@ export default function Month({ monthlyPoints }) {
         <AiOutlineArrowLeft
           style={{ cursor: "pointer" }}
           onClick={() => {
-            reduceNum();
-            console.log(num);
+            prevMonth();
           }}
         />
         <div>{num}월</div>
         <AiOutlineArrowRight
           style={{ cursor: "pointer" }}
           onClick={() => {
-            num < 12 && setNum(num + 1);
-            setPoint(monthlyPoints[num - 2]);
-            console.log(point);
+            nextMonth();
           }}
         />
       </MonthChange>
       <Content>
-        <div style={{ fontSize: "25px", padding: "10px" }}>
+        <div style={{ fontSize: "25px", fontWeight: "bold" }}>
           {num}월 총 포인트
         </div>
         <div style={{ fontSize: "60px", padding: "10px" }}>{point}점</div>
-        <div style={{ fontSize: "30px", padding: "10px" }}>
-          이전 달보다 {point}점 증가했어요 ~ 👏
-        </div>
+        <div style={{ fontSize: "28px", padding: "10px" }}>{compare}</div>
       </Content>
       <List></List>
     </Container>
@@ -87,11 +94,16 @@ const Content = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 30px;
+  background-color: #eee;
+  border-radius: 10px;
+  margin: 30px;
+  width: 500px;
+  height: 270px;
 `;
 
 const List = styled.div`
   border: 1px solid #ccc;
-  height: 400px;
-  width: 700px;
-  margin: 30px;
+  height: 350px;
+  width: 600px;
+  border-radius: 10px;
 `;

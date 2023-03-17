@@ -23,6 +23,7 @@ export default function Main() {
 
   let navigate = useNavigate();
 
+  //? ---- 구현하고 싶은 기능 ------
   //? Modal창 클릭 시 transition 추가.....ㅠㅠ
   // 클래스 탈부착,,,,?
 
@@ -35,6 +36,13 @@ export default function Main() {
 
   const [show, setShow] = useState(false);
 
+  const [measure, setMeasure] = useState([
+    { id: 1, put: false },
+    { id: 2, put: false },
+    { id: 3, put: false },
+    { id: 4, put: false },
+  ]);
+
   const onChangeColor = () => {
     color === "#bdbdbd" ? setColor("#58c78f") : setColor("#bdbdbd");
   };
@@ -45,8 +53,76 @@ export default function Main() {
     setComplete(copy);
   };
 
+  console.log(complete);
+
   const onModal = () => {
     setShow(!show);
+
+    // 입력창도 같이 닫히게 초기화 !
+    setMeasure([
+      { id: 1, put: false },
+      { id: 2, put: false },
+      { id: 3, put: false },
+      { id: 4, put: false },
+    ]);
+  };
+
+  //? 입력하기 모달 로직 구현 (무엇을 눌러도 true 값 하나만 나오게)
+  // [f, f, f, f] 배열 정의하기
+  let item = [];
+  for (let i = 0; i < measure.length; i++) {
+    item.push(measure[i].put);
+  }
+
+  // cnt : true 갯수
+  let cnt = 0;
+  // 배열 내 true 개수 세기
+  for (let i = 0; i < item.length; i++) {
+    if (item[i]) {
+      cnt += 1;
+    }
+  }
+
+  const onMeasure = (idx) => {
+    if (cnt === 1) {
+      // (1) id가 idx + 1 이 true인 경우 (같은거 눌렀을 경우)
+      if (measure[idx].put) {
+        let copy = [...measure];
+        copy[idx].put = !copy[idx].put;
+        setMeasure(copy);
+      } else {
+        // (2) 다른거 눌렀을 경우
+        let copy = [...measure];
+        // 초기화 후
+        copy = [
+          { id: 1, put: false },
+          { id: 2, put: false },
+          { id: 3, put: false },
+          { id: 4, put: false },
+        ];
+        // 해당 idx 토글 변경
+        // let copy = [...measure];
+        copy[idx].put = !copy[idx].put;
+        setMeasure(copy);
+      }
+    } else {
+      let copy = [...measure];
+      copy[idx].put = !copy[idx].put;
+      setMeasure(copy);
+    }
+  };
+
+  const onAlert = () => {
+    alert("작성 완료되었습니다.");
+    setShow(!show);
+
+    // 입력창도 같이 닫히게 초기화 !
+    setMeasure([
+      { id: 1, put: false },
+      { id: 2, put: false },
+      { id: 3, put: false },
+      { id: 4, put: false },
+    ]);
   };
 
   return (
@@ -248,19 +324,35 @@ export default function Main() {
             <Modal className="start">
               <MeasureTitle>측정하기</MeasureTitle>
               <MeasureWrapper>
-                <MeasureBox>
+                <MeasureBox
+                  onClick={() => {
+                    onMeasure(0);
+                  }}
+                >
                   <FaHeartbeat size="50" className="measureIcon" />
                   <Measure>혈압</Measure>
                 </MeasureBox>
-                <MeasureBox>
+                <MeasureBox
+                  onClick={() => {
+                    onMeasure(1);
+                  }}
+                >
                   <GiWaterDrop size="50" className="measureIcon" />
                   <Measure>혈당</Measure>
                 </MeasureBox>
-                <MeasureBox>
+                <MeasureBox
+                  onClick={() => {
+                    onMeasure(2);
+                  }}
+                >
                   <IoScaleSharp size="50" className="measureIcon" />
                   <Measure>체중</Measure>
                 </MeasureBox>
-                <MeasureBox>
+                <MeasureBox
+                  onClick={() => {
+                    onMeasure(3);
+                  }}
+                >
                   <ImSpoonKnife size="50" className="measureIcon" />
                   <Measure>식사</Measure>
                 </MeasureBox>
@@ -270,6 +362,161 @@ export default function Main() {
         ) : (
           <ModalClose className="end"></ModalClose>
         )}
+        <div>
+          {measure[0].put && (
+            <MeasureModal>
+              <MeasureTitle>오늘 나의 혈압은 ?</MeasureTitle>
+              <div style={{ padding: "20px" }}>
+                <InputWrapper style={{ width: "530px", paddingBottom: "20px" }}>
+                  <MealTitle>수축기</MealTitle>
+                  <Input style={{ width: "150px" }}></Input>
+                  <div style={{ padding: "10px 20px", fontSize: "24px" }}>
+                    mmHg
+                  </div>
+                </InputWrapper>
+                <InputWrapper style={{ width: "530px" }}>
+                  <MealTitle>이완기</MealTitle>
+                  <Input style={{ width: "150px" }}></Input>
+                  <div style={{ padding: "10px 20px", fontSize: "24px" }}>
+                    mmHg
+                  </div>
+                </InputWrapper>
+              </div>
+              <MeasureBtn
+                onClick={() => {
+                  onAlert();
+                }}
+              >
+                작성 완료
+              </MeasureBtn>
+            </MeasureModal>
+          )}
+          {measure[1].put && (
+            <MeasureModal>
+              <MeasureTitle>오늘 나의 혈당은 ?</MeasureTitle>
+              <div
+                style={{
+                  padding: "0 20px",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "15px",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    fontSize: "20px",
+                  }}
+                >
+                  <div
+                    style={{
+                      padding: "10px",
+                      flexDirection: "row",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <input
+                      type="radio"
+                      name="bst"
+                      value="식전"
+                      style={{
+                        margin: "10px",
+                        width: "24px",
+                        height: "24px",
+                      }}
+                    />
+                    <div style={{ color: "white", fontSize: "22px" }}>식전</div>
+                  </div>
+                  <div
+                    style={{
+                      padding: "10px",
+                      flexDirection: "row",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <input
+                      type="radio"
+                      name="bst"
+                      value="식후"
+                      style={{
+                        margin: "10px",
+                        width: "24px",
+                        height: "24px",
+                      }}
+                    />
+                    <div style={{ color: "white", fontSize: "22px" }}>식후</div>
+                  </div>
+                </div>
+                <InputWrapper>
+                  <MealTitle
+                    style={{ padding: "10px 20px", fontSize: "24px" }}
+                  ></MealTitle>
+                  <Input style={{ width: "150px" }}></Input>
+                  <div style={{ padding: "10px 20px", fontSize: "24px" }}>
+                    mg/dl
+                  </div>
+                </InputWrapper>
+              </div>
+              <MeasureBtn
+                onClick={() => {
+                  onAlert();
+                }}
+              >
+                작성 완료
+              </MeasureBtn>
+            </MeasureModal>
+          )}
+          {measure[2].put && (
+            <MeasureModal>
+              <MeasureTitle>오늘 나의 체중은 ?</MeasureTitle>
+              <InputWrapper style={{ padding: "60px 0" }}>
+                <Input style={{ width: "150px" }}></Input>
+                <div style={{ padding: "10px 20px", fontSize: "24px" }}>kg</div>
+              </InputWrapper>
+              <MeasureBtn
+                onClick={() => {
+                  onAlert();
+                }}
+              >
+                작성 완료
+              </MeasureBtn>
+            </MeasureModal>
+          )}
+          {measure[3].put && (
+            <MeasureModal>
+              <MeasureTitle style={{ margin: "20px 0" }}>
+                식사일지 📝
+              </MeasureTitle>
+              <MeasureContent>
+                <InputWrapper>
+                  <MealTitle>🍎 아침</MealTitle>
+                  <Input></Input>
+                </InputWrapper>
+                <InputWrapper>
+                  <MealTitle>🥗 점심</MealTitle>
+                  <Input></Input>
+                </InputWrapper>
+                <InputWrapper>
+                  <MealTitle>🍛 저녁</MealTitle>
+                  <Input></Input>
+                </InputWrapper>
+                <MeasureBtn
+                  onClick={() => {
+                    onAlert();
+                  }}
+                >
+                  작성 완료
+                </MeasureBtn>
+              </MeasureContent>
+            </MeasureModal>
+          )}
+        </div>
         <FooterWrapper>
           <div>
             <FaHome
@@ -360,8 +607,8 @@ const Navbar = styled.div`
 `;
 
 const NavbarWrapper = styled.div`
-  max-width: 700px;
-  width: 700px;
+  max-width: 600px;
+  width: 600px;
   display: flex;
   justify-content: space-between;
   padding: 20px;
@@ -462,7 +709,7 @@ const Footer = styled.div`
 
 const FooterWrapper = styled.div`
   margin: 30px;
-  width: 700px;
+  width: 600px;
   height: 100px;
   display: flex;
   justify-content: space-between;
@@ -488,7 +735,7 @@ const Modal = styled.div`
   width: 600px;
   height: 420px;
   bottom: 160px;
-  left: 80px;
+  margin: 0 18px;
   border-radius: 10px 10px 0 0;
   background-color: white;
   z-index: 2;
@@ -505,8 +752,9 @@ const ModalClose = styled.div`
 
 const MeasureTitle = styled.div`
   font-size: 30px;
-  margin: 30px 0 30px 0;
+  margin: 30px 0 20px 0;
   font-weight: bold;
+  color: white;
 `;
 
 const MeasureWrapper = styled.div`
@@ -524,6 +772,7 @@ const MeasureBox = styled.div`
   background-color: #58c78f;
   padding-top: 10px;
   border-radius: 5px;
+  cursor: pointer;
 
   .measureIcon {
     color: white;
@@ -552,4 +801,58 @@ const Show = styled.div`
 
   //   .end {
   //   }
+`;
+
+const MeasureModal = styled.div`
+  width: 600px;
+  height: 400px;
+  bottom: 630px;
+  border-radius: 10px 10px 0 0;
+  background-color: salmon;
+  opacity: 0.92;
+  z-index: 10;
+  position: absolute;
+  transition: all 1s;
+  border-radius: 10px;
+  margin: 0 20px;
+  padding: 20px 0;
+`;
+
+const Input = styled.input`
+  border-radius: 5px;
+  border: none;
+  padding: 8px;
+`;
+
+const InputWrapper = styled.div`
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 10px;
+  font-size: 20px;
+`;
+
+const MeasureContent = styled.div`
+  width: 500px;
+  height: 300px;
+  margin: 0 40px;
+`;
+
+const MealTitle = styled.div`
+  padding: 10px 38px;
+  font-size: 20px;
+`;
+
+const MeasureBtn = styled.button`
+  width: 120px;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 20px;
+  background-color: #972020;
+  color: white;
+  bottom: 20px;
+  left: 240px;
+  position: absolute;
 `;

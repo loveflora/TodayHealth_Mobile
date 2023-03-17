@@ -7,63 +7,65 @@ import Form from "react-bootstrap/Form";
 export default function Set() {
   const navigate = useNavigate();
 
-  //? 설정 값 유지 : local storage 사용
+  // ? 설정 값 유지 : local storage 사용
 
   const [switchList, setSwitchList] = useState([
-    { id: 1, click: false },
-    { id: 2, click: false },
-    { id: 3, click: false },
+    { id: 1, switch: false },
+    { id: 2, switch: false },
+    { id: 3, switch: false },
   ]);
 
-  let [cnt, setCnt] = useState(0);
-  let [watch, setWatch] = useState([]);
+  // let [cnt, setCnt] = useState(0);
+  // let [watch, setWatch] = useState([]);
 
   // const [click, setClick] = useState(false);
 
   const onSwitch = (idx) => {
-    setCnt((cnt += 1));
+    // setCnt((cnt += 1));
     let copy = [...switchList];
-    copy[idx].click = !copy[idx].click;
+    copy[idx].switch = !copy[idx].switch;
     setSwitchList(copy);
   };
 
-  useEffect(() => {
-    let watched = localStorage.getItem("setting");
-    // const watched = JSON.parse(localStorage.getItem())
-    // let watched = JSON.parse(localStorage.setItem("setting", switchList));
-
-    if (watched === switchList) {
-      localStorage.setItem(
-        "setting",
-        JSON.stringify([
-          // { id: 1, click: false },
-          // { id: 2, click: false },
-          // { id: 3, click: false },
-        ])
-      );
-    } else setWatch(watched);
-    //   // localStorage.setItem(
-    //   //   "setting",
-    //   //   JSON.stringify([
-    //   //     { id: 1, click: false },
-    //   //     { id: 2, click: false },
-    //   //     { id: 3, click: false },
-    //   //   ])
-    //   // );
-    //   console.log("맞아");
-    // }
-    let copy = [...switchList, { why: "?" }];
-
-    let 꺼낸거 = JSON.parse(localStorage.getItem("setting"));
-    꺼낸거 = copy;
-
-    localStorage.setItem("setting", JSON.stringify(꺼낸거));
-    setWatch(꺼낸거);
-    console.log(watched);
-  }, [cnt]);
-
-  console.log(watch);
   console.log(switchList);
+
+  // useEffect(() => {
+  //   let watched = localStorage.getItem("setting");
+  //   // const watched = JSON.parse(localStorage.getItem())
+  //   // let watched = JSON.parse(localStorage.setItem("setting", switchList));
+
+  //   if (watched === switchList) {
+  //     localStorage.setItem(
+  //       "setting",
+  //       JSON.stringify([
+  //         // { id: 1, click: false },
+  //         // { id: 2, click: false },
+  //         // { id: 3, click: false },
+  //       ])
+  //     );
+  //   } else setWatch(watched);
+  //   //   // localStorage.setItem(
+  //   //   "setting",
+  //   //   JSON.stringify([
+  //   //     { id: 1, click: false },
+  //   //     { id: 2, click: false },
+  //   //     { id: 3, click: false },
+  //   //   ])
+  //   // );
+  //   console.log("맞아");
+  //   // }
+  //   let copy = [...switchList, { why: "?" }];
+
+  //   let 꺼낸거 = JSON.parse(localStorage.getItem("setting"));
+  //   꺼낸거 = copy;
+
+  //   localStorage.setItem("setting", JSON.stringify(꺼낸거));
+  //   setWatch(꺼낸거);
+  //   console.log(watched);
+  // }, [cnt]);
+
+  // console.log(watch);
+  // console.log(switchList);
   // if (watched === null) {
   //   localStorage.setItem("setting", JSON.stringify([]));
   //   // } else setWatch(watched);
@@ -106,12 +108,25 @@ export default function Set() {
           <Li>
             앱 정보
             <Div>
-              <Form.Check
+              {switchList[2].switch ? (
+                <ToggleBtn
+                  onClick={() => {
+                    onSwitch(2);
+                  }}
+                  style={{ backgroundColor: "blue" }}
+                ></ToggleBtn>
+              ) : (
+                <ToggleBtn
+                  onClick={() => {
+                    onSwitch(2);
+                  }}
+                ></ToggleBtn>
+              )}
+              {/* <Form.Check
                 type="switch"
                 onClick={() => {
                   onSwitch(2);
-                }}
-              />
+                  /> */}
             </Div>
           </Li>
         </Ul>
@@ -161,6 +176,13 @@ const Div = styled.div`
   .form-check-input {
     cursor: pointer;
   }
+`;
+
+const ToggleBtn = styled.button`
+  width: 50px;
+  height: 30px;
+  border-radius: 40px;
+  border: 1px solid gray;
 `;
 
 const Btn = styled.button`

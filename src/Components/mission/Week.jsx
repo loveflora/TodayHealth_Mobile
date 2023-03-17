@@ -9,9 +9,13 @@ import { useRef } from "react";
 import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 
-export default function Week() {
-  const chartRef = React.useRef(null);
+export default function Week({ day, month }) {
+  //? 원하는 기능 구현
+  //? 1. 캘린더
+  // 1) 날짜 클릭 시 1주 단위로 클릭됨
+  // 2) 1주 단위에 맞는 그래프 결과 보여줌
 
+  const chartRef = React.useRef(null);
   // React.useEffect(() => {
   //   const drawChart = async () => {
   //     const ctx = chartRef.current.getContext("2d");
@@ -82,7 +86,7 @@ export default function Week() {
       {
         type: "line",
         label: "혈압",
-        backgroundColor: "rgb(75, 192, 192)",
+        backgroundColor: "#527ade",
         data: [120, 130, 135, 135, 138, 128, 118],
       },
     ],
@@ -93,9 +97,15 @@ export default function Week() {
     datasets: [
       {
         type: "line",
-        label: "혈당",
-        backgroundColor: "rgb(75, 192, 192)",
+        label: "식전 혈당",
+        backgroundColor: "#f2953d",
         data: [120, 110, 90, 100, 105, 106, 130],
+      },
+      {
+        type: "line",
+        label: "식후 혈당",
+        backgroundColor: "#74cf40",
+        data: [180, 190, 170, 161, 153, 188, 170],
       },
     ],
   };
@@ -103,6 +113,7 @@ export default function Week() {
   return (
     <Container>
       <Wrapper>
+        <Title>한 주간 기록을 확인해보세요 👍</Title>
         <Calendar />
         {/* 캘린더에서 설정한 날짜 나옴 */}
 
@@ -145,9 +156,14 @@ const Container = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   padding: 20px;
+`;
+
+const Title = styled.div`
+  font-size: 30px;
+  padding-bottom: 30px;
+  font-weight: bold;
 `;
 
 const Wrapper = styled.div`
@@ -156,7 +172,6 @@ const Wrapper = styled.div`
   overflow: auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 `;
 
@@ -164,6 +179,4 @@ const Content = styled.div`
   display: flex;
 `;
 
-const ChartWrapper = styled.div`
-  margin-top: 100px;
-`;
+const ChartWrapper = styled.div``;

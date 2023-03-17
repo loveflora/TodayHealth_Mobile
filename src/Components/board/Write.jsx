@@ -7,6 +7,8 @@ import { useSelector } from "react-redux";
 export default function Write({ listCollection, setListCollection }) {
   const navigate = useNavigate();
 
+  //? input 첨부파일 다시 수정 !!!
+
   //* ----------
   //* 오늘날짜
   //* ----------
@@ -103,6 +105,15 @@ export default function Write({ listCollection, setListCollection }) {
         <Title>
           <Input onChange={onChange} name="title" value={input.title}></Input>
         </Title>
+        <div>
+          <InputImage
+            type="file"
+            name="image"
+            placeholder="첨부파일"
+          ></InputImage>
+          <Label for="file">파일찾기</Label>
+          <InputDiv type="file" id="file" />
+        </div>
       </Header>
       <Main>
         <Textarea
@@ -224,4 +235,40 @@ const BottomBtn = styled.button`
   border-radius: 5px;
   width: 280px;
   height: 50px;
+`;
+
+const InputImage = styled.input`
+  display: inline-block;
+  height: 40px;
+  padding: 0 10px;
+  vertical-align: middle;
+  border: 1px solid #dddddd;
+  width: 78%;
+  color: #999999;
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+`;
+
+const Label = styled.label`
+  display: inline-block;
+  padding: 10px 20px;
+  color: #fff;
+  vertical-align: middle;
+  background-color: #999999;
+  cursor: pointer;
+  height: 40px;
+  margin-left: 10px;
+`;
+
+const InputDiv = styled.input`
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
 `;
