@@ -11,21 +11,43 @@ import { useSelector } from "react-redux";
 export default function Board() {
   const navigate = useNavigate();
   let { id } = useParams();
-  const state = useSelector((state) => state);
+  const listData = useSelector(({ list }) => list);
 
-  const [content, setContent] = useState([state.list]);
+  const [listCollection, setListCollection] = useState([listData]);
 
-  const toggleHandler = () => {
-    setContent((prevState) => {
-      const copy = [...prevState];
+  //? ----- 구현하고자 하는 기능 --------
+  //? 1) id 게시물 순서 ㅠㅠㅠㅠ
+  // 게시판 삭제될 때마다, 1 2 3 이렇게 순서가 다시 렌더링 되어야 하지 않나...????
+  // id 값을 계속 리렌더링 해줘야 하나 ...?
+
+  //? 2) 전부 다른 페이지 갔다, 다시 들어오면 초기화 되어있는데 ...?
+  // localStorage 사용해야 하나...
+
+  const toggleHandler = (idx) => {
+    //? 이렇게만 쓰면 이전에 있는 첫번째 기본데이터 반영을 못함. (추가된 애들만 변경가능)
+    // let copy = [...listCollection];
+    // let copy1 = [...copy];
+    // copy1[idx].like = !copy1[idx].like;
+    // console.log(copy1);
+    // setListCollection(copy1);
+
+    setListCollection((prevState) => {
+      let copy = [...prevState];
       return copy.map((v) => {
-        return {
-          ...v,
-          like: !v.like,
-        };
+        // console.log(v); // {}
+        // console.log(copy); // [{}, {}]
+        if (v.id === idx + 1) {
+          return {
+            ...v,
+            like: !v.like,
+          };
+        }
+        return v; // id가 다르다면 원래 {id: 1} 넘겨주세요 --> 안쓰면 undefined 로 return 됨
       });
     });
   };
+
+  console.log(listCollection);
 
   return (
     <div>
@@ -50,14 +72,16 @@ export default function Board() {
                         </tr>
                       </thead>
                       <tbody>
-                        {content.map((v, i) => {
+                        {listCollection.map((v, i) => {
                           return (
                             <tr
                               onClick={() => {
-                                navigate(`/Board/detail/${content[i].id}`);
+                                navigate(
+                                  `/Board/detail/${listCollection[i].id}`
+                                );
                               }}
                             >
-                              <td>{content[i].id}</td>
+                              <td>{listCollection[i].id}</td>
                               <td
                                 style={{
                                   maxWidth: "260px",
@@ -66,18 +90,18 @@ export default function Board() {
                                   textOverflow: "ellipsis",
                                 }}
                               >
-                                {content[i].title}
+                                {listCollection[i].title}
                               </td>
-                              <td>{content[i].writer}</td>
-                              <td>{content[i].created}</td>
+                              <td>{listCollection[i].writer}</td>
+                              <td>{listCollection[i].created}</td>
                               <td style={{ width: "100px" }}>
-                                {content[i].like ? (
+                                {listCollection[i].like ? (
                                   <GoHeart
                                     className="like"
                                     size="30"
                                     onClick={(e) => {
                                       e.stopPropagation();
-                                      toggleHandler();
+                                      toggleHandler(i);
                                     }}
                                     color="salmon"
                                   />
@@ -87,7 +111,7 @@ export default function Board() {
                                     size="30"
                                     onClick={(e) => {
                                       e.stopPropagation();
-                                      toggleHandler();
+                                      toggleHandler(i);
                                     }}
                                     color="#ddd"
                                   />
@@ -110,12 +134,22 @@ export default function Board() {
               }
             ></Route>
             <Route
-              path="/detail/:id"
-              element={<Detail content={content} setContent={setContent} />}
+              path="/detail/:id/*"
+              element={
+                <Detail
+                  listCollection={listCollection}
+                  setListCollection={setListCollection}
+                />
+              }
             ></Route>
             <Route
               path="/write"
-              element={<Write content={content} setContent={setContent} />}
+              element={
+                <Write
+                  listCollection={listCollection}
+                  setListCollection={setListCollection}
+                />
+              }
             ></Route>
           </Routes>
         </Container>
@@ -160,7 +194,7 @@ const Table = styled.div`
 
     & > tbody > tr {
       padding: 10px 0;
-
+      cursor: pointer;
       & > td {
         padding: 20px 0;
       }
@@ -178,7 +212,7 @@ const Table = styled.div`
 `;
 
 const Btn = styled.button`
-  width: 150px;
+  width: 280px;
   height: 50px;
   background-color: #58c78f;
   color: white;

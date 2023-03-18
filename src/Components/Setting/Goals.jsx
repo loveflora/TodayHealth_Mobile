@@ -1,40 +1,80 @@
 import React from "react";
 import styled from "styled-components";
-import { useState } from "react";
-import { InputGroup } from "react-bootstrap";
+import { useState, useRef } from "react";
 
 export default function Goals() {
   const [goals, setGoals] = useState([
-    { id: 1, title: "목표 걸음수", num: "5000걸음" },
+    { id: 1, title: "목표 걸음수", num: "5000걸음", edit: false },
   ]);
 
   const [input, setInput] = useState({
     id: goals.length + 1,
     title: "",
     num: "",
+    edit: false,
   });
 
-  const onEdit = () => {};
+  const onEdit = (idx) => {
+    setGoals((prevState) => {
+      let copy = [...prevState];
+      console.log(copy);
+      return copy.map((v, i) => {
+        if (i === idx) {
+          return {
+            ...v,
+            edit: !v.edit,
+          };
+        }
+        return v;
+      });
+    });
+
+    // ---- useRef를 사용하려고 시도했으나, 지워지기만 하고, createElement 안먹음 -----
+    // editRef.current.remove();
+    // const rootEle = document.getElementById("root");
+    // const element = React.createElement("input");
+    // ReactDOM.render(element, rootElement);
+    // console.log(editRef.current);
+  };
 
   const onDelete = (idx) => {
     setGoals(goals.filter((goal, i) => i !== idx));
   };
 
   const onAdd = () => {
+    if (!input.title) {
+      return alert("제목을 입력해주세요");
+    }
+    if (!input.num) {
+      return alert("목표량을 입력해주세요");
+    }
+
     setGoals([...goals, { ...input }]);
 
     setInput({
+      ...input,
+      id: goals.length + 2,
       title: "",
       num: "",
     });
   };
 
+  // console.log(goals);
+  // console.log(input);
+  // console.log(goals.length);
+
   const onChange = (e) => {
     const { name, value } = e.target;
-
     setInput({ ...input, [name]: value });
   };
 
+<<<<<<< HEAD
+=======
+  const onEditChange = (e) => {
+    const { name, value } = e.target;
+  };
+
+>>>>>>> origin/master
   return (
     <div>
       <Container>
@@ -42,10 +82,45 @@ export default function Goals() {
           {goals.map((v, i) => {
             return (
               <Item key={i}>
-                <div style={{ width: "200px" }}>{goals[i].title}</div>
-                <div>{goals[i].num}</div>
+                {goals[i].edit ? (
+                  <Input
+                    onChange={onEditChange}
+                    name="title"
+                    value={goals[i].title}
+                    style={{ margin: "0" }}
+                  ></Input>
+                ) : (
+                  <div style={{ width: "200px" }}>{goals[i].title}</div>
+                )}
+                {goals[i].edit ? (
+                  <Input
+                    onChange={onEditChange}
+                    name="num"
+                    value={goals[i].num}
+                    style={{ margin: "0" }}
+                  ></Input>
+                ) : (
+                  <div className="numInput">{goals[i].num}</div>
+                )}
+
                 <div style={{ display: "flex" }}>
-                  <Btn>수정</Btn>
+                  {goals[i].edit ? (
+                    <Btn
+                      onClick={() => {
+                        onEdit(i);
+                      }}
+                    >
+                      완료
+                    </Btn>
+                  ) : (
+                    <Btn
+                      onClick={() => {
+                        onEdit(i);
+                      }}
+                    >
+                      수정
+                    </Btn>
+                  )}
                   <Btn
                     style={{ backgroundColor: "#f56656" }}
                     onClick={() => {
@@ -69,12 +144,10 @@ export default function Goals() {
             onChange={onChange}
           />
           <Input
-            type="number"
             placeholder="목표량"
             name="num"
             value={input.num}
             onChange={onChange}
-            min="0"
           />
           <AddBtn onClick={onAdd}>추가하기</AddBtn>
         </AddItem>
@@ -98,7 +171,7 @@ const Content = styled.div`
 const Item = styled.li`
   border-bottom: 1px solid #e8e8e8;
   list-style-type: none;
-  padding: 20px 30px;
+  padding: 20px;
   text-align: left;
   font-size: 25px;
   display: flex;

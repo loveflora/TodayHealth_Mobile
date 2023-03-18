@@ -4,33 +4,36 @@ import Header from "../Components/Header";
 import Today from "../Components/mission/Today";
 import Week from "../Components/mission/Week";
 import Month from "../Components/mission/Month";
+import moment from "moment";
 
 import Nav from "react-bootstrap/Nav";
 import "bootstrap/dist/css/bootstrap.css";
 import { useState } from "react";
 
 export default function Mission() {
+  const today = moment();
+  const month = today.month() + 1;
+  const day = today.day();
+
   const [tab, setTab] = useState(0);
-  const monthlyPoints = [90, 100, 80, 85, 90, 95, 100, 90, 90, 70, 100, 95];
 
   function TabContent({ tab }) {
     if (tab === 0) {
       return (
         <div>
-          <div>{tab}</div>
-          <Today />
+          <Today day={day} month={month} />
         </div>
       );
     } else if (tab === 1) {
       return (
         <div>
-          <Week />
+          <Week day={day} month={month} />
         </div>
       );
     } else if (tab === 2) {
       return (
         <div>
-          <Month monthlyPoints={monthlyPoints} />
+          <Month day={day} month={month} />
         </div>
       );
     }
@@ -74,7 +77,7 @@ export default function Mission() {
             </Nav.Item>
           </Nav>
         </NavWrapper>
-        <TabContent tab={tab}>완료한 미션</TabContent>
+        <TabContent tab={tab}></TabContent>
       </Container>
     </div>
   );
