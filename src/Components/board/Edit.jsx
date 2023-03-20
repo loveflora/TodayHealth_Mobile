@@ -139,11 +139,10 @@ const Created = styled.div`
 const Info = styled.div`
   display: flex;
   margin: 40px 0 20px 0;
-  flexdirection: row;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   width: 670px;
-}
 `;
 
 const Main = styled.div`

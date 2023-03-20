@@ -14,6 +14,9 @@ export default function Goals() {
     edit: false,
   });
 
+  // state
+  const [input2, setInput2] = useState("");
+
   const onEdit = (idx) => {
     setGoals((prevState) => {
       let copy = [...prevState];
@@ -68,13 +71,11 @@ export default function Goals() {
     setInput({ ...input, [name]: value });
   };
 
-<<<<<<< HEAD
-=======
   const onEditChange = (e) => {
     const { name, value } = e.target;
+    setInput2(e.target.value);
   };
 
->>>>>>> origin/master
   return (
     <div>
       <Container>
@@ -86,7 +87,7 @@ export default function Goals() {
                   <Input
                     onChange={onEditChange}
                     name="title"
-                    value={goals[i].title}
+                    value={input2}
                     style={{ margin: "0" }}
                   ></Input>
                 ) : (

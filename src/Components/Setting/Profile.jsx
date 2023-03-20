@@ -175,7 +175,7 @@ const SelectTitle = styled.div`
   font-size: 20px;
   font-weight: bold;
   padding: 20px;
-  display: flex
+  display: flex;
   justify-content: center;
   align-items: center;
 `;
