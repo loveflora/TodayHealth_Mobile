@@ -1,6 +1,6 @@
 import "./App.css";
 import { Router, Routes, Route, useNavigate } from "react-router-dom";
-import Main from "./Router/Main";
+import Main from "./pages/Main";
 
 function App() {
   return (

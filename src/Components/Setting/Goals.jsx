@@ -14,10 +14,13 @@ export default function Goals() {
     edit: false,
   });
 
+  // 클릭한 애의 index 받아옴
+  const [index, setIndex] = useState(0);
+
   const onEdit = (idx) => {
+    setIndex(idx);
     setGoals((prevState) => {
       let copy = [...prevState];
-      console.log(copy);
       return copy.map((v, i) => {
         if (i === idx) {
           return {
@@ -28,14 +31,21 @@ export default function Goals() {
         return v;
       });
     });
-
-    // ---- useRef를 사용하려고 시도했으나, 지워지기만 하고, createElement 안먹음 -----
-    // editRef.current.remove();
-    // const rootEle = document.getElementById("root");
-    // const element = React.createElement("input");
-    // ReactDOM.render(element, rootElement);
-    // console.log(editRef.current);
   };
+
+  const [editInput, setEditInput] = useState({
+    id: index + 1,
+    title: goals[index].title,
+    num: goals[index].num,
+    edit: true,
+  });
+
+  // ---- useRef를 사용하려고 시도했으나, 지워지기만 하고, createElement 안먹음 -----
+  // editRef.current.remove();
+  // const rootEle = document.getElementById("root");
+  // const element = React.createElement("input");
+  // ReactDOM.render(element, rootElement);
+  // console.log(editRef.current);
 
   const onDelete = (idx) => {
     setGoals(goals.filter((goal, i) => i !== idx));
@@ -59,8 +69,8 @@ export default function Goals() {
     });
   };
 
-  // console.log(goals);
-  // console.log(input);
+  console.log(goals);
+  console.log(input);
   // console.log(goals.length);
 
   const onChange = (e) => {
@@ -70,7 +80,60 @@ export default function Goals() {
 
   const onEditChange = (e) => {
     const { name, value } = e.target;
+
+    setEditInput({ ...editInput, [name]: value });
+
+    // input 중에서 id 동일한 애 찾아서
+    // 입력 값 받음
+    // input 값 변경
+    // setInput(
+    // let copy = [...input]
+    // return copy.map((v,i) => {
+    //   if(i === idx) {
+    //     return {
+
+    //     }
+    //   }
+    // })
+    // setInput({ [name]: value });
   };
+
+  // setGoals((prevState) => {
+  //   let copy = [...prevState];
+  //   console.log(copy);
+  //   return copy.map((v, i) => {
+  //     if (i === idx) {
+  //       return {
+  //         ...v,
+  //         title: "",
+  //         num: "",
+  //         edit: !v.edit,
+  //       };
+  //     }
+  //     return v;
+  //   });
+  // });
+
+  //완료 버튼 누르면
+  // 해당 id 일치하는 애 찾아서 값 변경해줌
+  const onComplete = (idx) => {
+    setGoals((prevState) => {
+      let copy = [...prevState];
+      return copy.map((v, i) => {
+        if (i === idx) {
+          return {
+            ...v,
+            title: editInput.title,
+            num: editInput.num,
+            edit: !v.edit,
+          };
+        }
+        return v;
+      });
+    });
+  };
+
+  console.log(editInput);
 
   return (
     <div>
@@ -83,7 +146,7 @@ export default function Goals() {
                   <Input
                     onChange={onEditChange}
                     name="title"
-                    value={goals[i].title}
+                    value={editInput.title}
                     style={{ margin: "0" }}
                   ></Input>
                 ) : (
@@ -93,7 +156,7 @@ export default function Goals() {
                   <Input
                     onChange={onEditChange}
                     name="num"
-                    value={goals[i].num}
+                    value={editInput.num}
                     style={{ margin: "0" }}
                   ></Input>
                 ) : (
@@ -104,7 +167,7 @@ export default function Goals() {
                   {goals[i].edit ? (
                     <Btn
                       onClick={() => {
-                        onEdit(i);
+                        onComplete(i);
                       }}
                     >
                       완료

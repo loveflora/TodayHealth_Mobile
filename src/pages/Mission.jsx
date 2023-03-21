@@ -4,16 +4,20 @@ import Header from "../Components/Header";
 import Today from "../Components/mission/Today";
 import Week from "../Components/mission/Week";
 import Month from "../Components/mission/Month";
-import moment from "moment";
+// import moment from "moment";
 
 import Nav from "react-bootstrap/Nav";
 import "bootstrap/dist/css/bootstrap.css";
 import { useState } from "react";
 
 export default function Mission() {
-  const today = moment();
-  const month = today.month() + 1;
-  const day = today.day();
+  const today = new Date();
+  // const yyyy = today.getFullYear();
+  let month = today.getMonth() + 1; // Months start at 0!
+  let day = today.getDate();
+
+  if (day < 10) day = "0" + day;
+  // if (month < 10) month = "0" + month;
 
   const [tab, setTab] = useState(0);
 
