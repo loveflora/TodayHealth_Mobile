@@ -14,8 +14,13 @@ export default function Goals() {
     edit: false,
   });
 
+<<<<<<< HEAD
   // 클릭한 애의 index 받아옴
   const [index, setIndex] = useState(0);
+=======
+  // state
+  const [input2, setInput2] = useState("");
+>>>>>>> 55630d10cdf9fb861c8bf645d9db551a3b6ff8bf
 
   const onEdit = (idx) => {
     setIndex(idx);
@@ -80,6 +85,7 @@ export default function Goals() {
 
   const onEditChange = (e) => {
     const { name, value } = e.target;
+<<<<<<< HEAD
 
     setEditInput({ ...editInput, [name]: value });
 
@@ -96,6 +102,9 @@ export default function Goals() {
     //   }
     // })
     // setInput({ [name]: value });
+=======
+    setInput2(e.target.value);
+>>>>>>> 55630d10cdf9fb861c8bf645d9db551a3b6ff8bf
   };
 
   // setGoals((prevState) => {
@@ -146,7 +155,11 @@ export default function Goals() {
                   <Input
                     onChange={onEditChange}
                     name="title"
+<<<<<<< HEAD
                     value={editInput.title}
+=======
+                    value={input2}
+>>>>>>> 55630d10cdf9fb861c8bf645d9db551a3b6ff8bf
                     style={{ margin: "0" }}
                   ></Input>
                 ) : (
