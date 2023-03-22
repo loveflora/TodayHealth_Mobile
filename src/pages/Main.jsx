@@ -16,11 +16,10 @@ import Footer from "../Components/Footer";
 export default function Main() {
   const userData = useSelector(({ user }) => user);
 
-  let navigate = useNavigate();
-
   //? ---- 구현하고 싶은 기능 ------
-  //? Modal창 클릭 시 transition 추가.....ㅠㅠ
-  // 클래스 탈부착,,,,?
+  // [완료 23.03.22] Modal창 클릭 시 스르륵 올라옴
+  // ----> animation: slide 1s ease-in-out
+  //       @keyframes slide {from to 사용}
 
   const [show, setShow] = useState(false);
 

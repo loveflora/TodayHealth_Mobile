@@ -51,21 +51,23 @@ export default function Modal({ onMeasure }) {
 const Container = styled.div`
   width: 600px;
   height: 420px;
-  bottom: 160px;
-  margin: 0 -555px;
+  bottom: 120px;
+  margin: 0 -550px;
   border-radius: 10px 10px 0 0;
   background-color: white;
   z-index: 2;
   position: absolute;
-  transition: all 1s;
-`;
+  animation: slide 1s ease-in-out;
 
-// const ModalClose = styled.div`
-//   width: 600px;
-//   height: 10px;
-//   position: absolute;
-//   background-color: blue;
-// `;
+  @keyframes slide {
+    from {
+      bottom: -320px;
+    }
+    to {
+      bottom: 120px;
+    }
+  }
+`;
 
 const Measure = styled.div`
   font-size: 20px;

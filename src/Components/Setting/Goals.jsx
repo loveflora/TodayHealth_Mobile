@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useState, useRef } from "react";
 
 export default function Goals() {
+  //? 개별 수정기능은 완료하였으나,
+  //? 여러개 다수 수정기능은 미완성
+  // 여러개 수정 클릭하면 인식 안됨 => if문...? 활용한 로직을 구현해야 하나...
+
   const [goals, setGoals] = useState([
     { id: 1, title: "목표 걸음수", num: "5000걸음", edit: false },
   ]);
@@ -14,13 +18,9 @@ export default function Goals() {
     edit: false,
   });
 
-<<<<<<< HEAD
   // 클릭한 애의 index 받아옴
   const [index, setIndex] = useState(0);
-=======
   // state
-  const [input2, setInput2] = useState("");
->>>>>>> 55630d10cdf9fb861c8bf645d9db551a3b6ff8bf
 
   const onEdit = (idx) => {
     setIndex(idx);
@@ -38,13 +38,6 @@ export default function Goals() {
     });
   };
 
-  const [editInput, setEditInput] = useState({
-    id: index + 1,
-    title: goals[index].title,
-    num: goals[index].num,
-    edit: true,
-  });
-
   // ---- useRef를 사용하려고 시도했으나, 지워지기만 하고, createElement 안먹음 -----
   // editRef.current.remove();
   // const rootEle = document.getElementById("root");
@@ -53,7 +46,10 @@ export default function Goals() {
   // console.log(editRef.current);
 
   const onDelete = (idx) => {
-    setGoals(goals.filter((goal, i) => i !== idx));
+    // setGoals((prevState) => {
+    //   [...prevState].filter((v, i) => i !== idx);
+    // });
+    setGoals([...goals].filter((v, i) => i !== idx));
   };
 
   const onAdd = () => {
@@ -74,9 +70,22 @@ export default function Goals() {
     });
   };
 
-  console.log(goals);
-  console.log(input);
+  // console.log(goals);
+  // console.log(input);
   // console.log(goals.length);
+
+  const [editInput, setEditInput] = useState({
+    // 초기값 아래와 같이 세팅하면 '삭제' 버튼 클릭 시, 오류 발생
+  });
+
+  useEffect(() => {
+    setEditInput({
+      id: index + 1,
+      title: goals[index].title,
+      num: goals[index].num,
+      edit: true,
+    });
+  }, [index]);
 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -85,9 +94,16 @@ export default function Goals() {
 
   const onEditChange = (e) => {
     const { name, value } = e.target;
-<<<<<<< HEAD
 
     setEditInput({ ...editInput, [name]: value });
+    // setEditInput(
+    //   let copy = [...editInput]
+    //   return copy.map((v,i) => {
+    //     if (i === idx) {
+    //       return
+    //     }
+    //     {...editInput, [name]: value });
+    //   }
 
     // input 중에서 id 동일한 애 찾아서
     // 입력 값 받음
@@ -102,9 +118,6 @@ export default function Goals() {
     //   }
     // })
     // setInput({ [name]: value });
-=======
-    setInput2(e.target.value);
->>>>>>> 55630d10cdf9fb861c8bf645d9db551a3b6ff8bf
   };
 
   // setGoals((prevState) => {
@@ -142,8 +155,6 @@ export default function Goals() {
     });
   };
 
-  console.log(editInput);
-
   return (
     <div>
       <Container>
@@ -155,11 +166,7 @@ export default function Goals() {
                   <Input
                     onChange={onEditChange}
                     name="title"
-<<<<<<< HEAD
                     value={editInput.title}
-=======
-                    value={input2}
->>>>>>> 55630d10cdf9fb861c8bf645d9db551a3b6ff8bf
                     style={{ margin: "0" }}
                   ></Input>
                 ) : (

@@ -9,10 +9,8 @@ export default function Detail({ listCollection, setListCollection }) {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const listData = useSelector(({ list }) => list);
-
-  const imgSrc1 = "/Images/" + listData.img1;
-  const imgSrc2 = "/Images/" + listData.img2;
+  const imgSrc1 = "/Images/" + listCollection[0].img1;
+  const imgSrc2 = "/Images/" + listCollection[0].img2;
   // const imgSrc = "/../../../public/Images/" + state.list.img;
 
   const toggleHandler = () => {

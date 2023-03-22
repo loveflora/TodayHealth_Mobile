@@ -1,46 +1,108 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 
+// //? action type 생성
+// const NAME = "NAME";
+// const BIRTH = "BIRTH";
+// const GENDER = "GENDER";
+
+// //? action 생성함수 생성
+// export const name = () => ({ type: NAME });
+// export const birth = () => ({ type: BIRTH });
+// export const gender = () => ({ type: GENDER });
+
+// //? 초기상태 선언
+// const initialState = {
+//   name: "flora",
+//   gender: "여성",
+//   age: 26,
+//   birth: 19970319,
+// };
+
+// //? reducer 선언
+// export default function reducer(state = initialState, action) {
+//   switch (action.type) {
+//     case NAME:
+//       return {
+//         ...state,
+//         name: action.payload,
+//       };
+//     case BIRTH:
+//       return {
+//         ...state,
+//         birth: action.payload,
+//       };
+//     case GENDER:
+//       return {
+//         ...state,
+//         gender: action.payload,
+//       };
+//     default:
+//       return state;
+//   }
+// }
+
+// const store = configureStore(reducer);
+
+// export const changeName = () => {
+//   store.dispatch({ type: NAME });
+// };
+
+// export const changeBirth = () => {
+//   store.dispatch({ type: BIRTH });
+// };
+
+// export const changeGender = () => {
+//   store.dispatch({ type: GENDER });
+// };
+
 let user = createSlice({
   name: "user",
   initialState: {
     name: "flora",
     gender: "여성",
     age: 26,
+    birth: 19970319,
+  },
+
+  reducers: {
+    changeName(state, action) {
+      state.name = action.payload;
+    },
+    changeBirth(state, action) {
+      state.birth = action.payload;
+    },
+    changeGender(state, action) {
+      state.gender = action.payload;
+    },
   },
 });
 
-let list = createSlice({
-  name: "user",
-  initialState: {
-    id: 1,
-    title: "우수실천자 건강 이벤트가 시작됩니다 !",
-    writer: "관리자",
-    created: "2022-11-01",
-    content:
-      "한 해를 마무리하면서 그동안 열심히 해주신 여러분들을 대상으로 이벤트를 진행합니다. 자세한 사항은 위 이미지를 클릭해서 봐주시면 감사하겠습니다^^",
-    like: false,
-    select: "이벤트",
-    img1: "이벤트1.png",
-    img2: "이벤트2.png",
-  },
-});
-
-//? state 변경하는 법
-// reducers: {
-//   changeData(state, action) {
-//     state.user = action.payload;
+// let list = createSlice({
+//   name: "user",
+//   initialState: {
+//     id: 1,
+//     title: "우수실천자 건강 이벤트가 시작됩니다 !",
+//     writer: "관리자",
+//     created: "2022-11-01",
+//     content:
+//       "한 해를 마무리하면서 그동안 열심히 해주신 여러분들을 대상으로 이벤트를 진행합니다. 자세한 사항은 위 이미지를 클릭해서 봐주시면 감사하겠습니다^^",
+//     like: false,
+//     select: "이벤트",
+//     img1: "이벤트1.png",
+//     img2: "이벤트2.png",
 //   },
-// },
+// });
+
+// //? state 변경하는 법
 
 export default configureStore({
   reducer: {
     user: user.reducer,
-    list: list.reducer,
   },
 });
 
-//? 2) 만든 함수 export해야 함
-// export const { changeData } = user.actions;
+// //? 2) 만든 함수 export해야 함
+export const { changeName, changeBirth, changeGender } = user.actions;
 
 // const text = "안녕하세요~
 // 벌써 11월의 끝을 향해 가고 있습니다.

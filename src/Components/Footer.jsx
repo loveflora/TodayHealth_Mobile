@@ -129,6 +129,7 @@ export default function Footer({ show, setShow }) {
             height: "80px",
             cursor: "pointer",
           }}
+          className="icon"
           onClick={onModal}
         />
       </div>
@@ -164,7 +165,13 @@ export default function Footer({ show, setShow }) {
         >
           {txt[3]}
         </Menu>
-        {show && <Modal onMeasure={onMeasure} />}
+        {show && (
+          //? 크흠... 왜 전체 화면이 움직일까 ㅠㅠㅠ ?
+          <div style={{ boxSizing: "border-box", margin: "0" }}>
+            <Modal onMeasure={onMeasure} />
+            <BackModal></BackModal>
+          </div>
+        )}
         {measure[0].put && <BPMeasure onAlert={onAlert} />}
         {measure[1].put && <BSTMeasure onAlert={onAlert} />}
         {measure[2].put && <BWMeasure onAlert={onAlert} />}
@@ -174,6 +181,17 @@ export default function Footer({ show, setShow }) {
   );
 }
 
+const BackModal = styled.div`
+  width: 600px;
+  height: 500px;
+  bottom: -370px;
+  margin: 0 -550px;
+  border-radius: 10px 10px 0 0;
+  background-color: white;
+  z-index: 2;
+  position: absolute;
+`;
+
 const FooterWrapper = styled.div`
   margin: 30px;
   width: 600px;
@@ -181,12 +199,17 @@ const FooterWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: white !important;
+  z-index: 50 !important;
+  position: relative;
 
   .icon {
     width: 50px;
     height: 50px;
     color: #ccc;
     cursor: pointer;
+    position: relative;
+    z-index: 50;
   }
 `;
 
@@ -196,4 +219,6 @@ const Menu = styled.div`
   color: gray;
   cursor: pointer;
   padding: 10px;
+  position: relative;
+  z-index: 50;
 `;

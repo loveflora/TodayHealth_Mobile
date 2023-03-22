@@ -17,6 +17,8 @@ import { Router, Routes, Route, useNavigate } from "react-router-dom";
 export default function Setting({ user }) {
   let navigate = useNavigate();
 
+  console.log(user);
+
   return (
     <div>
       <Header text={"설정"} />
@@ -116,38 +118,10 @@ export default function Setting({ user }) {
             }
           />
 
-          <Route
-            path="/profile"
-            element={
-              <>
-                <Profile />
-              </>
-            }
-          />
-          <Route
-            path="/goals"
-            element={
-              <>
-                <Goals />
-              </>
-            }
-          />
-          <Route
-            path="/pills"
-            element={
-              <>
-                <Pills />
-              </>
-            }
-          />
-          <Route
-            path="/set"
-            element={
-              <>
-                <Set />
-              </>
-            }
-          />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/goals" element={<Goals />} />
+          <Route path="/pills" element={<Pills />} />
+          <Route path="/set" element={<Set />} />
         </Routes>
       </ContainerWrapper>
     </div>

@@ -1,5 +1,5 @@
 import "./App.css";
-import { Router, Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Main from "./pages/Main";
 
 function App() {

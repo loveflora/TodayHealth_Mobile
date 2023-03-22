@@ -15,21 +15,53 @@ export default function Set() {
     { id: 3, switch: false },
   ]);
 
-  // let [cnt, setCnt] = useState(0);
-  // let [watch, setWatch] = useState([]);
+  let [cnt, setCnt] = useState(0);
+  let [watch, setWatch] = useState([
+    // { id: 1, switch: false },
+    // { id: 2, switch: false },
+    // { id: 3, switch: false },
+  ]);
 
   // const [click, setClick] = useState(false);
-
-  const onSwitch = (idx) => {
-    // setCnt((cnt += 1));
-    let copy = [...switchList];
-    copy[idx].switch = !copy[idx].switch;
-    setSwitchList(copy);
-  };
 
   console.log(switchList);
 
   // useEffect(() => {
+  //   let watched = JSON.parse(localStorage.getItem("setting"));
+  //   console.log(watched == switchList);
+  //   // 왜 다르지.....???
+  //   console.log(watched);
+  //   if (watched === null) {
+  //     localStorage.setItem("setting", JSON.stringify([]));
+  //     let nullArr = JSON.parse(localStorage.getItem("settting"));
+  //     nullArr = [
+  //       { id: 1, switch: false },
+  //       { id: 2, switch: false },
+  //       { id: 3, switch: false },
+  //     ];
+  //     localStorage.setItem("setting", JSON.stringify(nullArr));
+  //     // console.log(JSON.stringify(switchList));
+  //     console.log("없음");
+  //   } else if (watched !== switchList) {
+  //     let initArr = JSON.parse(localStorage.getItem("setting"));
+  //     setSwitchList(initArr);
+  //     // localStorage.setItem("setting", JSON.stringify(initArr));
+  //     setWatch(switchList);
+  //     console.log("초기");
+  //   }
+
+  //   let editArr = JSON.parse(localStorage.getItem("setting"));
+  //   editArr = watch;
+  //   localStorage.setItem("setting", JSON.stringify(watch));
+  //   // setWatch(editArr);
+  //   // console.log("수정");
+  //   // console.log(editArr);
+  // }, [cnt]);
+
+  console.log(watch);
+
+  // console.log(watch);
+
   //   let watched = localStorage.getItem("setting");
   //   // const watched = JSON.parse(localStorage.getItem())
   //   // let watched = JSON.parse(localStorage.setItem("setting", switchList));
@@ -44,25 +76,6 @@ export default function Set() {
   //       ])
   //     );
   //   } else setWatch(watched);
-  //   //   // localStorage.setItem(
-  //   //   "setting",
-  //   //   JSON.stringify([
-  //   //     { id: 1, click: false },
-  //   //     { id: 2, click: false },
-  //   //     { id: 3, click: false },
-  //   //   ])
-  //   // );
-  //   console.log("맞아");
-  //   // }
-  //   let copy = [...switchList, { why: "?" }];
-
-  //   let 꺼낸거 = JSON.parse(localStorage.getItem("setting"));
-  //   꺼낸거 = copy;
-
-  //   localStorage.setItem("setting", JSON.stringify(꺼낸거));
-  //   setWatch(꺼낸거);
-  //   console.log(watched);
-  // }, [cnt]);
 
   // console.log(watch);
   // console.log(switchList);
@@ -79,6 +92,14 @@ export default function Set() {
   //   setSwitchList(꺼낸거);
   // }, [cnt]);
 
+  const onSwitch = (idx) => {
+    let copy = [...switchList];
+    copy[idx].switch = !copy[idx].switch;
+    setSwitchList(copy);
+    setWatch(switchList);
+    // setCnt((cnt += 1));
+  };
+
   return (
     <Container>
       <Content>
@@ -86,23 +107,45 @@ export default function Set() {
           <Li>
             수기입력 허용
             <Div>
-              <Form.Check
+              {/* <Form.Check
                 type="switch"
                 onClick={() => {
                   onSwitch(0);
                 }}
-              />
+              /> */}
+              {switchList[0].switch ? (
+                <ToggleBtn
+                  onClick={() => {
+                    onSwitch(0);
+                  }}
+                  style={{ backgroundColor: "blue" }}
+                ></ToggleBtn>
+              ) : (
+                <ToggleBtn
+                  onClick={() => {
+                    onSwitch(0);
+                  }}
+                ></ToggleBtn>
+              )}
             </Div>
           </Li>
           <Li>
             푸시알림 허용
             <Div>
-              <Form.Check
-                type="switch"
-                onClick={() => {
-                  onSwitch(1);
-                }}
-              />
+              {switchList[1].switch ? (
+                <ToggleBtn
+                  onClick={() => {
+                    onSwitch(1);
+                  }}
+                  style={{ backgroundColor: "blue" }}
+                ></ToggleBtn>
+              ) : (
+                <ToggleBtn
+                  onClick={() => {
+                    onSwitch(1);
+                  }}
+                ></ToggleBtn>
+              )}
             </Div>
           </Li>
           <Li>
@@ -126,7 +169,8 @@ export default function Set() {
                 type="switch"
                 onClick={() => {
                   onSwitch(2);
-                  /> */}
+                }}
+              /> */}
             </Div>
           </Li>
         </Ul>

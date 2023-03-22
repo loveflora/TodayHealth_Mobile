@@ -86,7 +86,7 @@ export default function BSTMeasure({ onAlert }) {
 const MeasureModal = styled.div`
   width: 600px;
   height: 400px;
-  bottom: 630px;
+  bottom: 580px;
   border-radius: 10px 10px 0 0;
   background-color: salmon;
   opacity: 0.92;

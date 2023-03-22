@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Pills() {
   const [pills, setPills] = useState([
@@ -12,11 +12,11 @@ export default function Pills() {
     약명: "",
     용량: "",
     복용횟수: "",
+    edit: false,
   });
 
-  // const { 약명, 용량, 복용횟수 } = input;
-
-  const onEdit = () => {};
+  // 클릭한 애의 index 받아옴
+  const [index, setIndex] = useState(0);
 
   //? 아래 사항 내가 구글링하면서 어찌저찌 했는데 아니였다 ,,,,
   // const onDelete = (idx) => {
@@ -36,8 +36,6 @@ export default function Pills() {
   //     복용횟수: "",
   //   });
 
-  //   console.log(input);
-  //   console.log(pills);
   // };
 
   const onDelete = (idx) => {
@@ -49,6 +47,16 @@ export default function Pills() {
   };
 
   const onAdd = () => {
+    if (!input.약명) {
+      return alert("약명을 입력해주세요");
+    }
+    if (!input.용량) {
+      return alert("용량을 입력해주세요");
+    }
+    if (!input.복용횟수) {
+      return alert("복용횟수를 입력해주세요");
+    }
+
     setPills([...pills, { ...input }]);
 
     setInput({
@@ -76,7 +84,7 @@ export default function Pills() {
                   <th>약명</th>
                   <th>용량</th>
                   <th>복용횟수</th>
-                  <th>변경</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -89,11 +97,16 @@ export default function Pills() {
                         </div>
                       </td>
                       <td>
-                        <div>{pills[i].용량}</div>
+                        <div style={{ fontWeight: "bold" }}>
+                          {pills[i].용량}
+                        </div>
                       </td>
-                      <td>{pills[i].복용횟수}</td>
                       <td>
-                        {" "}
+                        <div style={{ fontWeight: "bold" }}>
+                          {pills[i].복용횟수}
+                        </div>
+                      </td>
+                      <td>
                         <div
                           style={{
                             display: "flex",
@@ -102,7 +115,6 @@ export default function Pills() {
                             gap: "10px",
                           }}
                         >
-                          <Btn>수정</Btn>
                           <Btn
                             style={{ backgroundColor: "#f56656" }}
                             onClick={() => onDelete(i)}
@@ -203,7 +215,7 @@ const AddBtn = styled.button`
 `;
 
 const Btn = styled.button`
-  width: 70px;
+  width: 100px;
   height: 50px;
   background-color: #b7b7b7;
   color: white;

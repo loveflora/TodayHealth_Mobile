@@ -13,7 +13,20 @@ export default function Board() {
   let { id } = useParams();
   const listData = useSelector(({ list }) => list);
 
-  const [listCollection, setListCollection] = useState([listData]);
+  const [listCollection, setListCollection] = useState([
+    {
+      id: 1,
+      title: "우수실천자 건강 이벤트가 시작됩니다 !",
+      writer: "관리자",
+      created: "2022-11-01",
+      content:
+        "한 해를 마무리하면서 그동안 열심히 해주신 여러분들을 대상으로 이벤트를 진행합니다. 자세한 사항은 위 이미지를 클릭해서 봐주시면 감사하겠습니다^^",
+      like: false,
+      select: "이벤트",
+      img1: "이벤트1.png",
+      img2: "이벤트2.png",
+    },
+  ]);
 
   //? ----- 구현하고자 하는 기능 --------
   //? 1) id 게시물 순서 ㅠㅠㅠㅠ

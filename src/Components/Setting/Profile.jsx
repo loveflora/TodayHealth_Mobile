@@ -1,61 +1,67 @@
 import React from "react";
 import styled from "styled-components";
 import { useState } from "react";
-
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
-import { changeData } from "../../Store/data";
+import { changeName, changeBirth, changeGender } from "../../Store/data";
 
 export default function Profile() {
-  const state = useSelector((state) => state);
-  // const dispatch = useDispatch();
+  const userData = useSelector(({ user }) => user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [input, setInput] = useState({
+    name: userData.name,
+    birth: userData.birth,
+    gender: userData.gender,
+  });
 
   const [birth, setBirth] = useState("");
-
   const [isBirth, setIsBirth] = useState(true);
   const [message, setMessage] = useState("");
 
   const validBirth = (e) => {
+    const { name, value } = e.target;
+
+    setInput({
+      ...input,
+      [name]: value,
+    });
+
     const currentBirth = e.target.value;
     setBirth(currentBirth);
 
     const regBirth =
       /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/;
-
     if (regBirth.test(currentBirth)) {
       setIsBirth(true);
       setMessage("확인되었습니다.");
+      dispatch(changeBirth(value));
     } else if (!regBirth.test(currentBirth)) {
       setIsBirth(false);
-      setMessage("다시 확인해주세요");
+      setMessage("예) 20001130 형태로 입력해주세요.");
     }
-
-    console.log(birth);
   };
 
-  // 비구조화 할당
-  // const { name, gender, age } = inputData;
+  const onChangeName = (e) => {
+    const { name, value } = e.target;
+    setInput({
+      ...input,
+      [name]: value,
+    });
 
-  //! REDUX dispatch - 수정함수 - 인강듣고 추후 수정 !
-  const onChange = (e) => {
-    // const { name, value } = e.target;
-
-    const value = e.target.value;
-
-    // console.log(value);
-    // console.log(state.user);
-
-    // dispatch(changeData(value));
-
-    // setInputData({
-    // ...inputData,
-    // [name]: value,
-    // });
+    dispatch(changeName(value));
   };
 
-  // const onEdit = (e) => {
-  //   if(e.target.value === "regbirth")
-  // }
+  const onChangeGender = (e) => {
+    const { name, value } = e.target;
+    setInput({
+      ...input,
+      [name]: value,
+    });
+    dispatch(changeGender(value));
+  };
 
   return (
     <div>
@@ -66,7 +72,11 @@ export default function Profile() {
           <InputWrapper>
             <Wrapper>
               <Title>이름</Title>
-              <Input value={state.user.name} onChange={onChange}></Input>
+              <Input
+                value={input.name}
+                name="name"
+                onChange={onChangeName}
+              ></Input>
             </Wrapper>
             <Wrapper style={{ flexDirection: "column" }}>
               {/* 정규식 */}
@@ -84,7 +94,7 @@ export default function Profile() {
                   <Input
                     name="birth"
                     onChange={validBirth}
-                    value={birth}
+                    value={input.birth}
                   ></Input>
                   <div style={{ flexDirection: "row" }}>{message}</div>
                 </div>
@@ -97,8 +107,8 @@ export default function Profile() {
                   type="radio"
                   name="gender"
                   value="남성"
-                  checked={state.user.gender}
-                  onChange={onChange}
+                  checked={input.gender === "남성"}
+                  onChange={onChangeGender}
                 ></Select>
               </div>
               <div style={{ display: "flex", padding: "20px" }}>
@@ -107,12 +117,19 @@ export default function Profile() {
                   type="radio"
                   name="gender"
                   value="여성"
-                  onChange={onChange}
-                  checked={state.user.gender}
+                  onChange={onChangeGender}
+                  checked={input.gender === "여성"}
                 ></Select>
               </div>
             </Wrapper>
-            <Btn>수정 완료</Btn>
+            <Btn
+              onClick={() => {
+                alert("회원정보가 수정되었습니다.");
+                navigate("/setting");
+              }}
+            >
+              수정 완료
+            </Btn>
           </InputWrapper>
         </Container>
       </ContainerWrapper>
