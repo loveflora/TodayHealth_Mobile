@@ -60,8 +60,6 @@ export default function Board() {
     });
   };
 
-  console.log(listCollection);
-
   return (
     <div>
       <Header text={"게시판"} />

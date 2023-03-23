@@ -1,17 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
+
 import styled from "styled-components";
 
 export default function BWMeasure({ onAlert }) {
+  const [input, setInput] = useState({
+    bw: 0,
+  });
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setInput({ ...input, [name]: value });
+  };
+
   return (
     <MeasureModal>
       <MeasureTitle>오늘 나의 체중은 ?</MeasureTitle>
       <InputWrapper style={{ padding: "60px 0" }}>
-        <Input style={{ width: "150px" }}></Input>
+        <Input onChange={onChange} name="bw" style={{ width: "150px" }}></Input>
         <div style={{ padding: "10px 20px", fontSize: "24px" }}>kg</div>
       </InputWrapper>
       <MeasureBtn
         onClick={() => {
-          onAlert();
+          !input.bw ? alert("체중을 입력해주세요.") : onAlert();
         }}
       >
         작성 완료
@@ -34,6 +44,7 @@ const MeasureModal = styled.div`
   margin: 0 20px;
   padding: 20px 0;
   margin: 0 -555px;
+  box-shadow: 5px 5px 5px;
 `;
 
 const MeasureTitle = styled.div`

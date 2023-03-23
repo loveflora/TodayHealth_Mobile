@@ -1,25 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 export default function BPMeasure({ onAlert }) {
+  const [input, setInput] = useState({
+    sbp: 0,
+    dbp: 0,
+  });
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setInput({ ...input, [name]: value });
+    console.log(name, value);
+  };
+
   return (
     <MeasureModal>
       <MeasureTitle>오늘 나의 혈압은 ?</MeasureTitle>
       <div style={{ padding: "20px" }}>
         <InputWrapper style={{ width: "530px", paddingBottom: "20px" }}>
           <MealTitle>수축기</MealTitle>
-          <Input style={{ width: "150px" }}></Input>
+          <Input
+            onChange={onChange}
+            name="sbp"
+            style={{ width: "150px" }}
+          ></Input>
           <div style={{ padding: "10px 20px", fontSize: "24px" }}>mmHg</div>
         </InputWrapper>
         <InputWrapper style={{ width: "530px" }}>
           <MealTitle>이완기</MealTitle>
-          <Input style={{ width: "150px" }}></Input>
+          <Input
+            onChange={onChange}
+            name="dbp"
+            style={{ width: "150px" }}
+          ></Input>
           <div style={{ padding: "10px 20px", fontSize: "24px" }}>mmHg</div>
         </InputWrapper>
       </div>
       <MeasureBtn
         onClick={() => {
-          onAlert();
+          if (!input.sbp) {
+            alert("수축기 혈압을 입력해주세요.");
+          } else if (!input.dbp) {
+            alert("이완기 혈압을 입력해주세요.");
+          } else onAlert();
         }}
       >
         작성 완료
@@ -42,6 +65,7 @@ const MeasureModal = styled.div`
   margin: 0 20px;
   padding: 20px 0;
   margin: 0 -555px;
+  box-shadow: 5px 5px 5px;
 `;
 
 const MeasureTitle = styled.div`

@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 export default function BSTMeasure({ onAlert }) {
+  const [input, setInput] = useState({
+    meal: "",
+    bst: 0,
+  });
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setInput({ ...input, [name]: value });
+  };
+
   return (
     <MeasureModal>
       <MeasureTitle>오늘 나의 혈당은 ?</MeasureTitle>
@@ -31,8 +41,9 @@ export default function BSTMeasure({ onAlert }) {
             }}
           >
             <input
+              onChange={onChange}
               type="radio"
-              name="bst"
+              name="meal"
               value="식전"
               style={{
                 margin: "10px",
@@ -52,8 +63,9 @@ export default function BSTMeasure({ onAlert }) {
             }}
           >
             <input
+              onChange={onChange}
               type="radio"
-              name="bst"
+              name="meal"
               value="식후"
               style={{
                 margin: "10px",
@@ -68,13 +80,21 @@ export default function BSTMeasure({ onAlert }) {
           <MealTitle
             style={{ padding: "10px 20px", fontSize: "24px" }}
           ></MealTitle>
-          <Input style={{ width: "150px" }}></Input>
+          <Input
+            onChange={onChange}
+            name="bst"
+            style={{ width: "150px" }}
+          ></Input>
           <div style={{ padding: "10px 20px", fontSize: "24px" }}>mg/dl</div>
         </InputWrapper>
       </div>
       <MeasureBtn
         onClick={() => {
-          onAlert();
+          if (!input.meal) {
+            alert("식전/식후 선택해주세요.");
+          } else if (!input.bst) {
+            alert("혈당을 입력해주세요.");
+          } else onAlert();
         }}
       >
         작성 완료
@@ -97,6 +117,7 @@ const MeasureModal = styled.div`
   margin: 0 20px;
   padding: 20px 0;
   margin: 0 -555px;
+  box-shadow: 5px 5px 5px;
 `;
 
 const MeasureTitle = styled.div`

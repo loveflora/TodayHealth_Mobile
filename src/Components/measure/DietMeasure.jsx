@@ -1,26 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
+
 import styled from "styled-components";
 
 export default function DietMeasure({ onAlert }) {
+  const [input, setInput] = useState({
+    breakfast: "",
+    lunch: "",
+    dinner: "",
+  });
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setInput({ ...input, [name]: value });
+  };
+
   return (
     <MeasureModal>
       <MeasureTitle style={{ margin: "20px 0" }}>식사일지 📝</MeasureTitle>
       <MeasureContent>
         <InputWrapper>
           <MealTitle>🍎 아침</MealTitle>
-          <Input></Input>
+          <Input onChange={onChange} name="breakfast"></Input>
         </InputWrapper>
         <InputWrapper>
           <MealTitle>🥗 점심</MealTitle>
-          <Input></Input>
+          <Input onChange={onChange} name="lunch"></Input>
         </InputWrapper>
         <InputWrapper>
           <MealTitle>🍛 저녁</MealTitle>
-          <Input></Input>
+          <Input onChange={onChange} name="dinner"></Input>
         </InputWrapper>
         <MeasureBtn
           onClick={() => {
-            onAlert();
+            if (!input.breakfast) {
+              alert("아침식사를 입력해주세요.");
+            } else if (!input.lunch) {
+              alert("점심식사를 입력해주세요.");
+            } else if (!input.dinner) {
+              alert("저녁식사를 입력해주세요.");
+            } else onAlert();
           }}
         >
           작성 완료
@@ -44,6 +62,7 @@ const MeasureModal = styled.div`
   margin: 0 20px;
   padding: 20px 0;
   margin: 0 -555px;
+  box-shadow: 5px 5px 5px;
 `;
 
 const MeasureTitle = styled.div`
