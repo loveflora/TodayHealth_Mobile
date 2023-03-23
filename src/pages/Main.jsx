@@ -82,7 +82,6 @@ const Container = styled.div`
 
   @media screen and (max-width: 768px) {
     & {
-      background-color: lightgreen;
       text-align: center;
       margin: 0;
       box-sizing: border-box;
