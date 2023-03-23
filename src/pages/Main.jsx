@@ -79,6 +79,25 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  @media screen and (max-width: 768px) {
+    & {
+      background-color: lightgreen;
+      text-align: center;
+      margin: 0;
+      box-sizing: border-box;
+      width: 100%;
+      height: 100%;
+      // width: 400px;
+      // height: 650px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: auto;
+    }
+  }
 `;
 
 const FooterWrapper = styled.div`
@@ -90,9 +109,23 @@ const FooterWrapper = styled.div`
 
 const Back = styled.div`
   width: 100%;
-  height: 973px;
+  height: 750px;
   z-index: 1;
   opacity: 0.5;
   position: absolute;
   background-color: gray;
+
+  @media screen and (max-width: 768px) {
+      & {
+        visibility: hidden;
+        // width: 100%;
+        // height: 750px;
+        // // height: 100%;
+        // height: 800px;
+        // z-index: 1;
+        // opacity: 0.5;
+        // position: fixed;
+        // background-color: gray;
+        // bottom: 200px;
+    }
 `;

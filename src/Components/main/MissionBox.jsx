@@ -70,6 +70,25 @@ const BoxWrapper = styled.div`
   height: 950px;
   padding: 20px 0;
   justify-content: center;
+
+  // @media screen and (max-width: 768px) {
+  //   & {
+  //     background-color: lightgreen;
+  //     text-align: center;
+  //     margin: 0;
+  //     box-sizing: border-box;
+  //     width: 100%;
+  //     width: 400px;
+  //     height: 650px;
+  //     padding: 20px;
+  //     display: flex;
+  //     flex-direction: column;
+  //     justify-content: center;
+  //     align-items: center;
+  //     overflow: auto;
+  //     flex-wrap: wrap;
+  //   }
+  // }
 `;
 
 const Box = styled.div`

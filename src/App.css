@@ -5,6 +5,19 @@
   width: 100%;
 }
 
+/* 반응형 만들기 !!! */
+@media screen and (max-width: 768px) {
+  .App {
+    text-align: center;
+    margin: 0;
+    box-sizing: border-box;
+    width: 100%;
+    width: 700px;
+    height: 900px;
+    padding: 20px;
+    overflow: auto;
+  }
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
