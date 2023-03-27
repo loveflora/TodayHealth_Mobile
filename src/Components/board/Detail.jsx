@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { useParams, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { GoHeart } from "react-icons/go";
+import { BiArrowBack } from "react-icons/bi";
 import { Route, Routes } from "react-router-dom";
 import Edit from "../board/Edit";
+import { GiConsoleController } from "react-icons/gi";
 export default function Detail({ listCollection, setListCollection }) {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -17,11 +18,14 @@ export default function Detail({ listCollection, setListCollection }) {
     setListCollection((prevState) => {
       const copy = [...prevState];
 
-      return copy.map((v) => {
-        return {
-          ...v,
-          like: !v.like,
-        };
+      return copy.map((v, i) => {
+        if (i === parseInt(id - 1)) {
+          return {
+            ...v,
+            like: !v.like,
+          };
+        }
+        return v;
       });
     });
   };
@@ -66,7 +70,25 @@ export default function Detail({ listCollection, setListCollection }) {
         path="/*"
         element={
           <Container>
-            <Title>{listCollection[id - 1].title}</Title>
+            <div
+              style={{
+                display: "flex",
+                gap: "50px",
+                alignItems: "center",
+                marginBottom: "10px",
+                padding: "0 10px",
+              }}
+            >
+              <BiArrowBack
+                size="30"
+                color="gray"
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  navigate("/board");
+                }}
+              />
+              <Title>{listCollection[id - 1].title}</Title>
+            </div>
             <Info>
               <InfoWrapper>
                 <Created> 구분 : {listCollection[id - 1].select} </Created>
@@ -162,7 +184,6 @@ const Container = styled.div`
 const Title = styled.div`
   font-size: 30px;
   font-weight: bold;
-  margin-bottom: 10px;
 `;
 
 const Info = styled.div`

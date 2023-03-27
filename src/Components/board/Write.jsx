@@ -6,8 +6,6 @@ import { useParams, useNavigate } from "react-router-dom";
 export default function Write({ listCollection, setListCollection }) {
   const navigate = useNavigate();
 
-  //? input 첨부파일 다시 수정 !!!
-
   //* ----------
   //* 오늘날짜
   //* ----------
@@ -32,6 +30,8 @@ export default function Write({ listCollection, setListCollection }) {
     like: false,
     select: "",
   });
+
+  const [file, setFiles] = useState("");
 
   const writeHandler = () => {
     setListCollection((listCollection) => {
@@ -67,6 +67,12 @@ export default function Write({ listCollection, setListCollection }) {
         select: "",
       }));
     } else alert("취소되었습니다.");
+  };
+
+  const onLoadFile = (e) => {
+    const file = e.target.files;
+    setFiles(file);
+    console.log(file);
   };
 
   return (
@@ -105,13 +111,17 @@ export default function Write({ listCollection, setListCollection }) {
           <Input onChange={onChange} name="title" value={input.title}></Input>
         </Title>
         <div>
-          <InputImage
-            type="file"
-            name="image"
-            placeholder="첨부파일"
-          ></InputImage>
-          <Label for="file">파일찾기</Label>
-          <InputDiv type="file" id="file" />
+          <form className="upload_input">
+            <InputImage
+              type="file"
+              name="image"
+              placeholder="첨부파일"
+              accept="image/*"
+              onchange={onLoadFile}
+            ></InputImage>
+            <Label for="file">파일 찾기</Label>
+            <InputDiv type="file" id="file" name="file" />
+          </form>
         </div>
       </Header>
       <Main>

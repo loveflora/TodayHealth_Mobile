@@ -81,6 +81,7 @@ export default function Edit({ listCollection, setListCollection }) {
         <Btn
           onClick={() => {
             editHandler();
+            alert("수정완료 되었습니다.");
             navigate("/Board");
           }}
         >

@@ -108,7 +108,7 @@ const FooterWrapper = styled.div`
 
 const Back = styled.div`
   width: 100%;
-  height: 750px;
+  height: 972px;
   z-index: 1;
   opacity: 0.5;
   position: absolute;
