@@ -72,8 +72,8 @@ export default function Write({ listCollection, setListCollection }) {
   const onLoadFile = (e) => {
     const file = e.target.files;
     setFiles(file);
-    console.log(file);
   };
+  console.log(file);
 
   return (
     <Container>

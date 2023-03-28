@@ -1,10 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import Header from "../Components/Header";
-import Profile from "../Components/Setting/Profile";
-import Goals from "../Components/Setting/Goals";
-import Pills from "../Components/Setting/Pills";
-import Set from "../Components/Setting/Set";
 
 import { CgProfile } from "react-icons/cg";
 import { GiStairsGoal } from "react-icons/gi";
@@ -12,22 +7,26 @@ import { CgPill } from "react-icons/cg";
 import { AiFillSetting } from "react-icons/ai";
 import { IoIosArrowForward } from "react-icons/io";
 
-import { Router, Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
+
+import Header from "../Components/Header";
+import Profile from "../Components/Setting/Profile";
+import Goals from "../Components/Setting/Goals";
+import Pills from "../Components/Setting/Pills";
+import Set from "../Components/Setting/Set";
 
 export default function Setting({ user }) {
   let navigate = useNavigate();
 
-  console.log(user);
-
   return (
     <div>
-      <Header text={"설정"} />
-      <ContainerWrapper>
+      <div>
+        <Header text={"설정"} />
         <Routes>
           <Route
-            path="/"
+            path="/*"
             element={
-              <div>
+              <ContainerWrapper>
                 <Container>
                   <CgProfile
                     size="100"
@@ -55,6 +54,7 @@ export default function Setting({ user }) {
                     </Info>
                   </div>
                 </Container>
+
                 <Ul>
                   <Li>
                     <GiStairsGoal
@@ -114,16 +114,16 @@ export default function Setting({ user }) {
                     />
                   </Li>
                 </Ul>
-              </div>
+              </ContainerWrapper>
             }
           />
 
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/goals" element={<Goals />} />
-          <Route path="/pills" element={<Pills />} />
-          <Route path="/set" element={<Set />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="goals" element={<Goals />} />
+          <Route path="pills" element={<Pills />} />
+          <Route path="set" element={<Set />} />
         </Routes>
-      </ContainerWrapper>
+      </div>
     </div>
   );
 }

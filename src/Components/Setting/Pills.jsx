@@ -18,26 +18,6 @@ export default function Pills() {
   // 클릭한 애의 index 받아옴
   const [index, setIndex] = useState(0);
 
-  //? 아래 사항 내가 구글링하면서 어찌저찌 했는데 아니였다 ,,,,
-  // const onDelete = (idx) => {
-  //   console.log(idx);
-  //   setPills(pills.filter((v, i) => v.id - 1 !== idx));
-  //   console.log(pills);
-  // };
-
-  // const onAdd = (e) => {
-  //   setPills([...pills, { ...input }]);
-
-  //   setInput({
-  //     // 다음 인풋이니까 ! --> id: length+2 로 해줘야 함 !!
-  //     id: pills.length + 2,
-  //     약명: "",
-  //     용량: "",
-  //     복용횟수: "",
-  //   });
-
-  // };
-
   const onDelete = (idx) => {
     setPills(
       pills.filter((v, i) => {
