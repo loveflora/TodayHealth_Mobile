@@ -22,7 +22,11 @@ export default function MissionBox({ onComplete }) {
         </Btn>
       </Box>
       <Box bg="#f2af50" style={{ padding: "30px 50px" }}>
-        <ImSpoonKnife size="55" style={{ color: "white", marginTop: "10px" }} />
+        <ImSpoonKnife
+          className="boxIcon-Fork "
+          size="55"
+          style={{ color: "white" }}
+        />
         <div>
           세끼 <br />
           식사하기
@@ -67,50 +71,67 @@ export default function MissionBox({ onComplete }) {
 const BoxWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  height: 950px;
+  width: 28rem;
+  height: 30rem;
   padding: 20px 0;
   justify-content: center;
 
-  // @media screen and (max-width: 768px) {
-  //   & {
-  //     background-color: lightgreen;
-  //     text-align: center;
-  //     margin: 0;
-  //     box-sizing: border-box;
-  //     width: 100%;
-  //     width: 400px;
-  //     height: 650px;
-  //     padding: 20px;
-  //     display: flex;
-  //     flex-direction: column;
-  //     justify-content: center;
-  //     align-items: center;
-  //     overflow: auto;
-  //     flex-wrap: wrap;
-  //   }
-  // }
+  @media (min-width: 50rem) {
+    & {
+      width: 100%;
+      height: 80rem;
+      padding: 20px 0;
+    }
+  }
 `;
 
 const Box = styled.div`
   background-color: ${(props) => props.bg};
   border-radius: 10px;
-  width: 270px;
-  height: 270px;
-  padding: 50px;
+  width: 140px;
+  height: 140px;
+  padding: 20px;
   justify-content: center;
   align-items: center;
-  margin: 20px;
+  margin: 10px;
+
+  .boxIcon-Fork {
+    width: 40px;
+  }
 
   .boxIcon {
     color: white;
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 40px;
   }
 
   & > div {
     color: white;
-    font-size: 24px;
-    padding: 20px;
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  @media (min-width: 50rem) {
+    & {
+      width: 270px;
+      height: 270px;
+    }
+
+    .boxIcon {
+      color: white;
+      width: 70px;
+      height: 70px;
+    }
+
+    .boxIcon-Fork {
+      margin-top: 10px;
+    }
+
+    & > div {
+      color: white;
+      font-size: 24px;
+      padding: 20px;
+    }
   }
 `;
 

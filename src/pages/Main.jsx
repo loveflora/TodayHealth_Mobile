@@ -49,29 +49,19 @@ const ContainerWrapper = styled.div`
 `;
 
 const Container = styled.div`
-  width: 700px;
-  height: 900px;
+  width: 26rem;
+  // height: 900px;
   padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  @media screen and (max-width: 768px) {
+  @media (min-width: 50rem) {
     & {
-      text-align: center;
-      margin: 0;
-      box-sizing: border-box;
-      width: 100%;
-      height: 100%;
-      // width: 400px;
-      // height: 650px;
+      width: 700px;
+      height: 900px;
       padding: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      overflow: auto;
     }
   }
 `;

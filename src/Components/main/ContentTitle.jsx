@@ -5,68 +5,76 @@ import { IoWatch } from "react-icons/io5";
 export default function ContentTitle() {
   return (
     <Container>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "spaceBetween",
-        }}
-      >
-        <div
-          style={{
-            marginRight: "auto",
-            fontSize: "20px",
-            fontWeight: "bold",
-            padding: "30px 80px 20px 40px ",
-          }}
-        >
-          💌 오늘의 미션입니다
-        </div>
+      <TodayMission>💌 오늘의 미션입니다</TodayMission>
+      <div style={{ padding: "10px 0" }}>
         <IoWatch
+          className="watchIcon"
           style={{
             width: "50px",
             height: "50px",
-            margin: "auto",
           }}
         />
+      </div>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <div style={{ padding: "0 10px" }}>
+          <WalkTitle>활동</WalkTitle>
+          <WalkContent>0분</WalkContent>
+        </div>
         <div
           style={{
-            display: "flex",
-            padding: "10px",
-            alignItems: "center",
+            borderLeft: "3px solid #ccc",
+            padding: "0 10px",
           }}
         >
-          <div
-            style={{
-              borderRight: "3px solid #ccc",
-              padding: "0 10px",
-            }}
-          >
-            <div style={{ fontSize: "23px", fontWeight: "bold" }}>활동</div>
-            <div style={{ fontSize: "18px" }}>0분</div>
-          </div>
-          <div
-            style={{
-              borderRight: "2px solid #ccc",
-              padding: "0 10px",
-            }}
-          >
-            <div style={{ fontSize: "23px", fontWeight: "bold" }}>걸음수</div>
-            <div style={{ fontSize: "18px", color: "blue" }}>0</div>
-          </div>
-          <div
-            style={{
-              borderLeft: "1px solid #ccc",
-              padding: "0 10px",
-            }}
-          >
-            <div style={{ fontSize: "23px", fontWeight: "bold" }}>목표</div>
-            <div style={{ fontSize: "18px" }}>5000보</div>
-          </div>
+          <WalkTitle>걸음수</WalkTitle>
+          <WalkContent>0</WalkContent>
         </div>
       </div>
     </Container>
   );
 }
 
-const Container = styled.div``;
+const Container = styled.div`
+  display: flex;
+  flexdirection: row;
+  justifycontent: spaceBetween;
+  width: 100%;
+  padding: 0 20px;
+`;
+
+const TodayMission = styled.div`
+  margin-right: auto;
+  padding: 10px;
+  width: 100px;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 240px;
+      font-size: 20px;
+      padding: 20px;
+    }
+  }
+`;
+
+const WalkTitle = styled.div`
+  font-weight: bold;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 23px;
+    }
+  }
+`;
+
+const WalkContent = styled.div`
+  @media (min-width: 50rem) {
+    & {
+      font-size: 18px;
+    }
+  }
+`;

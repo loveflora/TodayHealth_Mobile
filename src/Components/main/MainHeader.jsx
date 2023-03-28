@@ -35,23 +35,36 @@ const Container = styled.div`
 const NavbarWrapper = styled.div`
   display: flex;
   margin: 0 auto;
-  width: 100%
   align-items: center;
   justify-content: center;
 `;
 
 const Navbar = styled.div`
-  max-width: 600px;
-  width: 600px;
   display: flex;
   justify-content: space-between;
-  padding: 20px;
+  padding: 20px 0;
+
+
 
   .bell {
     color: ${({ color }) => color};
-      width: 30px;
-      height: 30px;
+      width: 20px;
+      height: 20px;
       cursor: pointer;
     }
+  }
+
+
+  @media (min-width: 50rem) {
+    & {
+      max-width: 600px;
+     width: 600px;
+     padding: 20px;
+
+  .bell {
+      width: 30px;
+      height: 30px;
+    }
+
   }
 `;
