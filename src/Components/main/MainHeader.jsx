@@ -14,12 +14,8 @@ export default function MainHeader({ userData }) {
     <Container>
       <NavbarWrapper>
         <Navbar>
-          <span style={{ fontWeight: "bold", fontSize: "20px" }}>
-            👋 {userData.name}님
-          </span>
-          <span style={{ fontSize: "20px" }}>
-            🏃 모두가 건강해지는 그 날까지
-          </span>
+          <User>👋 {userData.name}님</User>
+          <Title>🏃 모두가 건강해지는 그 날까지</Title>
           <FaBell className="bell" color={color} onClick={onChangeColor} />
         </Navbar>
       </NavbarWrapper>
@@ -43,7 +39,8 @@ const Navbar = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 20px 0;
-
+width: 310px;
+align-items: center;
 
 
   .bell {
@@ -66,5 +63,27 @@ const Navbar = styled.div`
       height: 30px;
     }
 
+  }
+`;
+
+const User = styled.span`
+  font-weight: bold;
+  font-size: 12px;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 20px;
+    }
+  }
+`;
+
+const Title = styled.span`
+  font-weight: bold;
+  font-size: 12px;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 20px;
+    }
   }
 `;

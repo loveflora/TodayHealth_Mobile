@@ -3,10 +3,10 @@ import styled from "styled-components";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
-import MainHeader from "../Components/main/MainHeader";
-import ContentTitle from "../Components/main/ContentTitle";
-import MissionBox from "../Components/main/MissionBox";
-import MissionCompleted from "../Components/main/MissionCompleted";
+import MainHeader from "../components/main/MainHeader";
+import MissionTitle from "../components/main/MissionTitle";
+import MissionBox from "../components/main/MissionBox";
+import MissionCompleted from "../components/main/MissionCompleted";
 
 export default function Main() {
   //? ---- 구현하고 싶은 기능 ------
@@ -32,25 +32,24 @@ export default function Main() {
   return (
     <div className="App">
       <MainHeader userData={userData} />
-      <ContainerWrapper>
-        <Container>
-          <ContentTitle />
+      <ContentWrapper>
+        <Content>
+          <MissionTitle />
           <MissionBox onComplete={onComplete} />
           <MissionCompleted complete={complete} />
-        </Container>
-      </ContainerWrapper>
+        </Content>
+      </ContentWrapper>
     </div>
   );
 }
 
-const ContainerWrapper = styled.div`
+const ContentWrapper = styled.div`
   display: flex;
   justify-content: center;
 `;
 
-const Container = styled.div`
+const Content = styled.div`
   width: 26rem;
-  // height: 900px;
   padding: 20px;
   display: flex;
   flex-direction: column;

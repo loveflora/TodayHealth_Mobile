@@ -10,11 +10,8 @@ export default function Header({ text }) {
     <NavbarWrapper>
       <Navbar>
         <FaHome
-          size="30"
-          style={{
-            color: "gray",
-            cursor: "pointer",
-          }}
+          // size="30"
+          className="icon"
           onClick={() => {
             navigate("/");
           }}
@@ -33,13 +30,31 @@ const NavbarWrapper = styled.div`
 `;
 
 const Navbar = styled.div`
-  width: 700px;
-  display: flex;
-  margin: 0 auto;
-  flex-direction: row;
-  align-items: center;
-  padding: 10px 30px;
-  height: 70px;
+display: flex;
+flex-direction: row;
+align-items: center;
+margin: 0 auto;
+padding: 10px 30px;
+width: 26rem;
+height: 70px;
 
+.icon {
+  color: gray;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+}
+
+  @media (min-width: 50rem) {
+    & {
+      padding: 20px;
+      width: 600px;
+    }
+
+    .icon {
+      width: 40px;
+      height: 40px;
+    }
+  }
   .
 `;

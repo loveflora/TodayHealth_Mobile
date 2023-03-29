@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
-import { changeName, changeBirth, changeGender } from "../../Store/data";
+import { changeName, changeBirth, changeGender } from "../../store/data";
 
 export default function Profile() {
   const userData = useSelector(({ user }) => user);

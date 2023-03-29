@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { GoHeart } from "react-icons/go";
 import { BiArrowBack } from "react-icons/bi";
 import { Route, Routes } from "react-router-dom";
-import Edit from "../board/Edit";
+import Edit from "./Edit";
 import { GiConsoleController } from "react-icons/gi";
 export default function Detail({ listCollection, setListCollection }) {
   const { id } = useParams();

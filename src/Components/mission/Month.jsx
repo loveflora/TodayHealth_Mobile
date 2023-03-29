@@ -175,7 +175,6 @@ export default function Month({ day, month }) {
 
   return (
     <Container>
-      {show && <Back></Back>}
       <MonthChange>
         <AiOutlineArrowLeft
           style={{ cursor: "pointer" }}
@@ -191,16 +190,14 @@ export default function Month({ day, month }) {
           }}
         />
       </MonthChange>
-      <MonthlyPoint>
-        <div style={{ fontSize: "24px", fontWeight: "bold" }}>
-          {num}월 총 포인트
-        </div>
-        <div style={{ fontSize: "50px", padding: "10px" }}>{point}점</div>
-        <div style={{ fontSize: "24px" }}>{compare}</div>
-      </MonthlyPoint>
-      <MissionContent>
+      <TotalBox>
+        <TotalTitle>{num}월 총 포인트</TotalTitle>
+        <TotalScore>{point}점</TotalScore>
+        <TotalContent>{compare}</TotalContent>
+      </TotalBox>
+      <Content>
         <Ul>
-          <div
+          <UlTitle
             style={{
               fontSize: "24px",
               fontWeight: "bold",
@@ -208,7 +205,7 @@ export default function Month({ day, month }) {
             }}
           >
             📍 세부 점수내역 📍
-          </div>
+          </UlTitle>
           <Li>
             <Title>걷기</Title>
             <ScoreWrapper>
@@ -259,7 +256,7 @@ export default function Month({ day, month }) {
             </ScoreWrapper>
           </Li>
         </Ul>
-      </MissionContent>
+      </Content>
       <ScoreBtn
         onClick={() => {
           setShow(!show);
@@ -315,54 +312,120 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   margin: 0 40px;
-`;
 
-const Back = styled.div`
-  width: 100%;
-  height: 973px;
-  top: 0;
-  opacity: 0.5;
-  position: absolute;
-  background-color: gray;
+  @media (min-width: 50rem) {
+    & {
+      height: 760px;
+    }
+  }
 `;
 
 const MonthChange = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 30px;
-  gap: 200px;
+  font-size: 24px;
+  gap: 100px;
+  font-weight: bold;
+
+  @media (min-width: 50rem) {
+    & {
+      gap: 200px;
+    }
+  }
 `;
 
-const MonthlyPoint = styled.div`
+const TotalBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 30px;
   padding: 30px;
+  width: 340px;
+  height: 200px;
   background-color: #eee;
   border-radius: 10px;
-  margin: 30px;
-  width: 500px;
-  height: 220px;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 500px;
+      height: 220px;
+    }
+  }
 `;
 
-const MissionContent = styled.ul`
-  border: 1px solid #ccc;
-  height: 350px;
-  border-radius: 10px;
+const TotalTitle = styled.div`
+  font-size: 20px;
+  font-weight: bold;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 24px;
+    }
+  }
+`;
+
+const TotalScore = styled.div`
+  font-size: 40px;
+  padding: 10px;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 50px;
+    }
+  }
+`;
+
+const TotalContent = styled.div`
+  font-size: 20px;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 24px;
+    }
+  }
+`;
+
+const Content = styled.ul`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 600px;
-  overflow: auto;
+  width: 380px;
+  height: 300px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
   margin-top: 10px;
   padding: 0 10px;
+  overflow: auto;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 600px;
+      height: 350px;
+    }
+  }
 `;
 
 const Ul = styled.ul`
   margin: 30px 0;
   padding: 0 40px;
   width: 100%;
+
+  @media (min-width: 50rem) {
+    & {
+    }
+  }
+`;
+
+const UlTitle = styled.ul`
+  margin: 30px 0;
+  padding: 0 40px;
+  width: 100%;
+
+  @media (min-width: 50rem) {
+    & {
+    }
+  }
 `;
 
 const Li = styled.li`
@@ -373,6 +436,11 @@ const Li = styled.li`
   font-size: 25px;
   border-bottom: 1px solid #e9ecef;
   padding: 10px 40px;
+
+  @media (min-width: 50rem) {
+    & {
+    }
+  }
 `;
 
 const Title = styled.div``;
@@ -417,8 +485,8 @@ const CloseBtn = styled.button`
 `;
 
 const Modal = styled.table`
-  width: 530px;
-  height: 580px;
+  width: 300px;
+  height: 200px;
   background-color: #58c78f;
   position: absolute;
   border-radius: 10px;
@@ -434,6 +502,12 @@ const Modal = styled.table`
       opacity: 0.95;
     }
   }
+
+  & {
+    width: 530px;
+    height: 580px;
+  }
+}
 `;
 
 const ModalContainer = styled.div``;

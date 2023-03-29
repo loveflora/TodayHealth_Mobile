@@ -4,9 +4,10 @@ import styled from "styled-components";
 export default function MissionCompleted({ complete }) {
   return (
     <Container>
-      <Completed>
-        <div>미션 수행 현황</div>
-      </Completed>
+      <Title>
+        <Title_1>미션 수행 현황</Title_1>
+        <Title_2>아래 박스를 채워주세요 🎁</Title_2>
+      </Title>
       <CompletedBoxWrapper>
         {complete[0].fin ? (
           <CompletedBox style={{ backgroundColor: "salmon" }}></CompletedBox>
@@ -33,12 +34,48 @@ export default function MissionCompleted({ complete }) {
   );
 }
 
-const Container = styled.div``;
+const Container = styled.div`
+  width: 22rem;
 
-const Completed = styled.div`
-  font-size: 25px;
-  font-weight: bold;
+  @media (min-width: 50rem) {
+    & {
+      width: 600px;
+    }
+  }
+`;
+
+const Title = styled.div`
+  font-size: 16px;
   display: flex;
+  flex-direction: column;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 25px;
+    }
+  }
+`;
+
+const Title_1 = styled.div`
+  font-size: 16px;
+  font-weight: bold;
+  padding-bottom: 10px;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 25px;
+    }
+  }
+`;
+
+const Title_2 = styled.div`
+  font-size: 12px;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 20px;
+    }
+  }
 `;
 
 const CompletedBox = styled.div`
@@ -46,10 +83,17 @@ const CompletedBox = styled.div`
   flex-direction: column;
   justify-content: center;
   background-color: #eee;
-  width: 150px;
-  height: 50px;
+  width: 120px;
+  height: 40px;
   border-radius: 10px;
   margin: 20px 0;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 150px;
+      height: 50px;
+    }
+  }
 `;
 
 const CompletedBoxWrapper = styled.div`

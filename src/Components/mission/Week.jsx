@@ -4,7 +4,6 @@ import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import { useRef } from "react";
 
 import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
@@ -123,25 +122,25 @@ export default function Week({ day, month }) {
             type="line"
             data={data1}
             options={options}
-            style={{ position: "relative", width: "400px", padding: "50px 0" }}
+            style={{ position: "relative", width: "300px", padding: "50px 0" }}
           />
           <Line
             type="line"
             data={data2}
             options={options}
-            style={{ position: "relative", width: "400px", padding: "50px 0" }}
+            style={{ position: "relative", width: "300px", padding: "50px 0" }}
           />
           <Line
             type="line"
             data={data3}
             options={options}
-            style={{ position: "relative", width: "400px", padding: "50px 0" }}
+            style={{ position: "relative", width: "300px", padding: "50px 0" }}
           />
           <Line
             type="line"
             data={data4}
             options={options}
-            style={{ position: "relative", width: "400px", padding: "50px 0" }}
+            style={{ position: "relative", width: "300px", padding: "50px 0" }}
           />
         </ChartWrapper>
 
@@ -152,18 +151,29 @@ export default function Week({ day, month }) {
 }
 
 const Container = styled.div`
-  width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  padding: 20px;
+  margin: 0 40px;
+
+  @media (min-width: 50rem) {
+    & {
+      height: 760px;
+    }
+  }
 `;
 
 const Title = styled.div`
-  font-size: 30px;
+  font-size: 0px;
   padding-bottom: 30px;
   font-weight: bold;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 24px;
+    }
+  }
 `;
 
 const Wrapper = styled.div`

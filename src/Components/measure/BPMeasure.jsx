@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import Container from "./Container";
 
 export default function BPMeasure({ onAlert }) {
   const [input, setInput] = useState({
@@ -14,30 +15,23 @@ export default function BPMeasure({ onAlert }) {
   };
 
   return (
-    <MeasureModal>
-      <MeasureTitle>오늘 나의 혈압은 ?</MeasureTitle>
-      <div style={{ padding: "20px" }}>
-        <InputWrapper style={{ width: "530px", paddingBottom: "20px" }}>
-          <MealTitle>수축기</MealTitle>
-          <Input
-            onChange={onChange}
-            name="sbp"
-            style={{ width: "150px" }}
-          ></Input>
-          <div style={{ padding: "10px 20px", fontSize: "24px" }}>mmHg</div>
+    <Container>
+      <Title>오늘 나의 혈압은 ?</Title>
+      <Content>
+        <InputWrapper>
+          <SubTitle>수축기</SubTitle>
+          <Input onChange={onChange} name="sbp" />
+          <Unit>mmHg</Unit>
         </InputWrapper>
-        <InputWrapper style={{ width: "530px" }}>
-          <MealTitle>이완기</MealTitle>
-          <Input
-            onChange={onChange}
-            name="dbp"
-            style={{ width: "150px" }}
-          ></Input>
-          <div style={{ padding: "10px 20px", fontSize: "24px" }}>mmHg</div>
+        <InputWrapper>
+          <SubTitle>이완기</SubTitle>
+          <Input onChange={onChange} name="dbp" />
+          <Unit>mmHg</Unit>
         </InputWrapper>
-      </div>
-      <MeasureBtn
+      </Content>
+      <Btn
         onClick={() => {
+          console.log("12");
           if (!input.sbp) {
             alert("수축기 혈압을 입력해주세요.");
           } else if (!input.dbp) {
@@ -46,64 +40,95 @@ export default function BPMeasure({ onAlert }) {
         }}
       >
         작성 완료
-      </MeasureBtn>
-    </MeasureModal>
+      </Btn>
+    </Container>
   );
 }
 
-const MeasureModal = styled.div`
-  width: 600px;
-  height: 400px;
-  bottom: 580px;
-  border-radius: 10px 10px 0 0;
-  background-color: salmon;
-  opacity: 0.92;
-  z-index: 10;
-  position: absolute;
-  transition: all 1s;
-  border-radius: 10px;
-  margin: 0 20px;
-  padding: 20px 0;
-  margin: 0 -555px;
-  box-shadow: 5px 5px 5px;
-`;
-
-const MeasureTitle = styled.div`
-  font-size: 30px;
-  margin: 30px 0 20px 0;
+const Title = styled.div`
+  font-size: 20px;
+  margin: 30px 0 10px 0;
   font-weight: bold;
   color: white;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 30px;
+      margin: 50px 0 40px 0;
+    }
+  }
 `;
+
+const Content = styled.div``;
 
 const Input = styled.input`
   border-radius: 5px;
   border: none;
   padding: 8px;
+  width: 100px;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 150px;
+    }
+  }
 `;
 
 const InputWrapper = styled.div`
-  color: white;
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
   padding: 10px;
-  font-size: 20px;
-`;
-
-const MealTitle = styled.div`
-  padding: 10px 38px;
-  font-size: 20px;
-`;
-
-const MeasureBtn = styled.button`
-  width: 120px;
-  border: none;
-  padding: 10px;
-  border-radius: 5px;
-  font-size: 20px;
-  background-color: #972020;
   color: white;
-  bottom: 20px;
-  left: 240px;
-  position: absolute;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 100%;
+    }
+  }
+`;
+
+const SubTitle = styled.div`
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 20px;
+    }
+  }
+`;
+
+const Unit = styled.div`
+  padding: 10px;
+  fontsize: 14px;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 20px;
+    }
+  }
+`;
+
+const Btn = styled.button`
+  width: 100px;
+  height: 36px;
+  padding: 10px;
+  margin: 10px;
+  font-size: 12px;
+  border: none;
+  border-radius: 5px;
+  background-color: #266444;
+  color: white;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 130px;
+      font-size: 18px;
+      height: 46px;
+      margin: 30px;
+    }
+  }
 `;

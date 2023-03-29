@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { useState } from "react";
 
 import { IoWater } from "react-icons/io5";
 import { BiWalk } from "react-icons/bi";
@@ -10,10 +9,11 @@ import { ImSpoonKnife } from "react-icons/im";
 export default function MissionBox({ onComplete }) {
   return (
     <BoxWrapper>
-      <Box bg="salmon" style={{ padding: "30px 50px" }}>
+      <Box bg="salmon">
         <BiWalk className="boxIcon" />
         <div>30분 이상 걷기</div>
         <Btn
+          color="salmon"
           onClick={() => {
             onComplete(0);
           }}
@@ -21,17 +21,15 @@ export default function MissionBox({ onComplete }) {
           완료
         </Btn>
       </Box>
-      <Box bg="#f2af50" style={{ padding: "30px 50px" }}>
+      <Box bg="#f2af50">
         <ImSpoonKnife
           className="boxIcon-Fork "
           size="55"
           style={{ color: "white" }}
         />
-        <div>
-          세끼 <br />
-          식사하기
-        </div>
+        <div>세끼 식사하기</div>
         <Btn
+          color="#f2af50"
           onClick={() => {
             onComplete(1);
           }}
@@ -43,6 +41,7 @@ export default function MissionBox({ onComplete }) {
         <IoWater className="boxIcon" />
         <div>물 마시기</div>
         <Btn
+          color="#87cc5c"
           onClick={() => {
             onComplete(2);
           }}
@@ -57,6 +56,7 @@ export default function MissionBox({ onComplete }) {
         <CgPill className="boxIcon" />
         <div>약 복용하기</div>
         <Btn
+          color="#5ccca5"
           onClick={() => {
             onComplete(3);
           }}
@@ -86,14 +86,17 @@ const BoxWrapper = styled.div`
 `;
 
 const Box = styled.div`
-  background-color: ${(props) => props.bg};
+  padding: 30px 50px;
+  background-color: ${({ bg }) => bg};
   border-radius: 10px;
-  width: 140px;
-  height: 140px;
-  padding: 20px;
+  width: 160px;
+  height: 160px;
+  padding: 10px;
   justify-content: center;
   align-items: center;
   margin: 10px;
+  display: flex;
+  flex-direction: column;
 
   .boxIcon-Fork {
     width: 40px;
@@ -125,6 +128,8 @@ const Box = styled.div`
 
     .boxIcon-Fork {
       margin-top: 10px;
+      width: 60px;
+      height: 40px;
     }
 
     & > div {
@@ -136,10 +141,20 @@ const Box = styled.div`
 `;
 
 const Btn = styled.button`
-  width: 60px;
-  height: 30px;
+  width: 50px;
+  height: 24px;
   border: none;
   outline: none;
   border-radius: 3px;
-  font-size: 16px;
+  font-size: 12px;
+  font-weight: bold;
+  color: ${({ color }) => color};
+
+  @media (min-width: 50rem) {
+    & {
+      width: 60px;
+      height: 30px;
+      font-size: 16px;
+    }
+  }
 `;

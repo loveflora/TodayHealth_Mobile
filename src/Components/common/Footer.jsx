@@ -7,10 +7,10 @@ import { FaHome, FaFlag, FaHeartbeat } from "react-icons/fa";
 import { TbMessages } from "react-icons/tb";
 import { AiFillSetting } from "react-icons/ai";
 import Modal from "./Modal";
-import BPMeasure from "./measure/BPMeasure";
-import BSTMeasure from "./measure/BSTMeasure";
-import BWMeasure from "./measure/BWMeasure";
-import DietMeasure from "./measure/DietMeasure";
+import BPMeasure from "../measure/BPMeasure";
+import BSTMeasure from "../measure/BSTMeasure";
+import BWMeasure from "../measure/BWMeasure";
+import DietMeasure from "../measure/DietMeasure";
 
 export default function Footer({ show, setShow }) {
   let navigate = useNavigate();
@@ -122,16 +122,7 @@ export default function Footer({ show, setShow }) {
         </Menu>
       </div>
       <div>
-        <BsFillPlusCircleFill
-          style={{
-            color: "#58c78f",
-            width: "80px",
-            height: "80px",
-            cursor: "pointer",
-          }}
-          className="icon"
-          onClick={onModal}
-        />
+        <BsFillPlusCircleFill className="plusIcon" onClick={onModal} />
       </div>
       <div>
         <TbMessages
@@ -167,7 +158,13 @@ export default function Footer({ show, setShow }) {
         </Menu>
         {show && (
           //? 크흠... 왜 전체 화면이 움직일까 ㅠㅠㅠ ?
-          <div style={{ boxSizing: "border-box", margin: "0" }}>
+          <div
+            style={{
+              boxSizing: "border-box",
+              margin: "0",
+              position: "relative",
+            }}
+          >
             <Modal onMeasure={onMeasure} />
             <BackModal></BackModal>
           </div>
@@ -182,43 +179,85 @@ export default function Footer({ show, setShow }) {
 }
 
 const BackModal = styled.div`
-  width: 600px;
+  width: 400px;
   height: 500px;
-  bottom: -370px;
-  margin: 0 -550px;
+  bottom: -380px;
+  margin: 0 -330px;
   border-radius: 10px 10px 0 0;
   background-color: white;
   z-index: 2;
   position: absolute;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 600px;
+      height: 500px;
+      bottom: -370px;
+      margin: 0 -550px;
+    }
+  }
 `;
 
 const FooterWrapper = styled.div`
   margin: 30px;
-  width: 600px;
+  width: 22rem;
   height: 100px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: white !important;
-  z-index: 50 !important;
+  background-color: white;
+  z-index: 50;
   position: relative;
+  cursor: pointer;
 
   .icon {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     color: #ccc;
-    cursor: pointer;
     position: relative;
     z-index: 50;
+  }
+
+  .plusIcon {
+    color: #58c78f;
+    width: 60px;
+    height: 60px;
+    position: relative;
+    z-index: 50;
+  }
+
+  @media (min-width: 50rem) {
+    & {
+      width: 600px;
+    }
+
+    .icon {
+      width: 50px;
+      height: 50px;
+    }
+
+    .plusIcon {
+      width: 80px;
+      height: 80px;
+      position: relative;
+      z-index: 50;
+    }
   }
 `;
 
 const Menu = styled.div`
-  font-size: 20px;
   font-weight: bold;
   color: gray;
   cursor: pointer;
   padding: 10px;
   position: relative;
   z-index: 50;
+  font-size: 14px;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 20px;
+      z-index: 50;
+    }
+  }
 `;

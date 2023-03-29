@@ -8,7 +8,7 @@ import Main from "./pages/Main";
 import Mission from "./pages/Mission";
 import Board from "./pages/Board";
 import Setting from "./pages/Setting";
-import Footer from "./Components/Footer";
+import Footer from "./components/common/Footer";
 
 function App() {
   const userData = useSelector(({ user }) => user);
@@ -17,7 +17,7 @@ function App() {
 
   return (
     <div className="App">
-      {show && <Back></Back>}
+      {show && <Background></Background>}
       <Routes>
         <Route path="/*" element={<Main />} />
         <Route path="/Mission" element={<Mission />} />
@@ -40,18 +40,18 @@ const FooterWrapper = styled.div`
   position: relative;
 `;
 
-const Back = styled.div`
+const Background = styled.div`
   width: 100%;
   z-index: 1;
   opacity: 0.5;
   position: absolute;
   background-color: gray;
+  height: 1000px;
+  bottom: 160px;
 
   @media (min-width: 50rem) {
     & {
-      height: 972px;
-      // height: 750px;
-      // bottom: 200px;
+      bottom: 160px;
     }
   }
 `;

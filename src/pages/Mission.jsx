@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import Header from "../Components/Header";
-import Today from "../Components/mission/Today";
-import Week from "../Components/mission/Week";
-import Month from "../Components/mission/Month";
+import Header from "../components/common/Header";
+import Today from "../components/mission/Today";
+import Week from "../components/mission/Week";
+import Month from "../components/mission/Month";
 // import moment from "moment";
 
 import Nav from "react-bootstrap/Nav";
@@ -47,41 +47,43 @@ export default function Mission() {
     <div>
       <Header text={"미션 달성"} />
       <Container>
-        <NavWrapper>
-          <Nav variant="pills" defaultActiveKey="link-1" className="tabClick">
-            <Nav.Item>
-              <Nav.Link
-                eventKey="link-1"
-                onClick={() => {
-                  setTab(0);
-                }}
-              >
-                오늘 달성량
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link
-                eventKey="link-2"
-                onClick={() => {
-                  setTab(1);
-                }}
-              >
-                주간 달성량
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link
-                eventKey="link-3"
-                onClick={() => {
-                  setTab(2);
-                }}
-              >
-                월간 달성량
-              </Nav.Link>
-            </Nav.Item>
-          </Nav>
-        </NavWrapper>
-        <TabContent tab={tab}></TabContent>
+        <ContentWrapper>
+          <NavWrapper>
+            <Nav variant="pills" defaultActiveKey="link-1" className="tabClick">
+              <Nav.Item>
+                <Nav.Link
+                  eventKey="link-1"
+                  onClick={() => {
+                    setTab(0);
+                  }}
+                >
+                  오늘 달성량
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link
+                  eventKey="link-2"
+                  onClick={() => {
+                    setTab(1);
+                  }}
+                >
+                  주간 달성량
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link
+                  eventKey="link-3"
+                  onClick={() => {
+                    setTab(2);
+                  }}
+                >
+                  월간 달성량
+                </Nav.Link>
+              </Nav.Item>
+            </Nav>
+          </NavWrapper>
+          <TabContent tab={tab}></TabContent>
+        </ContentWrapper>
       </Container>
     </div>
   );
@@ -89,12 +91,32 @@ export default function Mission() {
 
 const Container = styled.div`
   display: flex;
+  justify-content: center;
+
+  @media (min-width: 50rem) {
+    & {
+      height: 900px;
+    }
+  }
+`;
+
+const ContentWrapper = styled.div`
+  width: 26rem;
+  display: flex;
   flex-direction: column;
-  height: 900px;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 700px;
+    }
+  }
 `;
 
 const NavWrapper = styled.div`
-  padding: 30px;
+  padding: 10px;
 
   .tabClick {
     justify-content: center;
@@ -106,7 +128,14 @@ const NavWrapper = styled.div`
 
   .nav-link {
     color: black;
-    font-size: 25px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  @media (min-width: 50rem) {
+    .nav-link {
+      font-size: 22px;
+    }
   }
 `;
 

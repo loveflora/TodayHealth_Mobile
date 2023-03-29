@@ -9,11 +9,11 @@ import { IoIosArrowForward } from "react-icons/io";
 
 import { Routes, Route, useNavigate } from "react-router-dom";
 
-import Header from "../Components/Header";
-import Profile from "../Components/Setting/Profile";
-import Goals from "../Components/Setting/Goals";
-import Pills from "../Components/Setting/Pills";
-import Set from "../Components/Setting/Set";
+import Header from "../components/common/Header";
+import Profile from "../components/setting/Profile";
+import Goals from "../components/setting/Goals";
+import Pills from "../components/setting/Pills";
+import Set from "../components/setting/Set";
 
 export default function Setting({ user }) {
   let navigate = useNavigate();

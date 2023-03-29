@@ -24,51 +24,31 @@ export default function Today({ day, month }) {
       </div>
       <Wrapper style={{ backgroundColor: "salmon" }}>
         <Item>
-          <BiWalk
-            style={{
-              display: "flex",
-              width: "70px",
-              height: "70px",
-              marginLeft: "5px",
-              color: "white",
-            }}
-          />
-          <Subtitle style={{ paddingLeft: "0px" }}>활동량</Subtitle>
+          <BiWalk className="icon" />
+          <Subtitle_1 style={{ paddingLeft: "0px" }}>활동량</Subtitle_1>
         </Item>
         <Item>
-          <Content>오늘 걸음수</Content>
+          <Subtitle_2>오늘 걸음수</Subtitle_2>
           <Result>{data[0].walk} 보</Result>
         </Item>
       </Wrapper>
       <Wrapper style={{ backgroundColor: "#f2af50" }}>
         <Item>
-          <IoScaleSharp
-            style={{
-              display: "flex",
-              width: "70px",
-              height: "70px",
-            }}
-          />
-          <Subtitle>체중</Subtitle>
+          <IoScaleSharp className="icon" />
+          <Subtitle_1>체중</Subtitle_1>
         </Item>
         <Item>
-          <Content>오늘 몸무게</Content>
+          <Subtitle_2>오늘 몸무게</Subtitle_2>
           <Result>{data[0].weight} kg</Result>
         </Item>
       </Wrapper>
       <Wrapper style={{ backgroundColor: "#87cc5c" }}>
         <Item>
-          <FaHeartbeat
-            style={{
-              display: "flex",
-              width: "70px",
-              height: "70px",
-            }}
-          />
-          <Subtitle>혈압</Subtitle>
+          <FaHeartbeat className="icon" />
+          <Subtitle_1>혈압</Subtitle_1>
         </Item>
         <Item>
-          <Content>나의 혈압</Content>
+          <Subtitle_2>나의 혈압</Subtitle_2>
           <Result>
             {data[0].sbp} / {data[0].dbp}{" "}
           </Result>
@@ -76,30 +56,23 @@ export default function Today({ day, month }) {
       </Wrapper>
       <Wrapper style={{ backgroundColor: "#5ccca5" }}>
         <Item>
-          <GiWaterDrop
-            style={{
-              display: "flex",
-              width: "70px",
-              height: "70px",
-            }}
-          />
-          <Subtitle>혈당</Subtitle>
+          <GiWaterDrop className="icon" />
+          <Subtitle_1>혈당</Subtitle_1>
         </Item>
         <Item
           style={{
             flexDirection: "row",
-            paddingTop: "30px",
-            gap: "20px",
+            width: "120px",
           }}
         >
-          <div style={{ flexDirection: "column" }}>
-            <Content>식전</Content>
-            <Result>{data[0].bst1}</Result>
-          </div>
-          <div style={{ flexDirection: "column" }}>
-            <Content>식후</Content>
-            <Result>{data[0].bst2}</Result>
-          </div>
+          <SubTitleWrapper>
+            <Subtitle_2_bst>식전</Subtitle_2_bst>
+            <Result_bst>{data[0].bst1}</Result_bst>
+          </SubTitleWrapper>
+          <SubTitleWrapper>
+            <Subtitle_2_bst>식후</Subtitle_2_bst>
+            <Result_bst>{data[0].bst2}</Result_bst>
+          </SubTitleWrapper>
         </Item>
       </Wrapper>
     </Container>
@@ -108,12 +81,20 @@ export default function Today({ day, month }) {
 
 const Container = styled.div`
   width: 700px;
-  height: 700px;
+  height: 800px;
   display: flex;
   flex-direction: column;
   align-items: center;
   overflow: auto;
   margin: 0 auto;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 700px;
+      height: 760px;
+      padding: 20px;
+    }
+  }
 `;
 
 const Title = styled.div`
@@ -125,32 +106,107 @@ const Title = styled.div`
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
-  padding: 30px 50px;
-  gap: 50px;
-  width: 400px;
+  padding: 20px 40px;
+  gap: 30px;
+  width: 300px;
   justify-content: space-between;
   margin: 10px 0;
   border-radius: 10px;
   color: white;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 400px;
+      gap: 50px;
+      padding: 30px 50px;
+    }
+  }
 `;
 
 const Item = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-direction: column;
+
+  .icon {
+    display: flex;
+    width: 50px;
+    height: 50px;
+  }
+
+  @media (min-width: 50rem) {
+    .icon {
+      width: 70px;
+      height: 70px;
+    }
+  }
 `;
 
-const Subtitle = styled.div`
-  font-size: 25px;
+const Subtitle_1 = styled.div`
+  font-size: 20px;
   font-weight: bold;
   padding: 10px;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 25px;
+    }
+  }
 `;
 
-const Content = styled.div`
-  font-size: 24px;
+const Subtitle_2 = styled.div`
+  font-size: 20px;
   font-weight: bold;
+  width: 120px;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 25px;
+      width: 140px;
+    }
+  }
+`;
+
+const Subtitle_2_bst = styled.div`
+  font-size: 20px;
+  width: 60px;
+  font-weight: bold;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 25px;
+    }
+  }
 `;
 
 const Result = styled.div`
-  font-size: 24px;
+  font-size: 20px;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 24px;
+    }
+  }
+`;
+
+const Result_bst = styled.div`
+  font-size: 20px;
+  width: 60px;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 24px;
+    }
+  }
+`;
+
+const SubTitleWrapper = styled.div`
+  flex-direction: column;
+  width: 100px;
+
+  @media (min-width: 50rem) {
+    & {
+    }
+  }
 `;

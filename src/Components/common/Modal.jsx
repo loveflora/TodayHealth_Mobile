@@ -49,10 +49,11 @@ export default function Modal({ onMeasure }) {
 }
 
 const Container = styled.div`
-  width: 600px;
-  height: 420px;
+  width: 350px;
+  height: 300px;
   bottom: 120px;
-  margin: 0 -550px;
+  // 휴대폰 기종 달라져도 가운데 오는 방법..?
+  margin: 0 -19rem;
   border-radius: 10px 10px 0 0;
   background-color: white;
   z-index: 2;
@@ -61,45 +62,101 @@ const Container = styled.div`
 
   @keyframes slide {
     from {
-      bottom: -320px;
+      bottom: -300px;
     }
     to {
       bottom: 120px;
     }
   }
+
+  @media (min-width: 50rem) {
+    & {
+      width: 600px;
+      height: 420px;
+      bottom: 120px;
+      margin: 0 -550px;
+      z-index: 2;
+
+      @keyframes slide {
+        from {
+          bottom: -320px;
+        }
+        to {
+          bottom: 120px;
+        }
+      }
+    }
+  }
 `;
 
 const Measure = styled.div`
-  font-size: 20px;
+  font-size: 16px;
   color: white;
   padding: 10px;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 20px;
+      font-weight: bold;
+    }
+  }
 `;
 
 const MeasureTitle = styled.div`
-  font-size: 30px;
-  margin: 30px 0 20px 0;
+  font-size: 18px;
+  margin: 20px 0;
   font-weight: bold;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 30px;
+      margin: 30px 0 20px 0;
+    }
+  }
 `;
 
 const MeasureWrapper = styled.div`
   display: flex;
   flex-direction: row;
   margin: 0 40px;
-  gap: 30px;
-  height: 300px;
+  gap: 10px;
+  height: 100px;
   flex-wrap: wrap;
+
+  @media (min-width: 50rem) {
+    & {
+      height: 300px;
+      gap: 30px;
+    }
+  }
 `;
 
 const MeasureBox = styled.div`
-  width: 245px;
-  height: 120px;
+  width: 130px;
+  height: 90px;
   background-color: #58c78f;
-  padding-top: 10px;
+  padding-top: 5px;
   border-radius: 5px;
   cursor: pointer;
 
   .measureIcon {
     color: white;
     margin-top: 8px;
+    width: 40px;
+    height: 40px;
+  }
+
+  @media (min-width: 50rem) {
+    & {
+      width: 245px;
+      height: 120px;
+    }
+
+    .measureIcon {
+      color: white;
+      padding-top: 10px;
+      width: 60px;
+      height: 60px;
+    }
   }
 `;

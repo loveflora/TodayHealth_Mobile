@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import Header from "../Components/Header";
-import Detail from "../Components/board/Detail";
-import Write from "../Components/board/Write";
+import Header from "../components/common/Header";
+import Detail from "../components/board/Detail";
+import Write from "../components/board/Write";
 import { GoHeart } from "react-icons/go";
 import { useState } from "react";
 import { useNavigate, Route, Routes, useParams } from "react-router-dom";
