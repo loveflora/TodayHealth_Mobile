@@ -92,6 +92,7 @@ export default function Mission() {
 const Container = styled.div`
   display: flex;
   justify-content: center;
+  height: 722px;
 
   @media (min-width: 50rem) {
     & {
@@ -137,8 +138,4 @@ const NavWrapper = styled.div`
       font-size: 22px;
     }
   }
-`;
-
-const TabContent = styled.div`
-  height: 800px;
 `;

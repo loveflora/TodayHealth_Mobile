@@ -131,14 +131,29 @@ export default function Setting({ user }) {
 const ContainerWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 900px;
+  align-items: center;
+  height: 722px;
+  margin: 0 auto;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 720px;
+      height: 900px;
+    }
+  }
 `;
 
 const Container = styled.div`
   display: flex;
   margin: 0 auto;
   padding: 40px;
-  width: 700px;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 700px;
+      padding: 40px 60px;
+    }
+  }
 `;
 
 const Info = styled.div`
@@ -151,10 +166,16 @@ const Info = styled.div`
 `;
 
 const Ul = styled.ul`
-  width: 700px;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
+  width: 400px;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 700px;
+    }
+  }
 `;
 
 const Li = styled.li`
@@ -162,9 +183,15 @@ const Li = styled.li`
   list-style-type: none;
   padding: 20px 30px;
   text-align: left;
-  font-size: 30px;
+  font-size: 22px;
   display: flex;
   cursor: pointer;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 30px;
+    }
+  }
 `;
 
 const Txt = styled.p`

@@ -5,7 +5,6 @@ import { GoHeart } from "react-icons/go";
 import { BiArrowBack } from "react-icons/bi";
 import { Route, Routes } from "react-router-dom";
 import Edit from "./Edit";
-import { GiConsoleController } from "react-icons/gi";
 export default function Detail({ listCollection, setListCollection }) {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -70,15 +69,7 @@ export default function Detail({ listCollection, setListCollection }) {
         path="/*"
         element={
           <Container>
-            <div
-              style={{
-                display: "flex",
-                gap: "50px",
-                alignItems: "center",
-                marginBottom: "10px",
-                padding: "0 10px",
-              }}
-            >
+            <Header>
               <BiArrowBack
                 size="30"
                 color="gray"
@@ -88,7 +79,7 @@ export default function Detail({ listCollection, setListCollection }) {
                 }}
               />
               <Title>{listCollection[id - 1].title}</Title>
-            </div>
+            </Header>
             <Info>
               <InfoWrapper>
                 <Created> 구분 : {listCollection[id - 1].select} </Created>
@@ -175,15 +166,43 @@ export default function Detail({ listCollection, setListCollection }) {
 
 const Container = styled.div`
   display: flex;
-  width: 700px;
-  height: 800px;
-  margin: 40px auto;
   flex-direction: column;
+  align-items: center;
+  height: 700px;
+  margin: 0 auto;
+  overflow: auto;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 720px;
+      height: 900px;
+    }
+  }
+`;
+
+const Header = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 30px;
+  width: 100%;
+
+  @media (min-width: 50rem) {
+    & {
+      gap: 50px;
+    }
+  }
 `;
 
 const Title = styled.div`
-  font-size: 30px;
+  font-size: 20px;
   font-weight: bold;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 30px;
+    }
+  }
 `;
 
 const Info = styled.div`
@@ -195,31 +214,47 @@ const Info = styled.div`
 
 const InfoWrapper = styled.div`
   display: flex;
-  // margin: 20px;
   flex-direction: row;
   justify-content: space-between;
-  // padding-bottom: 30px;
   width: 100%;
   height: 60px;
-  gap: 40px;
+  gap: 20px;
   align-items: center;
+
+  @media (min-width: 50rem) {
+    & {
+      gap: 40px;
+    }
+  }
 `;
 
 const Created = styled.div`
   color: gray;
   display: flex;
-  font-size: 20px;
+  font-size: 16px;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 20px;
+    }
+  }
 `;
 
 const Btn = styled.div`
   border: 1px solid #cfcfcf;
   border-radius: 5px;
-  width: 150px;
+  width: 120px;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 5px;
   cursor: pointer;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 150px;
+    }
+  }
 `;
 
 const Like = styled.span`
@@ -227,9 +262,15 @@ const Like = styled.span`
 `;
 
 const Main = styled.div`
-  width: 700px;
-  height: 1200px;
+  width: 460px;
   overflow: auto;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 700px;
+      height: 1200px;
+    }
+  }
 `;
 
 const Img = styled.div`
@@ -239,16 +280,30 @@ const Img = styled.div`
 `;
 
 const Text = styled.div`
-  font-size: 25px;
-  margin: 50px 0;
+  font-size: 18px;
+  margin: 30px 0;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 25px;
+      margin: 50px 0;
+    }
+  }
 `;
 
 const BtnWrapper = styled.div`
   display: flex;
   margin: auto;
-  width: 600px;
+  width: 360px;
   justify-content: space-between;
-  margin-top: 50px;
+  margin-top: 20px;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 600px;
+      margin-top: 50px;
+    }
+  }
 `;
 
 const BottomBtn = styled.button`
@@ -256,8 +311,16 @@ const BottomBtn = styled.button`
   border: none;
   background-color: #58c78f;
   color: white;
-  font-size: 20px;
+  font-size: 16px;
+  font-weight: bold;
   border-radius: 5px;
-  width: 280px;
-  height: 50px;
+  width: 160px;
+  height: 40px;
+
+  @media (min-width: 50rem) {
+    width: 280px;
+    height: 50px;
+    font-size: 20px;
+    }
+  }
 `;

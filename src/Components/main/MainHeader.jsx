@@ -79,7 +79,7 @@ const User = styled.span`
 
 const Title = styled.span`
   font-weight: bold;
-  font-size: 12px;
+  font-size: 14px;
 
   @media (min-width: 50rem) {
     & {

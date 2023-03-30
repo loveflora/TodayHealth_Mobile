@@ -50,7 +50,7 @@ export default function Edit({ listCollection, setListCollection }) {
       <Header>
         <Info>
           <Select>
-            <div style={{ fontSize: "20px", padding: "0 20px" }}>구분</div>
+            <SubTitle>구분</SubTitle>
             <select
               onChange={onChange}
               name="select"
@@ -94,37 +94,70 @@ export default function Edit({ listCollection, setListCollection }) {
 
 const Container = styled.div`
   display: flex;
-  width: 700px;
-  height: 800px;
-  margin: 40px auto;
   flex-direction: column;
+  align-items: center;
+  height: 700px;
+  margin: 0 auto;
+  overflow: auto;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 720px;
+      height: 900px;
+    }
+  }
 `;
 
 const Header = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+  width: 100%;
+
+  @media (min-width: 50rem) {
+    & {
+    }
+  }
 `;
 
 const H2 = styled.h2`
   display: flex;
-  margin: 0 auto;
+  margin: 10px auto;
   font-weight: bold;
+  font-size: 24px;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 30px;
+      margin: 0px auto;
+    }
+  }
 `;
 
 const Title = styled.div`
-  display: flex;
   font-size: 20px;
   font-weight: bold;
-  justify-content: center;
-  align-items: center;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 30px;
+    }
+  }
 `;
 
-const Input = styled.input`
-  width: 650px;
-  border-radius: 5px;
-  border: 1px solid #cfcfcf;
-  padding: 8px 18px;
-  margin: 20px 0;
+const SubTitle = styled.div`
+  font-size: 16px;
+  width: 54px;
+  padding: 0 6px;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 20px;
+      padding: 0 20px;
+      width: 80px;
+    }
+  }
 `;
 
 const Select = styled.div`
@@ -134,16 +167,48 @@ const Select = styled.div`
 const Created = styled.div`
   color: gray;
   display: flex;
-  font-size: 20px;
+  font-size: 16px;
+  width: 200px;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 20px;
+      width: 200px;
+    }
+  }
 `;
 
 const Info = styled.div`
   display: flex;
-  margin: 40px 0 20px 0;
-  flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  width: 670px;
+  width: 350px;
+  margin: 10px 0;
+  gap: 30px;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 670px;
+      margin: 40px 0 20px 0;
+      gap: 0px;
+    }
+  }
+`;
+
+const Input = styled.input`
+  width: 350px;
+  margin: 20px 0;
+  padding: 8px 18px;
+  border-radius: 5px;
+  border: 1px solid #cfcfcf;
+  font-size: 16px;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 650px;
+      font-size: 20px;
+    }
+  }
 `;
 
 const Main = styled.div`
@@ -151,24 +216,40 @@ const Main = styled.div`
 `;
 
 const Textarea = styled.textarea`
-  font-size: 20px;
-  width: 650px;
-  height: 500px;
-  border: 1px solid #cfcfcf;
-  margin: 20px;
+  width: 350px;
+  height: 360px;
   padding: 20px;
+  font-size: 16px;
+  border: 1px solid #cfcfcf;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 650px;
+      height: 500px;
+      font-size: 20px;
+      margin: 20px;
+    }
+  }
 `;
 
 const Btn = styled.button`
-  width: 180px;
-  height: 50px;
-  background-color: #58c78f;
-  color: white;
-  border: none;
-  border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 10px auto;
-  font-size: 20px;
+  margin: 20px auto;
+  width: 180px;
+  height: 50px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  background-color: #58c78f;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 20px;
+      margin: 10px auto;
+    }
+  }
 `;

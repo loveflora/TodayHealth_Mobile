@@ -93,19 +93,12 @@ export default function Board() {
                               }}
                             >
                               <td>{listCollection[i].id}</td>
-                              <td
-                                style={{
-                                  maxWidth: "260px",
-                                  overflow: "hidden",
-                                  whiteSpace: "nowrap",
-                                  textOverflow: "ellipsis",
-                                }}
-                              >
+                              <td className="listTitle">
                                 {listCollection[i].title}
                               </td>
                               <td>{listCollection[i].writer}</td>
                               <td>{listCollection[i].created}</td>
-                              <td style={{ width: "100px" }}>
+                              <td className="listLike">
                                 {listCollection[i].like ? (
                                   <GoHeart
                                     className="like"
@@ -171,35 +164,59 @@ export default function Board() {
 
 const ContainerWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  height: 900px;
+  justify-content: center;
+  height: 722px;
+
+  @media (min-width: 50rem) {
+    & {
+      height: 900px;
+    }
+  }
 `;
 
 const Container = styled.div`
   display: flex;
-  width: 700px;
-  margin: 0 auto;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 700px;
+    }
+  }
 `;
 
 const H2 = styled.h2`
   display: flex;
   margin: 0 auto;
-  padding: 40px;
+  padding: 20px;
+  font-size: 22px;
+  font-weight: bold;
+
+  @media (min-width: 50rem) {
+    & {
+      padding: 40px;
+      font-size: 30px;
+    }
+  }
 `;
 
 const Table = styled.div`
+  width: 380px;
   height: 600px;
   text-align: center;
-  font-size: 20px;
+  font-size: 14px;
 
   & > table {
     & > thead {
       background-color: #58c78f;
       color: white;
       border-radius: 5px;
+
       & > tr > th {
-        padding: 10px 20px;
+        padding: 5px 10px;
       }
     }
 
@@ -208,6 +225,16 @@ const Table = styled.div`
       cursor: pointer;
       & > td {
         padding: 20px 0;
+      }
+      .listTitle {
+        max-width: 90px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
+      .listLike {
+        width: 70px;
       }
     }
 
@@ -218,20 +245,58 @@ const Table = styled.div`
 
   .like {
     cursor: pointer;
-    color: ${(props) => props.color};
+    color: ${({ color }) => color};
+  }
+
+  @media (min-width: 50rem) {
+    & {
+      width: 700px;
+      font-size: 16px;
+      & > table {
+        & > thead {
+          & > tr > th {
+            padding: 10px 20px;
+          }
+        }
+
+        & > tbody > tr {
+          padding: 10px 0;
+          cursor: pointer;
+          & > td {
+            padding: 20px 0;
+          }
+
+          .listTitle {
+            max-width: 260px;
+          }
+
+          .listLike {
+            width: 100px;
+          }
+        }
+      }
+    }
   }
 `;
 
 const Btn = styled.button`
-  width: 280px;
-  height: 50px;
-  background-color: #58c78f;
-  color: white;
-  border: none;
-  border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 30px auto;
-  font-size: 20px;
+  width: 160px;
+  height: 50px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #58c78f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 280px;
+      font-size: 20px;
+    }
+  }
 `;

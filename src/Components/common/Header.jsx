@@ -16,9 +16,7 @@ export default function Header({ text }) {
             navigate("/");
           }}
         />
-        <span style={{ fontSize: "30px", width: "540px", fontWeight: "bold" }}>
-          {text}
-        </span>
+        <Title>{text}</Title>
       </Navbar>
     </NavbarWrapper>
   );
@@ -27,6 +25,13 @@ export default function Header({ text }) {
 const NavbarWrapper = styled.div`
   width: 100%;
   border-bottom: 1px solid #e8e8e8;
+  height: 61px;
+
+  @media (min-width: 50rem) {
+    & {
+      height: 70px;
+    }
+  }
 `;
 
 const Navbar = styled.div`
@@ -34,15 +39,16 @@ display: flex;
 flex-direction: row;
 align-items: center;
 margin: 0 auto;
-padding: 10px 30px;
-width: 26rem;
-height: 70px;
+justify-content: space-between;
+padding: 20px 0;
+width: 310px;
+height: 61px;
 
 .icon {
   color: gray;
   cursor: pointer;
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
 }
 
   @media (min-width: 50rem) {
@@ -57,4 +63,17 @@ height: 70px;
     }
   }
   .
+`;
+
+const Title = styled.div`
+  font-size: 20px;
+  width: 260px;
+  font-weight: bold;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 30px;
+      width: 540px;
+    }
+  }
 `;

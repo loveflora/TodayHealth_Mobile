@@ -67,7 +67,7 @@ export default function Profile() {
     <div>
       <ContainerWrapper>
         <Container>
-          <CgProfile size="140" style={{ color: "gray", margin: "30px" }} />
+          <CgProfile className="profileImg" />
           <H2>수정하기</H2>
           <InputWrapper>
             <Wrapper>
@@ -79,7 +79,6 @@ export default function Profile() {
               ></Input>
             </Wrapper>
             <Wrapper style={{ flexDirection: "column" }}>
-              {/* 정규식 */}
               <div
                 style={{
                   display: "flex",
@@ -140,7 +139,16 @@ export default function Profile() {
 const ContainerWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 905px;
+  align-items: center;
+  height: 722px;
+  margin: 0 auto;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 720px;
+      height: 900px;
+    }
+  }
 `;
 
 const Container = styled.div`
@@ -149,13 +157,33 @@ const Container = styled.div`
   padding: 40px;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+
+  .profileImg {
+    width: 120px;
+    height: 120px;
+    color: gray;
+    margin: 20px 0;
+  }
+
+  @media (min-width: 50rem) {
+    .profileImg {
+      width: 160px;
+      height: 160px;
+      margin: 30px 0;
+    }
+  }
 `;
 
 const H2 = styled.h2`
   font-size: 30px;
   font-weight: bold;
-  margin: 20px 0 40px 0;
+  margin: 20px 0;
+
+  @media (min-width: 50rem) {
+    & {
+      margin: 20px 0 40px 0;
+    }
+  }
 `;
 
 const Title = styled.div`
@@ -175,12 +203,18 @@ const Wrapper = styled.div`
 `;
 
 const Input = styled.input`
-  padding: 20px;
-  width: 250px;
+  width: 140px;
   height: 30px;
   margin: 20px;
-  border: 1px solid #ccc;
+  padding: 20px;
   font-size: 20px;
+  border: 1px solid #ccc;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 250px;
+    }
+  }
 `;
 
 const Select = styled.input`

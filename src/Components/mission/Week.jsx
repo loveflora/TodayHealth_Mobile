@@ -156,6 +156,8 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   margin: 0 40px;
+  width: 700px;
+  height: 630px;
 
   @media (min-width: 50rem) {
     & {

@@ -81,7 +81,7 @@ export default function Today({ day, month }) {
 
 const Container = styled.div`
   width: 700px;
-  height: 800px;
+  height: 630px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -98,9 +98,15 @@ const Container = styled.div`
 `;
 
 const Title = styled.div`
-  font-size: 30px;
+  font-size: 24px;
   font-weight: bold;
   margin-bottom: 10px;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 30px;
+    }
+  }
 `;
 
 const Wrapper = styled.div`

@@ -72,19 +72,13 @@ export default function Pills() {
                   return (
                     <tr>
                       <td>
-                        <div style={{ fontWeight: "bold" }}>
-                          {pills[i].약명}
-                        </div>
+                        <div>{pills[i].약명}</div>
                       </td>
                       <td>
-                        <div style={{ fontWeight: "bold" }}>
-                          {pills[i].용량}
-                        </div>
+                        <div>{pills[i].용량}</div>
                       </td>
                       <td>
-                        <div style={{ fontWeight: "bold" }}>
-                          {pills[i].복용횟수}
-                        </div>
+                        <div>{pills[i].복용횟수}</div>
                       </td>
                       <td>
                         <div
@@ -112,29 +106,31 @@ export default function Pills() {
         </Content>
 
         <AddItem>
-          <Input
-            type="text"
-            placeholder="약명"
-            name="약명"
-            onChange={onChange}
-            value={input.약명}
-          />
-          <Input
-            type="number"
-            min="0"
-            placeholder="용량"
-            name="용량"
-            onChange={onChange}
-            value={input.용량}
-          />
-          <Input
-            type="number"
-            min="0"
-            placeholder="복용횟수"
-            name="복용횟수"
-            onChange={onChange}
-            value={input.복용횟수}
-          />
+          <InputWrapper>
+            <Input
+              type="text"
+              placeholder="약명"
+              name="약명"
+              onChange={onChange}
+              value={input.약명}
+            />
+            <Input
+              type="number"
+              min="0"
+              placeholder="용량"
+              name="용량"
+              onChange={onChange}
+              value={input.용량}
+            />
+            <Input
+              type="number"
+              min="0"
+              placeholder="복용횟수"
+              name="복용횟수"
+              onChange={onChange}
+              value={input.복용횟수}
+            />
+          </InputWrapper>
           <AddBtn onClick={onAdd}>추가하기</AddBtn>
         </AddItem>
       </Container>
@@ -143,84 +139,148 @@ export default function Pills() {
 }
 
 const Container = styled.div`
-  width: 700px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  height: 722px;
   margin: 0 auto;
+  overflow: auto;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 720px;
+      height: 900px;
+    }
+  }
 `;
 
 const Content = styled.div`
   display: flex;
   flex-direction: column;
+  height: 540px;
+
+  @media (min-width: 50rem) {
+    & {
+      height: 650px;
+    }
+  }
 `;
 
 const Item = styled.li`
-  // list-style-type: none;
-  margin: 50px 0px;
-  font-size: 20px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   flex-direction: row;
-  width: 100%;
+  width: 360px;
+  margin: 50px 0px;
+  font-size: 16px;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 640px;
+      font-size: 22px;
+      padding: 20px;
+    }
+  }
 `;
 
 const Table = styled.table`
-  width: 700px;
-
   & > thead > tr > th {
-    background-color: #58c78f;
-    color: white;
-    padding: 5px 0px;
     width: 150px;
+    padding: 5px 0px;
+    color: white;
+    background-color: #58c78f;
   }
 
   & > tbody > tr > td {
     margin: 30px;
     height: 80px;
   }
-`;
 
-const AddBtn = styled.button`
-  width: 150px;
-  height: 50px;
-  background-color: #58c78f;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 30px auto;
-  font-size: 20px;
+  @media (min-width: 50rem) {
+    & {
+    }
+  }
 `;
 
 const Btn = styled.button`
-  width: 100px;
-  height: 50px;
-  background-color: #b7b7b7;
-  color: white;
-  border: none;
-  border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 20px;
-  // margin: 10px;
+  width: 70px;
+  height: 40px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background-color: #b7b7b7;
+  border: none;
+  border-radius: 5px;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 100px;
+      height: 50px;
+      font-size: 20px;
+    }
+  }
 `;
 
 const AddItem = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 0;
 `;
 
 const Input = styled.input`
-  padding: 20px;
-  width: 150px;
+  width: 100px;
   height: 30px;
-  margin: 20px 14px;
+  margin: 20px 12px;
+  padding: 16px;
+  font-size: 14px;
   border: 1px solid #ccc;
-  font-size: 20px;
+  border-radius: 5px;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 150px;
+      font-size: 20px;
+      padding: 20px;
+    }
+  }
+`;
+
+const InputWrapper = styled.div`
+  width: 450px;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 600px;
+    }
+  }
+`;
+
+const AddBtn = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: 46px;
+  margin: 10px auto;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background-color: #58c78f;
+  border: none;
+  border-radius: 5px;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 150px;
+      height: 50px;
+      font-size: 20px;
+      margin: 30px auto;
+    }
+  }
 `;

@@ -188,32 +188,56 @@ export default function Set() {
 }
 
 const Container = styled.div`
-  width: 700px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  height: 722px;
   margin: 0 auto;
+  overflow: auto;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 720px;
+      height: 900px;
+    }
+  }
 `;
 
 const Content = styled.div`
   display: flex;
   flex-direction: column;
-  height: 700px;
+  height: 540px;
   margin-top: 40px;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 720px;
+      height: 700px;
+    }
+  }
 `;
 
 const Ul = styled.ul``;
 
 const Li = styled.li`
-  list-style-type: none;
-  border-bottom: 1px solid #e8e8e8;
-  padding: 20px;
-  text-align: left;
-  font-size: 25px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
-  width: 100%;
+  width: 400px;
+  padding: 20px;
+  border-bottom: 1px solid #e8e8e8;
+  font-size: 20px;
+  text-align: left;
+  list-style-type: none;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 640px;
+      font-size: 28px;
+      width: 100%;
+    }
+  }
 `;
 
 const Div = styled.div`
@@ -230,15 +254,23 @@ const ToggleBtn = styled.button`
 `;
 
 const Btn = styled.button`
-  width: 200px;
-  height: 50px;
-  background-color: #58c78f;
-  color: white;
-  border: none;
-  border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 160px;
   margin: 30px auto;
-  font-size: 20px;
+  height: 50px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  background-color: #58c78f;
+  border: none;
+  border-radius: 5px;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 20px;
+      width: 200px;
+    }
+  }
 `;

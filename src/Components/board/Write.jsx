@@ -81,7 +81,7 @@ export default function Write({ listCollection, setListCollection }) {
       <Header>
         <Info>
           <Select>
-            <div style={{ fontSize: "20px", padding: "0 20px" }}>구분</div>
+            <SubTitle>구분</SubTitle>
             <select
               onChange={onChange}
               name="select"
@@ -94,11 +94,7 @@ export default function Write({ listCollection, setListCollection }) {
             </select>
           </Select>
           <Created>
-            <div
-              style={{ padding: "0 10px", color: "black", fontSize: "19px" }}
-            >
-              작성자 :{" "}
-            </div>
+            <SubTitle>작성자 : </SubTitle>
             <WriterInput
               name="writer"
               onChange={onChange}
@@ -154,10 +150,18 @@ export default function Write({ listCollection, setListCollection }) {
 
 const Container = styled.div`
   display: flex;
-  width: 700px;
-  height: 800px;
-  margin: 40px auto;
   flex-direction: column;
+  align-items: center;
+  height: 700px;
+  margin: 0 auto;
+  overflow: auto;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 720px;
+      height: 900px;
+    }
+  }
 `;
 
 const Header = styled.div`
@@ -167,24 +171,55 @@ const Header = styled.div`
 
 const H2 = styled.h2`
   display: flex;
-  margin: 0 auto;
+  margin: 10px auto;
   font-weight: bold;
+  font-size: 22px;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 28px;
+    }
+  }
 `;
 
 const Title = styled.div`
   display: flex;
-  font-size: 20px;
   font-weight: bold;
   justify-content: center;
   align-items: center;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 20px;
+    }
+  }
+`;
+
+const SubTitle = styled.div`
+  padding: 0 10px;
+  color: black;
+  font-size: 16px;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 20px;
+    }
+  }
 `;
 
 const Input = styled.input`
-  width: 650px;
+  width: 350px;
   border-radius: 5px;
   border: 1px solid #cfcfcf;
   padding: 8px 18px;
-  margin: 20px 0;
+  margin-bottom: 20px;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 650px;
+      margin: 20px 0;
+    }
+  }
 `;
 
 const Select = styled.div`
@@ -192,26 +227,46 @@ const Select = styled.div`
 `;
 
 const WriterInput = styled.input`
+  width: 100px;
+  padding: 0 8px;
   border-radius: 5px;
   border: 1px solid #cfcfcf;
-  width: 120px;
   border-radius: 5px;
-  padding: 0 8px;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 120px;
+    }
+  }
 `;
 
 const Created = styled.div`
   color: gray;
   display: flex;
-  font-size: 19px;
+  font-size: 16px;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 19px;
+    }
+  }
 `;
 
 const Info = styled.div`
   display: flex;
   margin: 40px 0 20px 0;
-  flexdirection: row;
+  flex-direction: column;
+  margin: 20px;
+  gap: 16px;
   align-items: center;
   justify-content: space-between;
-  width: 670px;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 670px;
+      flex-direction: row;
+    }
+  }
 }
 `;
 
@@ -221,29 +276,51 @@ const Main = styled.div`
 
 const Textarea = styled.textarea`
   font-size: 20px;
-  width: 650px;
-  height: 500px;
+  width: 350px;
+  height: 280px;
   border: 1px solid #cfcfcf;
   margin: 20px;
   padding: 20px;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 650px;
+      height: 440px;
+    }
+  }
 `;
 
 const BtnWrapper = styled.div`
   display: flex;
   margin: auto;
-  width: 600px;
+  width: 300px;
   justify-content: space-between;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 600px;
+    }
+  }
 `;
 
 const BottomBtn = styled.button`
-  outline: none;
+  width: 140px;
+  height: 40px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
   border: none;
   background-color: #58c78f;
-  color: white;
-  font-size: 20px;
   border-radius: 5px;
-  width: 280px;
-  height: 50px;
+  outline: none;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 280px;
+      height: 50px;
+      font-size: 20px;
+    }
+  }
 `;
 
 const InputImage = styled.input`

@@ -170,7 +170,7 @@ export default function Goals() {
                     style={{ margin: "0" }}
                   ></Input>
                 ) : (
-                  <div style={{ width: "200px" }}>{goals[i].title}</div>
+                  <div>{goals[i].title}</div>
                 )}
                 {goals[i].edit ? (
                   <Input
@@ -237,10 +237,19 @@ export default function Goals() {
 }
 
 const Container = styled.div`
-  width: 700px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  height: 722px;
   margin: 0 auto;
+  overflow: auto;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 720px;
+      height: 900px;
+    }
+  }
 `;
 
 const Content = styled.div`
@@ -249,44 +258,25 @@ const Content = styled.div`
 `;
 
 const Item = styled.li`
-  border-bottom: 1px solid #e8e8e8;
-  list-style-type: none;
-  padding: 20px;
-  text-align: left;
-  font-size: 25px;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  flex-direction: row;
-  width: 100%;
-`;
-
-const AddBtn = styled.button`
-  width: 150px;
-  height: 50px;
-  background-color: #58c78f;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 30px auto;
-  font-size: 20px;
-`;
-
-const Btn = styled.button`
-  width: 80px;
-  height: 50px;
-  background-color: #b7b7b7;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 20px;
   margin: 10px;
+  padding: 0 20px 10px 20px;
+  width: 420px;
+  font-size: 18px;
+  text-align: left;
+  border-bottom: 1px solid #e8e8e8;
+  list-style-type: none;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 640px;
+      font-size: 22px;
+      padding: 20px;
+    }
+  }
 `;
 
 const AddItem = styled.div`
@@ -294,13 +284,72 @@ const AddItem = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  width: 420px;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 640px;
+    }
+  }
+`;
+
+const Btn = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 40px;
+  margin: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background-color: #b7b7b7;
+  border: none;
+  border-radius: 5px;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 20px;
+      width: 100px;
+    }
+  }
 `;
 
 const Input = styled.input`
-  padding: 20px;
-  width: 200px;
+  padding: 18px;
+  width: 120px;
   height: 30px;
-  margin: 20px;
+  margin: 10px;
   border: 1px solid #ccc;
-  font-size: 20px;
+  font-size: 16px;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 200px;
+      margin: 20px;
+      font-size: 20px;
+    }
+  }
+`;
+
+const AddBtn = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px auto;
+  width: 100px;
+  height: 50px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #58c78f;
+  border: none;
+  border-radius: 5px;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 20px;
+      width: 150px;
+    }
+  }
 `;

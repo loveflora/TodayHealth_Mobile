@@ -197,15 +197,7 @@ export default function Month({ day, month }) {
       </TotalBox>
       <Content>
         <Ul>
-          <UlTitle
-            style={{
-              fontSize: "24px",
-              fontWeight: "bold",
-              paddingBottom: "20px",
-            }}
-          >
-            📍 세부 점수내역 📍
-          </UlTitle>
+          <UlTitle>📍 세부 점수내역 📍</UlTitle>
           <Li>
             <Title>걷기</Title>
             <ScoreWrapper>
@@ -257,30 +249,19 @@ export default function Month({ day, month }) {
           </Li>
         </Ul>
       </Content>
-      <ScoreBtn
+      <Btn
         onClick={() => {
           setShow(!show);
         }}
       >
         점수 부여 기준 ?
-      </ScoreBtn>
+      </Btn>
       {show && (
         <Modal>
           <ModalContainer>
-            <div
-              style={{
-                fontSize: "30px",
-                fontWeight: "bold",
-                color: "white",
-                margin: "30px 0",
-              }}
-            >
-              점수 부여 기준
-            </div>
+            <ModalTitle>점수 부여 기준</ModalTitle>
             <ModalContent>
-              <div style={{ fontWeight: "bold", paddingBottom: "20px" }}>
-                월 20회 (평일) * 2점 = 만점 100점
-              </div>
+              <ModalSubTitle>월 20회 (평일) * 2점 = 만점 100점</ModalSubTitle>
               <div>- 매일 걷기 (100)</div>
               <div>- 매일 혈압 측정 (100)</div>
               <div>- 매일 혈당 측정 (100)</div>
@@ -288,9 +269,9 @@ export default function Month({ day, month }) {
               <div>- 매일 8잔 물마시기 (100)</div>
               <div> - 제때 약 복용하기 (100)</div>
               <div> - 세끼 식사하기 (100)</div>
-              <div style={{ fontWeight: "bold", paddingTop: "20px" }}>
+              <ModalSubTitle>
                 월별 포인트 백분율 = 현재점수 * 100 / 620
-              </div>
+              </ModalSubTitle>
             </ModalContent>
             <CloseBtn
               onClick={() => {
@@ -312,6 +293,8 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   margin: 0 40px;
+  width: 700px;
+  height: 630px;
 
   @media (min-width: 50rem) {
     & {
@@ -366,7 +349,7 @@ const TotalTitle = styled.div`
 `;
 
 const TotalScore = styled.div`
-  font-size: 40px;
+  font-size: 38px;
   padding: 10px;
 
   @media (min-width: 50rem) {
@@ -408,22 +391,28 @@ const Content = styled.ul`
 
 const Ul = styled.ul`
   margin: 30px 0;
-  padding: 0 40px;
+  padding: 0 20px;
   width: 100%;
 
   @media (min-width: 50rem) {
     & {
+      padding: 0 40px;
     }
   }
 `;
 
 const UlTitle = styled.ul`
-  margin: 30px 0;
-  padding: 0 40px;
+  padding: 0 10px;
   width: 100%;
+  font-size: 20px;
+  font-weight: bold;
+  padding-bottom: 20px;
 
   @media (min-width: 50rem) {
     & {
+      font-size: 24px;
+      margin: 30px 0;
+      padding: 0 40px;
     }
   }
 `;
@@ -433,12 +422,14 @@ const Li = styled.li`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  font-size: 25px;
+  font-size: 22px;
   border-bottom: 1px solid #e9ecef;
-  padding: 10px 40px;
+  padding: 10px 34px;
 
   @media (min-width: 50rem) {
     & {
+      font-size: 25px;
+      padding: 10px 40px;
     }
   }
 `;
@@ -450,7 +441,15 @@ const MissionScore = styled.div`
   font-size: 30px;
 `;
 
-const Div = styled.div``;
+const Div = styled.div`
+  font-size: 20px;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 25px;
+    }
+  }
+`;
 
 const ScoreWrapper = styled.div`
   display: flex;
@@ -459,40 +458,33 @@ const ScoreWrapper = styled.div`
   align-items: center;
 `;
 
-const ScoreBtn = styled.button`
+const Btn = styled.button`
+  padding: 10px 20px;
+  margin: 10px;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 16px;
+  color: white;
   outline: none;
   background-color: #58c78f;
-  color: white;
-  border: none;
-  padding: 10px 20px;
   border-radius: 10px;
-  margin: 10px;
-`;
-
-const CloseBtn = styled.button`
-  font-weight: bold;
-  font-size: 28px;
-  outline: none;
-  background-color: white;
-  color: white;
   border: none;
-  padding: 5px;
-  border-radius: 5px;
-  color: #58c78f;
-  width: 100px;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 20px;
+    }
+  }
 `;
 
 const Modal = styled.table`
-  width: 300px;
-  height: 200px;
-  background-color: #58c78f;
-  position: absolute;
+  width: 200px;
+  height: 100px;
   border-radius: 10px;
+  background-color: #58c78f;
+  box-shadow: 5px 5px 5px;
+  position: absolute;
   opacity: 0.95;
   animation: appear 0.5s ease-in-out;
-  box-shadow: 5px 5px 5px;
 
   @keyframes appear {
     from {
@@ -504,8 +496,19 @@ const Modal = styled.table`
   }
 
   & {
-    width: 530px;
-    height: 580px;
+    width: 400px;
+    height: 400px;
+  }
+}
+
+
+@media (min-width: 50rem) {
+  & {
+    
+    & {
+      width: 530px;
+      height: 580px;
+    }
   }
 }
 `;
@@ -513,7 +516,57 @@ const Modal = styled.table`
 const ModalContainer = styled.div``;
 
 const ModalContent = styled.div`
-  font-size: 22px;
+  font-size: 18px;
   color: white;
-  margin: 30px;
+  margin: 10px;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 22px;
+    }
+  }
+`;
+
+const ModalTitle = styled.div`
+  font-size: 26px;
+  font-weight: bold;
+  color: white;
+  margin-top: 30px;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 34px;
+      margin-top: 40px;
+    }
+  }
+`;
+
+const ModalSubTitle = styled.div`
+  font-weight: bold;
+  padding: 14px;
+
+  @media (min-width: 50rem) {
+    & {
+      padding: 20px;
+    }
+  }
+`;
+
+const CloseBtn = styled.button`
+  width: 100px;
+  padding: 5px;
+  font-weight: bold;
+  font-size: 18px;
+  background-color: white;
+  color: #58c78f;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  margin-bottom: 20px;
+
+  @media (min-width: 50rem) {
+    & {
+      font-size: 24px;
+    }
+  }
 `;
