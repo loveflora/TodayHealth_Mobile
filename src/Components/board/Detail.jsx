@@ -8,7 +8,6 @@ import Edit from "./Edit";
 export default function Detail({ listCollection, setListCollection }) {
   const { id } = useParams();
   const navigate = useNavigate();
-
   const imgSrc1 = "/Images/" + listCollection[0].img1;
   const imgSrc2 = "/Images/" + listCollection[0].img2;
   // const imgSrc = "/../../../public/Images/" + state.list.img;
