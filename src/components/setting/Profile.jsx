@@ -16,21 +16,19 @@ export default function Profile() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [imgFile, setImgFile] = useState("");
+  const [imgFile, setImgFile] = useState(userData.img);
   const imgRef = useRef();
 
   const [input, setInput] = useState({
     name: userData.name,
     birth: userData.birth,
     gender: userData.gender,
-    img: imgFile,
+    img: userData.img,
   });
 
   const [birth, setBirth] = useState("");
   const [isBirth, setIsBirth] = useState(true);
   const [message, setMessage] = useState("");
-
-  console.log(input);
 
   // 이미지 업로드 input의 onChange
   const saveImgFile = () => {
@@ -39,9 +37,12 @@ export default function Profile() {
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       setImgFile(reader.result);
+      setInput({
+        ...input,
+        img: reader.result,
+      });
+      dispatch(changeImg(reader.result));
     };
-
-    dispatch(changeImg(imgFile));
   };
 
   const validBirth = (e) => {
