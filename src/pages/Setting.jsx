@@ -8,6 +8,7 @@ import { AiFillSetting } from "react-icons/ai";
 import { IoIosArrowForward } from "react-icons/io";
 
 import { Routes, Route, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import Header from "../components/common/Header";
 import Profile from "../components/setting/Profile";
@@ -15,8 +16,11 @@ import Goals from "../components/setting/Goals";
 import Pills from "../components/setting/Pills";
 import Set from "../components/setting/Set";
 
-export default function Setting({ user }) {
+export default function Setting() {
+  const userData = useSelector(({ user }) => user);
   let navigate = useNavigate();
+
+  console.log(userData);
 
   return (
     <div>
@@ -28,28 +32,32 @@ export default function Setting({ user }) {
             element={
               <ContainerWrapper>
                 <Container>
-                  <CgProfile
-                    size="100"
-                    style={{ color: "#58c78f", cursor: "pointer" }}
-                  />
+                  {userData.img ? (
+                    <ProfileImg src={userData.img} />
+                  ) : (
+                    <CgProfile
+                      size="100"
+                      style={{ color: "#58c78f", cursor: "pointer" }}
+                      onClick={() => navigate("profile")}
+                    />
+                  )}
                   <div
                     style={{
                       display: "flex",
                     }}
                   >
-                    <Info>
+                    <Info onClick={() => navigate("profile")}>
                       <div
                         style={{
                           fontSize: "30px",
                           display: "flex",
                           marginRight: "auto",
                         }}
-                        onClick={() => navigate("profile")}
                       >
-                        {user.name}
+                        {userData.name}
                       </div>
                       <div style={{ fontSize: "20px" }}>
-                        {user.gender} | {user.age}세
+                        {userData.gender} | {userData.age}세
                       </div>
                     </Info>
                   </div>
@@ -200,4 +208,13 @@ const Txt = styled.p`
   margin: auto 0;
   padding: 0 10px;
   cursor: pointer;
+`;
+
+const ProfileImg = styled.img`
+  margin: 30px;
+  border-radius: 100px;
+  width: 120px;
+  @media (min-width: 50rem) {
+    width: 30%;
+  }
 `;

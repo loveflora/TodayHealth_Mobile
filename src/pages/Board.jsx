@@ -7,10 +7,10 @@ import { GoHeart } from "react-icons/go";
 import { useState } from "react";
 import { useNavigate, Route, Routes, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 export default function Board() {
   const navigate = useNavigate();
-  let { id } = useParams();
   const listData = useSelector(({ list }) => list);
 
   const [listCollection, setListCollection] = useState([
@@ -23,10 +23,25 @@ export default function Board() {
         "한 해를 마무리하면서 그동안 열심히 해주신 여러분들을 대상으로 이벤트를 진행합니다. 자세한 사항은 위 이미지를 클릭해서 봐주시면 감사하겠습니다^^",
       like: false,
       select: "이벤트",
-      img1: "이벤트1.png",
-      img2: "이벤트2.png",
+      img: "/Images/이벤트1.png",
     },
   ]);
+
+  const idHandler = () => {
+    setListCollection((prevState) => {
+      let copy = [...prevState];
+      return copy.map((v, i) => {
+        return { ...v, id: i + 1 };
+      });
+    });
+  };
+
+  useEffect(() => {
+    idHandler();
+    console.log(listCollection);
+  }, [listCollection.length]);
+
+  console.log(listCollection);
 
   //? ----- 구현하고자 하는 기능 --------
   //? 1) id 게시물 순서 ㅠㅠㅠㅠ
@@ -92,7 +107,7 @@ export default function Board() {
                                 );
                               }}
                             >
-                              <td>{listCollection[i].id}</td>
+                              <td>{i + 1}</td>
                               <td className="listTitle">
                                 {listCollection[i].title}
                               </td>

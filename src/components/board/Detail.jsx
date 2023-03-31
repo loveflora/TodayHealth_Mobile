@@ -5,12 +5,12 @@ import { GoHeart } from "react-icons/go";
 import { BiArrowBack } from "react-icons/bi";
 import { Route, Routes } from "react-router-dom";
 import Edit from "./Edit";
+
 export default function Detail({ listCollection, setListCollection }) {
   const { id } = useParams();
   const navigate = useNavigate();
-  const imgSrc1 = "/Images/" + listCollection[0].img1;
-  const imgSrc2 = "/Images/" + listCollection[0].img2;
-  // const imgSrc = "/../../../public/Images/" + state.list.img;
+
+  const imgArr = listCollection[id - 1].img;
 
   const toggleHandler = () => {
     setListCollection((prevState) => {
@@ -37,7 +37,7 @@ export default function Detail({ listCollection, setListCollection }) {
       // });
 
       setListCollection(listCollection.filter((_, i) => i !== id - 1));
-
+      navigate(`/Board`);
       // setListCollection((prevState) => {
       //   let copy = [...prevState];
       //   return copy.filter((v) => v.id.toString() !== id);
@@ -124,8 +124,7 @@ export default function Detail({ listCollection, setListCollection }) {
             </Info>
             <Main>
               <Img>
-                <img src={imgSrc1} style={{ width: "80%" }} />
-                <img src={imgSrc2} style={{ width: "80%" }} />
+                <img src={imgArr} style={{ width: "80%" }} />
               </Img>
               <Text>{listCollection[id - 1].content}</Text>
             </Main>
@@ -140,7 +139,6 @@ export default function Detail({ listCollection, setListCollection }) {
               <BottomBtn
                 onClick={() => {
                   deleteHandler();
-                  navigate(`/Board`);
                 }}
                 style={{ backgroundColor: "rgb(245, 102, 86)" }}
               >
@@ -209,13 +207,20 @@ const Info = styled.div`
   border-bottom: 1px solid #eee;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 80%;
+    }
+  }
 `;
 
 const InfoWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 100%;
+  width: 420px;
   height: 60px;
   gap: 20px;
   align-items: center;
@@ -223,6 +228,7 @@ const InfoWrapper = styled.div`
   @media (min-width: 50rem) {
     & {
       gap: 40px;
+      width: 100%;
     }
   }
 `;
@@ -262,12 +268,13 @@ const Like = styled.span`
 
 const Main = styled.div`
   width: 460px;
+  height: 400px;
   overflow: auto;
 
   @media (min-width: 50rem) {
     & {
       width: 700px;
-      height: 1200px;
+      height: 500px;
     }
   }
 `;
@@ -276,6 +283,7 @@ const Img = styled.div`
   display: flex;
   flex-direction: row;
   overflow: auto;
+  justify-content: center;
 `;
 
 const Text = styled.div`

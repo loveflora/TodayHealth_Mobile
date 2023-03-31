@@ -157,7 +157,7 @@ export default function Month({ day, month }) {
     } else if (compareScore === 0) {
       setCompare("지난 달만큼 하셨네요 ! 😉");
     } else if (compareScore < 0) {
-      setCompare("지난 달보다 " + -compareScore + "점 낮네요 .. ? ");
+      setCompare("지난 달보다 " + -compareScore + "점 낮네요.. ");
     }
   }, [num]);
 

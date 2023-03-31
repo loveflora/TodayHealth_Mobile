@@ -1,25 +1,48 @@
 import React from "react";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
-import { changeName, changeBirth, changeGender } from "../../store/data";
+import {
+  changeName,
+  changeBirth,
+  changeGender,
+  changeImg,
+} from "../../store/data";
 
 export default function Profile() {
   const userData = useSelector(({ user }) => user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [imgFile, setImgFile] = useState("");
+  const imgRef = useRef();
+
   const [input, setInput] = useState({
     name: userData.name,
     birth: userData.birth,
     gender: userData.gender,
+    img: imgFile,
   });
 
   const [birth, setBirth] = useState("");
   const [isBirth, setIsBirth] = useState(true);
   const [message, setMessage] = useState("");
+
+  console.log(input);
+
+  // 이미지 업로드 input의 onChange
+  const saveImgFile = () => {
+    const file = imgRef.current.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setImgFile(reader.result);
+    };
+
+    dispatch(changeImg(imgFile));
+  };
 
   const validBirth = (e) => {
     const { name, value } = e.target;
@@ -67,8 +90,29 @@ export default function Profile() {
     <div>
       <ContainerWrapper>
         <Container>
-          <CgProfile className="profileImg" />
           <H2>수정하기</H2>
+          {(() => {
+            if (userData.img) {
+              return <ProfileImg src={userData.img} />;
+            } else if (imgFile) {
+              return <ProfileImg src={imgFile} />;
+            } else return <CgProfile className="profileImg" />;
+          })()}
+          <Upload>
+            <form className="upload_input">
+              <Label className="upload-img" htmlFor="uploadImg">
+                이미지 변경
+              </Label>
+              <InputDiv
+                className="upload-img-input"
+                type="file"
+                id="uploadImg"
+                accept="image/*"
+                onChange={saveImgFile}
+                ref={imgRef}
+              />
+            </form>
+          </Upload>
           <InputWrapper>
             <Wrapper>
               <Title>이름</Title>
@@ -123,8 +167,14 @@ export default function Profile() {
             </Wrapper>
             <Btn
               onClick={() => {
-                alert("회원정보가 수정되었습니다.");
-                navigate("/setting");
+                if (!input.name) {
+                  alert("성함을 입력해주세요.");
+                } else if (!input.birth) {
+                  alert("생년월일을 입력해주세요.");
+                } else {
+                  alert("회원정보가 수정되었습니다.");
+                  navigate("/setting");
+                }
               }}
             >
               수정 완료
@@ -174,14 +224,62 @@ const Container = styled.div`
   }
 `;
 
-const H2 = styled.h2`
-  font-size: 30px;
+const ProfileImg = styled.img`
+  margin: 30px;
+  border-radius: 100px;
+  width: 120px;
+  @media (min-width: 50rem) {
+    width: 30%;
+  }
+`;
+
+const Label = styled.label`
+  height: 40px;
+  color: #58c78f;
   font-weight: bold;
-  margin: 20px 0;
+  font-size: 18px;
+  border-radius: 5px;
+  cursor: pointer;
 
   @media (min-width: 50rem) {
     & {
-      margin: 20px 0 40px 0;
+      height: 50px;
+      font-size: 20px;
+    }
+  }
+`;
+
+const Upload = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin-bottom: 30px;
+  gap: 30px;
+
+  @media (min-width: 50rem) {
+    & {
+      gap: 80px;
+    }
+  }
+`;
+
+const InputDiv = styled.input`
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+`;
+
+const H2 = styled.h2`
+  font-size: 30px;
+  font-weight: bold;
+
+  @media (min-width: 50rem) {
+    & {
+      margin-top: 20px;
     }
   }
 `;
@@ -241,15 +339,24 @@ const InputWrapper = styled.div`
 `;
 
 const Btn = styled.button`
-  width: 150px;
-  height: 50px;
-  background-color: #58c78f;
-  color: white;
-  border: none;
-  border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 30px auto;
-  font-size: 20px;
+  width: 140px;
+  height: 50px;
+  margin: 10px 0;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #58c78f;
+  border: none;
+  border-radius: 5px;
+
+  @media (min-width: 50rem) {
+    & {
+      width: 220px;
+      font-size: 20px;
+      margin: 30px 0;
+    }
+  }
 `;

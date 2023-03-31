@@ -11,8 +11,6 @@ import Setting from "./pages/Setting";
 import Footer from "./components/common/Footer";
 
 function App() {
-  const userData = useSelector(({ user }) => user);
-
   const [show, setShow] = useState(false);
 
   return (
@@ -22,7 +20,7 @@ function App() {
         <Route path="/*" element={<Main />} />
         <Route path="/Mission" element={<Mission />} />
         <Route path="/Board/*" element={<Board />} />
-        <Route path="/Setting/*" element={<Setting user={userData} />}></Route>
+        <Route path="/Setting/*" element={<Setting />}></Route>
       </Routes>
       <FooterWrapper>
         <Footer show={show} setShow={setShow} />

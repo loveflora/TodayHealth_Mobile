@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { useParams, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useRef } from "react";
 export default function Edit({ listCollection, setListCollection }) {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -21,6 +21,19 @@ export default function Edit({ listCollection, setListCollection }) {
     like: listCollection[id - 1].like,
   });
 
+  const [imgFile, setImgFile] = useState(listCollection[id - 1].img);
+  const imgRef = useRef();
+
+  // 이미지 업로드 input의 onChange
+  const saveImgFile = () => {
+    const file = imgRef.current.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setImgFile(reader.result);
+    };
+  };
+
   const onChange = (e) => {
     const { name, value } = e.target;
     setInput({ ...input, [name]: value });
@@ -37,6 +50,7 @@ export default function Edit({ listCollection, setListCollection }) {
             select: input.select,
             title: input.title,
             content: input.content,
+            img: imgFile,
           };
         }
         return v;
@@ -78,11 +92,31 @@ export default function Edit({ listCollection, setListCollection }) {
           onChange={onChange}
           name="content"
         ></Textarea>
+        <Upload>
+          <form className="upload_input">
+            <Label className="upload-img" htmlFor="uploadImg">
+              파일 찾기
+            </Label>
+            {/* 이미지 업로드 input */}
+            <InputDiv
+              className="upload-img-input"
+              type="file"
+              id="uploadImg"
+              accept="image/*"
+              onChange={saveImgFile}
+              ref={imgRef}
+            />
+          </form>
+          {/* 업로드 된 이미지 미리보기 */}
+          {imgFile && <img src={imgFile} width="24%" />}
+        </Upload>
         <Btn
           onClick={() => {
             editHandler();
             alert("수정완료 되었습니다.");
-            navigate("/Board");
+            // http://localhost:3000/Board/detail/1/edit/Board/detail/1
+            // 이렇게 주소가 찍히는게 맞나....?
+            navigate(`Board/detail/${id}`);
           }}
         >
           수정 완료
@@ -217,7 +251,7 @@ const Main = styled.div`
 
 const Textarea = styled.textarea`
   width: 350px;
-  height: 360px;
+  height: 280px;
   padding: 20px;
   font-size: 16px;
   border: 1px solid #cfcfcf;
@@ -225,7 +259,7 @@ const Textarea = styled.textarea`
   @media (min-width: 50rem) {
     & {
       width: 650px;
-      height: 500px;
+      height: 360px;
       font-size: 20px;
       margin: 20px;
     }
@@ -252,4 +286,46 @@ const Btn = styled.button`
       margin: 10px auto;
     }
   }
+`;
+
+const Label = styled.label`
+  padding: 10px 20px;
+  height: 40px;
+  color: #fff;
+  background-color: #999999;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+
+  @media (min-width: 50rem) {
+    & {
+      height: 50px;
+      width: 160px;
+      font-size: 20px;
+    }
+  }
+`;
+
+const Upload = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin-bottom: 30px;
+  gap: 30px;
+
+  @media (min-width: 50rem) {
+    & {
+      gap: 80px;
+    }
+  }
+`;
+
+const InputDiv = styled.input`
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
 `;

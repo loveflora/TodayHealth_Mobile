@@ -107,13 +107,13 @@ export default function Set() {
           <Li>
             수기입력 허용
             <Div>
-              {/* <Form.Check
+              <Form.Check
                 type="switch"
                 onClick={() => {
                   onSwitch(0);
                 }}
-              /> */}
-              {switchList[0].switch ? (
+              />
+              {/* {switchList[0].switch ? (
                 <ToggleBtn
                   onClick={() => {
                     onSwitch(0);
@@ -126,51 +126,29 @@ export default function Set() {
                     onSwitch(0);
                   }}
                 ></ToggleBtn>
-              )}
+              )} */}
             </Div>
           </Li>
           <Li>
             푸시알림 허용
             <Div>
-              {switchList[1].switch ? (
-                <ToggleBtn
-                  onClick={() => {
-                    onSwitch(1);
-                  }}
-                  style={{ backgroundColor: "blue" }}
-                ></ToggleBtn>
-              ) : (
-                <ToggleBtn
-                  onClick={() => {
-                    onSwitch(1);
-                  }}
-                ></ToggleBtn>
-              )}
+              <Form.Check
+                type="switch"
+                onClick={() => {
+                  onSwitch(1);
+                }}
+              />
             </Div>
           </Li>
           <Li>
             앱 정보
             <Div>
-              {switchList[2].switch ? (
-                <ToggleBtn
-                  onClick={() => {
-                    onSwitch(2);
-                  }}
-                  style={{ backgroundColor: "blue" }}
-                ></ToggleBtn>
-              ) : (
-                <ToggleBtn
-                  onClick={() => {
-                    onSwitch(2);
-                  }}
-                ></ToggleBtn>
-              )}
-              {/* <Form.Check
+              <Form.Check
                 type="switch"
                 onClick={() => {
                   onSwitch(2);
                 }}
-              /> */}
+              />
             </Div>
           </Li>
         </Ul>
@@ -246,12 +224,12 @@ const Div = styled.div`
   }
 `;
 
-const ToggleBtn = styled.button`
-  width: 50px;
-  height: 30px;
-  border-radius: 40px;
-  border: 1px solid gray;
-`;
+// const ToggleBtn = styled.button`
+//   width: 50px;
+//   height: 30px;
+//   border-radius: 40px;
+//   border: 1px solid gray;
+// `;
 
 const Btn = styled.button`
   display: flex;

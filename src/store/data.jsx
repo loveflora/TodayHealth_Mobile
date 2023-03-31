@@ -62,6 +62,7 @@ let user = createSlice({
     gender: "여성",
     age: 26,
     birth: 19970319,
+    img: "",
   },
 
   reducers: {
@@ -73,6 +74,9 @@ let user = createSlice({
     },
     changeGender(state, action) {
       state.gender = action.payload;
+    },
+    changeImg(state, action) {
+      state.img = action.payload;
     },
   },
 });
@@ -102,7 +106,8 @@ export default configureStore({
 });
 
 // //? 2) 만든 함수 export해야 함
-export const { changeName, changeBirth, changeGender } = user.actions;
+export const { changeName, changeBirth, changeGender, changeImg } =
+  user.actions;
 
 // const text = "안녕하세요~
 // 벌써 11월의 끝을 향해 가고 있습니다.

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Write({ listCollection, setListCollection }) {
   const navigate = useNavigate();
@@ -28,10 +28,21 @@ export default function Write({ listCollection, setListCollection }) {
     created: formattedToday,
     content: "",
     like: false,
-    select: "",
+    select: "공지",
   });
 
-  const [file, setFiles] = useState("");
+  const [imgFile, setImgFile] = useState("");
+  const imgRef = useRef();
+
+  // 이미지 업로드 input의 onChange
+  const saveImgFile = () => {
+    const file = imgRef.current.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setImgFile(reader.result);
+    };
+  };
 
   const writeHandler = () => {
     setListCollection((listCollection) => {
@@ -46,6 +57,7 @@ export default function Write({ listCollection, setListCollection }) {
           created: input.created,
           like: false,
           select: input.select,
+          img: imgFile,
         },
       ];
     });
@@ -64,16 +76,10 @@ export default function Write({ listCollection, setListCollection }) {
         title: "",
         writer: "",
         content: "",
-        select: "",
+        select: "공지",
       }));
     } else alert("취소되었습니다.");
   };
-
-  const onLoadFile = (e) => {
-    const file = e.target.files;
-    setFiles(file);
-  };
-  console.log(file);
 
   return (
     <Container>
@@ -86,7 +92,7 @@ export default function Write({ listCollection, setListCollection }) {
               onChange={onChange}
               name="select"
               value={input.select}
-              style={{ width: "120px" }}
+              style={{ width: "90px" }}
             >
               <option value="공지">공지</option>
               <option value="정보">정보</option>
@@ -106,19 +112,6 @@ export default function Write({ listCollection, setListCollection }) {
         <Title>
           <Input onChange={onChange} name="title" value={input.title}></Input>
         </Title>
-        <div>
-          <form className="upload_input">
-            <InputImage
-              type="file"
-              name="image"
-              placeholder="첨부파일"
-              accept="image/*"
-              onchange={onLoadFile}
-            ></InputImage>
-            <Label for="file">파일 찾기</Label>
-            <InputDiv type="file" id="file" name="file" />
-          </form>
-        </div>
       </Header>
       <Main>
         <Textarea
@@ -126,6 +119,25 @@ export default function Write({ listCollection, setListCollection }) {
           name="content"
           value={input.content}
         ></Textarea>
+
+        <Upload>
+          <form className="upload_input">
+            <Label className="upload-img" htmlFor="uploadImg">
+              파일 찾기
+            </Label>
+            {/* 이미지 업로드 input */}
+            <InputDiv
+              className="upload-img-input"
+              type="file"
+              id="uploadImg"
+              accept="image/*"
+              onChange={saveImgFile}
+              ref={imgRef}
+            />
+          </form>
+          {/* 업로드 된 이미지 미리보기 */}
+          {imgFile && <img src={imgFile} width="20%" />}
+        </Upload>
         <BtnWrapper>
           <BottomBtn
             onClick={() => {
@@ -212,7 +224,7 @@ const Input = styled.input`
   border-radius: 5px;
   border: 1px solid #cfcfcf;
   padding: 8px 18px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 
   @media (min-width: 50rem) {
     & {
@@ -285,7 +297,7 @@ const Textarea = styled.textarea`
   @media (min-width: 50rem) {
     & {
       width: 650px;
-      height: 440px;
+      height: 360px;
     }
   }
 `;
@@ -323,31 +335,37 @@ const BottomBtn = styled.button`
   }
 `;
 
-const InputImage = styled.input`
-  display: inline-block;
+const Label = styled.label`
+  padding: 10px 20px;
   height: 40px;
-  padding: 0 10px;
-  vertical-align: middle;
-  border: 1px solid #dddddd;
-  width: 78%;
-  color: #999999;
-  position: absolute;
-  width: 0;
-  height: 0;
-  padding: 0;
-  overflow: hidden;
-  border: 0;
+  color: #fff;
+  background-color: #999999;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+
+  @media (min-width: 50rem) {
+    & {
+      height: 50px;
+      width: 160px;
+      font-size: 20px;
+    }
+  }
 `;
 
-const Label = styled.label`
-  display: inline-block;
-  padding: 10px 20px;
-  color: #fff;
-  vertical-align: middle;
-  background-color: #999999;
-  cursor: pointer;
-  height: 40px;
-  margin-left: 10px;
+const Upload = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin-bottom: 30px;
+  gap: 30px;
+
+  @media (min-width: 50rem) {
+    & {
+      gap: 80px;
+    }
+  }
 `;
 
 const InputDiv = styled.input`
