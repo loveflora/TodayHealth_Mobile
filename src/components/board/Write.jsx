@@ -279,7 +279,6 @@ const Info = styled.div`
       flex-direction: row;
     }
   }
-}
 `;
 
 const Main = styled.div`

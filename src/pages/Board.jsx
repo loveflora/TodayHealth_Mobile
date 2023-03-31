@@ -44,7 +44,8 @@ export default function Board() {
   console.log(listCollection);
 
   //? ----- 구현하고자 하는 기능 --------
-  //? 1) id 게시물 순서 ㅠㅠㅠㅠ
+  // [ 드디어 완료! : 23.03.31 ]
+  // 1) id 게시물 순서 ㅠㅠㅠㅠ
   // 게시판 삭제될 때마다, 1 2 3 이렇게 순서가 다시 렌더링 되어야 하지 않나...????
   // id 값을 계속 리렌더링 해줘야 하나 ...?
 
@@ -103,7 +104,7 @@ export default function Board() {
                             <tr
                               onClick={() => {
                                 navigate(
-                                  `/Board/detail/${listCollection[i].id}`
+                                  `/Board/detail/${listCollection[i].id}`,
                                 );
                               }}
                             >
